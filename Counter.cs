@@ -52,3 +52,4 @@ public class Counter : MonoBehaviour
         _outputData.text = value.ToString("");
     }
 }
+

@@ -1,21 +1,20 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 
 public class Counter : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _outputData;
     [SerializeField] private float _delay = 0.5f;
 
     private IEnumerator _coroutine;
+    private CounterView _view;
     private int _value;
     private bool _isStoped;
 
     private void Start()
     {
         _value = 0;
-        _outputData.text = "";
         _isStoped = true;
+        _view = FindAnyObjectByType<CounterView>();
         _coroutine = Count(_delay);
     }
 
@@ -42,14 +41,9 @@ public class Counter : MonoBehaviour
 
         while (true)
         {
-            DisplayCounter(++_value);
+            _view.DisplayCounter(++_value);
             yield return wait;
         }
-    }
-
-    private void DisplayCounter(int value)
-    {
-        _outputData.text = value.ToString("");
     }
 }
 

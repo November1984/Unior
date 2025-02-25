@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -5,17 +6,18 @@ public class Counter : MonoBehaviour
 {
     [SerializeField] private float _delay = 0.5f;
 
-    private IEnumerator _coroutine;
-    private CounterView _view;
-    private int _value;
+    public event Action CounterUpdated;
+    public int Value {get; private set;}
+
+    private IEnumerator _iterator;
+    private Coroutine _coroutine;
     private bool _isStoped;
 
     private void Start()
     {
-        _value = 0;
+        Value = 0;
         _isStoped = true;
-        _view = FindAnyObjectByType<CounterView>();
-        _coroutine = Count(_delay);
+        _iterator = Count(_delay);
     }
 
     private void Update()
@@ -24,7 +26,7 @@ public class Counter : MonoBehaviour
         {
             if (_isStoped)
             {
-                StartCoroutine(_coroutine);
+                _coroutine = StartCoroutine(_iterator);
                 _isStoped = false;
             }
             else
@@ -37,11 +39,12 @@ public class Counter : MonoBehaviour
 
     private IEnumerator Count(float delay)
     {
-        var wait = new WaitForSecondsRealtime(delay);
+        var wait = new WaitForSeconds(delay);
 
         while (true)
         {
-            _view.DisplayCounter(++_value);
+            ++Value;
+            CounterUpdated?.Invoke();
             yield return wait;
         }
     }

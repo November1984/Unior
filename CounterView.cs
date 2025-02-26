@@ -4,16 +4,16 @@ using TMPro;
 public class CounterView : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _outputData;
-    [SerializeField] Counter _counter;
+    [SerializeField] private Counter _counter;
 
     private void OnEnable()
     {
-        _counter.CounterUpdated += DisplayCounter;
+        _counter.Updated += DisplayCounter;
     }
 
     private void OnDisable()
     {
-        _counter.CounterUpdated += DisplayCounter;
+        _counter.Updated += DisplayCounter;
     }
 
     protected void Start()
@@ -21,9 +21,9 @@ public class CounterView : MonoBehaviour
         _outputData.text = "";
     }
 
-    public void DisplayCounter()
+    public void DisplayCounter(int value)
     {   
-        _outputData.text = _counter.Value.ToString("");
+        _outputData.text = value.ToString("");
     }
 
 }

@@ -6,18 +6,16 @@ public class Counter : MonoBehaviour
 {
     [SerializeField] private float _delay = 0.5f;
 
-    public event Action CounterUpdated;
-    public int Value {get; private set;}
-
-    private IEnumerator _iterator;
     private Coroutine _coroutine;
     private bool _isStoped;
+    private int _value;
+
+    public event Action<int> Updated;
 
     private void Start()
     {
-        Value = 0;
+        _value = 0;
         _isStoped = true;
-        _iterator = Count(_delay);
     }
 
     private void Update()
@@ -26,12 +24,14 @@ public class Counter : MonoBehaviour
         {
             if (_isStoped)
             {
-                _coroutine = StartCoroutine(_iterator);
+                _coroutine = StartCoroutine(Count(_delay));
                 _isStoped = false;
             }
             else
             {
-                StopCoroutine(_coroutine);
+                if (_coroutine != null)
+                    StopCoroutine(_coroutine);
+
                 _isStoped = true;
             }
         }
@@ -43,8 +43,8 @@ public class Counter : MonoBehaviour
 
         while (true)
         {
-            ++Value;
-            CounterUpdated?.Invoke();
+            ++_value;
+            Updated?.Invoke(_value);
             yield return wait;
         }
     }

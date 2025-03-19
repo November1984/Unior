@@ -1,12 +1,11 @@
+using System;
 using UnityEngine;
-
-
-// Добавить шанс на разделение кубов, который с каждым кликом уменьшается вдваое
 
 public class CubesGenerator : MonoBehaviour
 {
     [SerializeField] private int _maximumCubesCount = 6;
     [SerializeField] private string _physicsMaterialName = "BouncyMaterial";
+    private int _nextGenerationChance;
     private System.Random _randomCount;
     private bool _canCreate;
     private Vector3 _sourceObjectPosition;
@@ -21,10 +20,15 @@ public class CubesGenerator : MonoBehaviour
     private void Update()
     {
         if (_canCreate)
-        {
-            Create();
-            _canCreate = false;
-        }
+            if (IsSuccessfullChance())
+                Create();
+
+        _canCreate = false;
+    }
+
+    private Boolean IsSuccessfullChance()
+    {
+        return GetRandomValue(100) <= _nextGenerationChance;
     }
 
     private void OnEnable()
@@ -41,6 +45,8 @@ public class CubesGenerator : MonoBehaviour
     {
         _sourceObjectPosition = destoryedObject.transform.position;
         _sourceObjectLocalScale = destoryedObject.transform.localScale;
+        Destroyer destroyedObjectComponent = destoryedObject.GetComponent<Destroyer>();
+        _nextGenerationChance = destroyedObjectComponent.NextGenerationChance;
         _canCreate = true;
     }
 
@@ -48,13 +54,16 @@ public class CubesGenerator : MonoBehaviour
     {
         int newCubesCount = GetRandomValue(_maximumCubesCount);
 
+        _nextGenerationChance /= 2;
+
         for (int i = 0; i <= newCubesCount; i++)
         {
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.transform.position = _sourceObjectPosition + GetAxis() * i;
             cube.transform.Translate(GetAxis());
             cube.transform.localScale = _sourceObjectLocalScale / 2;
-            cube.AddComponent<Destroyer>();
+            Destroyer destroyer = cube.AddComponent<Destroyer>();
+            destroyer.SetNextGenerationChance(_nextGenerationChance);
             cube.AddComponent<ColorAssigner>();
             BoxCollider boxCollider = cube.AddComponent<BoxCollider>();
             PhysicsMaterial customMaterial = Resources.Load<PhysicsMaterial>(_physicsMaterialName);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CubesGenerator : MonoBehaviour
@@ -6,52 +7,22 @@ public class CubesGenerator : MonoBehaviour
     [SerializeField] private int _maximumCubesCount = 6;
     [SerializeField] private string _physicsMaterialName = "BouncyMaterial";
     private int _nextGenerationChance;
-    private System.Random _randomCount;
-    private bool _canCreate;
-    private Vector3 _sourceObjectPosition;
-    private Vector3 _sourceObjectLocalScale;
-
-    private void Start()
-    {
-        _randomCount = new();
-        _canCreate = false;
-    }
-
-    private void Update()
-    {
-        if (_canCreate)
-            if (IsSuccessfullChance())
-                Create();
-
-        _canCreate = false;
-    }
 
     private Boolean IsSuccessfullChance()
     {
         return GetRandomValue(100) <= _nextGenerationChance;
     }
 
-    private void OnEnable()
+    public List<Rigidbody> Create(GameObject destoryedObject)
     {
-        DestroyEventManager.CubeDestroyed += AllowCreate;
-    }
-
-    private void OnDisable()
-    {
-        DestroyEventManager.CubeDestroyed -= AllowCreate;
-    }
-
-    private void AllowCreate(GameObject destoryedObject)
-    {
-        _sourceObjectPosition = destoryedObject.transform.position;
-        _sourceObjectLocalScale = destoryedObject.transform.localScale;
         Destroyer destroyedObjectComponent = destoryedObject.GetComponent<Destroyer>();
         _nextGenerationChance = destroyedObjectComponent.NextGenerationChance;
-        _canCreate = true;
-    }
 
-    private void Create()
-    {
+        if (IsSuccessfullChance() == false)
+            return null;
+
+        List<Rigidbody> cubes = new();
+
         int newCubesCount = GetRandomValue(_maximumCubesCount);
 
         _nextGenerationChance /= 2;
@@ -59,36 +30,31 @@ public class CubesGenerator : MonoBehaviour
         for (int i = 0; i <= newCubesCount; i++)
         {
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube.transform.position = _sourceObjectPosition + GetAxis() * i;
-            cube.transform.Translate(GetAxis());
-            cube.transform.localScale = _sourceObjectLocalScale / 2;
+            cube.transform.position = destoryedObject.transform.position;
+            cube.transform.localScale = destoryedObject.transform.localScale / 2;
+
             Destroyer destroyer = cube.AddComponent<Destroyer>();
             destroyer.SetNextGenerationChance(_nextGenerationChance);
+
             cube.AddComponent<ColorAssigner>();
+            cube.AddComponent<CubesGenerator>();
+
             BoxCollider boxCollider = cube.AddComponent<BoxCollider>();
             PhysicsMaterial customMaterial = Resources.Load<PhysicsMaterial>(_physicsMaterialName);
             boxCollider.material = customMaterial;
+
             cube.AddComponent<Rigidbody>();
+
+            cubes.Add(cube.GetComponent<Rigidbody>());
         }
-    }
 
-    private UnityEngine.Vector3 GetAxis()
-    {
-        int axisNumber = GetRandomValue(6);
-
-        return axisNumber switch
-        {
-            0 => UnityEngine.Vector3.right,
-            1 => UnityEngine.Vector3.left,
-            2 => UnityEngine.Vector3.up,
-            3 => UnityEngine.Vector3.down,
-            4 => UnityEngine.Vector3.back,
-            _ => UnityEngine.Vector3.forward,
-        };
+        return cubes;
     }
 
     private int GetRandomValue(int maxValue, int minValue = 1)
     {
+        System.Random _randomCount = new();
+
         return _randomCount.Next(minValue, maxValue);
     }
 }

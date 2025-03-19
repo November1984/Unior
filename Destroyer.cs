@@ -1,12 +1,15 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Destroyer : MonoBehaviour
 {
     [SerializeField] private float _explosionRadius = 20f;
     [SerializeField] private float _explosionForce = 700f;
-    [SerializeField] public int NextGenerationChance = 100;
+    [SerializeField] public int NextGenerationChance { get; private set; } = 100;
     private ParticleSystem _effect;
+    private CubesGenerator _cubeGenerator;
 
     public void SetNextGenerationChance(int value)
     {
@@ -21,32 +24,17 @@ public class Destroyer : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Explode();
+        _cubeGenerator = GetComponent<CubesGenerator>();
+
+        Explode(_cubeGenerator.Create(gameObject));
         Instantiate(_effect, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 
-    private void Explode()
+    private void Explode(List<Rigidbody> explodableObjects)
     {
-        foreach (Rigidbody explodableObject in GetExplodableObjects())
-            explodableObject.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
-    }
-
-    private List<Rigidbody> GetExplodableObjects()
-    {
-        Collider[] hits = Physics.OverlapSphere(transform.position, _explosionRadius);
-
-        List<Rigidbody> cubes = new();
-
-        foreach (Collider hit in hits)
-            if (hit.attachedRigidbody != null)
-                cubes.Add(hit.attachedRigidbody);
-
-        return cubes;
-    }
-
-    private void OnDestroy()
-    {
-        DestroyEventManager.DestroyedNotify(gameObject);
+        if (explodableObjects != null)
+            foreach (Rigidbody explodableObject in explodableObjects)
+                explodableObject.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
     }
 }

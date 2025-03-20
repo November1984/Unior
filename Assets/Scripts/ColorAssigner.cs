@@ -2,20 +2,13 @@ using UnityEngine;
 
 public class ColorAssigner
 {
-    public Color GetRandomColor(Renderer renderer)
+    public Color GetRandomColor()
     {
-        Color randomColor;
-
-        if (renderer != null)
-        {
-            randomColor = new Color(
-                Random.value,
-                Random.value,
-                Random.value
-            );
-            return randomColor;
-        }
-
-        return Color.white;
+        Color randomColor = new Color(
+            Random.value,
+            Random.value,
+            Random.value
+        );
+        return randomColor;
     }
 }

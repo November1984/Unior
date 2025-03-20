@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +6,22 @@ public class Spawner : MonoBehaviour
     [SerializeField] private int _maximumCubesCount = 6;
     [SerializeField] private string _physicsMaterialName = "BouncyMaterial";
     private int _nextGenerationChance;
+    private Raycaster _raycasterComponent;
 
-    private Boolean IsSuccessfullChance(int chance)
+    private void OnEnable()
+    {
+        GameObject raycaster = GameObject.Find("Raycaster");
+        _raycasterComponent = raycaster.GetComponent<Raycaster>();
+
+        _raycasterComponent.CubeDestroyed += DestroyCube;
+    }
+
+    private void OnDisable()
+    {
+        _raycasterComponent.CubeDestroyed -= DestroyCube;
+    }
+
+    private bool IsSuccessfullChance(int chance)
     {
         return GetRandomValue(100) <= chance;
     }
@@ -22,6 +35,8 @@ public class Spawner : MonoBehaviour
 
         List<Rigidbody> newCubes = new();
 
+        GameObject prefab = Resources.Load<GameObject>("Prefabs/CFXR Explosion 1");
+
         int newCubesCount = GetRandomValue(_maximumCubesCount);
 
         for (int i = 0; i <= newCubesCount; i++)
@@ -33,7 +48,7 @@ public class Spawner : MonoBehaviour
 
             ColorAssigner colorAssigner = new();
             Renderer renderer = newObject.GetComponent<Renderer>();
-            renderer.material.color = colorAssigner.GetRandomColor(renderer);
+            renderer.material.color = colorAssigner.GetRandomColor();
 
             PhysicsMaterial customMaterial = Resources.Load<PhysicsMaterial>(_physicsMaterialName);
             BoxCollider boxCollider = newObject.AddComponent<BoxCollider>();
@@ -41,6 +56,7 @@ public class Spawner : MonoBehaviour
 
             Cube newObjectCube = newObject.AddComponent<Cube>();
             newObjectCube.SetNextGenerationChance(_nextGenerationChance);
+            newObjectCube.SetEffect(prefab.GetComponent<ParticleSystem>());
 
             newObject.AddComponent<Rigidbody>();
 
@@ -52,9 +68,9 @@ public class Spawner : MonoBehaviour
 
     private int GetRandomValue(int maxValue, int minValue = 1)
     {
-        System.Random _randomCount = new();
+        System.Random randomCount = new();
 
-        return _randomCount.Next(minValue, maxValue);
+        return randomCount.Next(minValue, maxValue);
     }
 
     private void DestroyCube(GameObject destroyedObject)
@@ -63,10 +79,5 @@ public class Spawner : MonoBehaviour
         Cube destroyedCube = destroyedObject.GetComponent<Cube>();
 
         destroyer.ExplodeCube(destroyedObject, SpawnCubes(destroyedCube));
-    }
-
-    private void OnEnable()
-    {
-        Raycaster.CubeDestroyed += DestroyCube;
     }
 }

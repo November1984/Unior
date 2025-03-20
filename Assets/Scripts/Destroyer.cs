@@ -8,7 +8,7 @@ public class Destroyer
         Explode(explodableObjects);
 
         Cube destroyedCube = destroyedObject.GetComponent<Cube>();
-        destroyedCube.SetDestroyed();
+        destroyedCube.Destroy();
     }
 
     public void Explode(List<Rigidbody> explodableObjects)

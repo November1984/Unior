@@ -1,44 +1,34 @@
-using System;
 using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _effect;
+
     public float ExplosionRadius { get; private set; } = 20f;
     public float ExplosionForce { get; private set; } = 700f;
     public int NextGenerationChance { get; private set; } = 100;
-    private Boolean isDestroyed = false;
-    public ParticleSystem Effect { get; private set; }
 
-    public void SetDestroyed()
+    private void OnMouseDown()
     {
-        isDestroyed = true;
+        GameObject raycaster = GameObject.Find("Raycaster");
+        Raycaster raycasterComponent = raycaster.GetComponent<Raycaster>();
+
+        raycasterComponent.DestroyedNotify(gameObject);
     }
 
-    private void Start()
+    public void SetEffect(ParticleSystem value)
     {
-        GameObject prefab = Resources.Load<GameObject>("Prefabs/CFXR Explosion 1");
-        Effect = prefab.GetComponent<ParticleSystem>();
+        _effect = value;
     }
-
+    
     public void SetNextGenerationChance(int value)
     {
         NextGenerationChance = value;
     }
 
-    private void OnMouseDown()
+    public void Destroy()
     {
-        Raycaster.DestroyedNotify(gameObject);
-    }
-
-    private void Update()
-    {
-        if (isDestroyed)
-            Destroy(gameObject);
-    }
-
-    private void OnDestroy()
-    {
-        if (isDestroyed)
-            Instantiate(Effect, transform.position, transform.rotation);
+        Instantiate(_effect, transform.position, transform.rotation);
+        Destroy(gameObject);
     }
 }

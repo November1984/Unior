@@ -6,8 +6,13 @@ public class Cube : MonoBehaviour
     public float ExplosionRadius { get; private set; } = 20f;
     public float ExplosionForce { get; private set; } = 700f;
     public int NextGenerationChance { get; private set; } = 100;
-    public Boolean isDestroyed = false;
+    private Boolean isDestroyed = false;
     public ParticleSystem Effect { get; private set; }
+
+    public void SetDestroyed()
+    {
+        isDestroyed = true;
+    }
 
     private void Start()
     {

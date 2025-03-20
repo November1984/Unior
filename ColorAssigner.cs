@@ -1,20 +1,21 @@
 using UnityEngine;
 
-public class ColorAssigner : MonoBehaviour
+public class ColorAssigner
 {
-    private void OnEnable()
+    public Color GetRandomColor(Renderer renderer)
     {
-        Renderer renderer = GetComponent<Renderer>();
+        Color randomColor;
 
         if (renderer != null)
         {
-            Color randomColor = new Color(
-                Random.value, 
+            randomColor = new Color(
                 Random.value,
-                Random.value 
+                Random.value,
+                Random.value
             );
-
-            renderer.material.color = randomColor;
+            return randomColor;
         }
+
+        return Color.white;
     }
 }

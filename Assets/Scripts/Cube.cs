@@ -11,16 +11,18 @@ public class Cube : MonoBehaviour
     private void OnMouseDown()
     {
         GameObject raycaster = GameObject.Find("Raycaster");
-        Raycaster raycasterComponent = raycaster.GetComponent<Raycaster>();
 
-        raycasterComponent.DestroyedNotify(gameObject);
+        if (raycaster.TryGetComponent<Raycaster>(out Raycaster raycasterComponent))
+            raycasterComponent.DestroyedNotify(gameObject);
+        else
+            Debug.Log("Не создаётся Raycaster");
     }
 
     public void SetEffect(ParticleSystem value)
     {
         _effect = value;
     }
-    
+
     public void SetNextGenerationChance(int value)
     {
         NextGenerationChance = value;

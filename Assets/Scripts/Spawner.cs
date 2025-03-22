@@ -7,13 +7,18 @@ public class Spawner : MonoBehaviour
     [SerializeField] private string _physicsMaterialName = "BouncyMaterial";
     private int _nextGenerationChance;
     private Raycaster _raycasterComponent;
+    private Effector _prefab;
 
     private void OnEnable()
     {
         GameObject raycaster = GameObject.Find("Raycaster");
-        _raycasterComponent = raycaster.GetComponent<Raycaster>();
 
-        _raycasterComponent.CubeDestroyed += DestroyCube;
+        if (raycaster.TryGetComponent<Raycaster>(out _raycasterComponent))
+            _raycasterComponent.CubeDestroyed += DestroyCube;
+        else
+            Debug.Log("Не могу получить Raycaster");
+
+        _prefab = new();
     }
 
     private void OnDisable()
@@ -35,8 +40,6 @@ public class Spawner : MonoBehaviour
 
         List<Rigidbody> newCubes = new();
 
-        GameObject prefab = Resources.Load<GameObject>("Prefabs/CFXR Explosion 1");
-
         int newCubesCount = GetRandomValue(_maximumCubesCount);
 
         for (int i = 0; i <= newCubesCount; i++)
@@ -47,8 +50,11 @@ public class Spawner : MonoBehaviour
             newObject.transform.localScale = destoryedCube.transform.localScale / 2;
 
             ColorAssigner colorAssigner = new();
-            Renderer renderer = newObject.GetComponent<Renderer>();
-            renderer.material.color = colorAssigner.GetRandomColor();
+
+            if (newObject.TryGetComponent<Renderer>(out Renderer renderer))
+                renderer.material.color = colorAssigner.GetRandomColor();
+            else
+                Debug.Log("Не создаётся Renderer");
 
             PhysicsMaterial customMaterial = Resources.Load<PhysicsMaterial>(_physicsMaterialName);
             BoxCollider boxCollider = newObject.AddComponent<BoxCollider>();
@@ -56,11 +62,14 @@ public class Spawner : MonoBehaviour
 
             Cube newObjectCube = newObject.AddComponent<Cube>();
             newObjectCube.SetNextGenerationChance(_nextGenerationChance);
-            newObjectCube.SetEffect(prefab.GetComponent<ParticleSystem>());
+            newObjectCube.SetEffect(_prefab.GetEffect());
 
             newObject.AddComponent<Rigidbody>();
 
-            newCubes.Add(newObject.GetComponent<Rigidbody>());
+            if (newObject.TryGetComponent<Rigidbody>(out Rigidbody component))
+                newCubes.Add(component);
+            else
+                Debug.Log("Не создаётся Rigidbody");
         }
 
         return newCubes;
@@ -76,8 +85,8 @@ public class Spawner : MonoBehaviour
     private void DestroyCube(GameObject destroyedObject)
     {
         Destroyer destroyer = new();
-        Cube destroyedCube = destroyedObject.GetComponent<Cube>();
 
-        destroyer.ExplodeCube(destroyedObject, SpawnCubes(destroyedCube));
+        if (destroyedObject.TryGetComponent<Cube>(out Cube destroyedCube))
+            destroyer.ExplodeCube(destroyedObject, SpawnCubes(destroyedCube));
     }
 }

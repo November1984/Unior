@@ -3,27 +3,30 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    private const string MaterialName = "BouncyMaterial";
+    private const int ChanceDevider = 2;
+    private const int SizeDevider = 2;
+
     [SerializeField] private int _maximumCubesCount = 6;
-    [SerializeField] private string _physicsMaterialName = "BouncyMaterial";
+    [SerializeField] private List<Cube> _currentCubes;
+    [SerializeField] private string _physicsMaterialName = MaterialName;
+
     private int _nextGenerationChance;
-    private Raycaster _raycasterComponent;
     private Effector _prefab;
 
     private void OnEnable()
     {
-        GameObject raycaster = GameObject.Find("Raycaster");
-
-        if (raycaster.TryGetComponent<Raycaster>(out _raycasterComponent))
-            _raycasterComponent.CubeDestroyed += DestroyCube;
-        else
-            Debug.Log("Не могу получить Raycaster");
+        foreach (Cube cube in _currentCubes)
+            cube.CubeDestroyed += DestroyCube;
 
         _prefab = new();
     }
 
     private void OnDisable()
     {
-        _raycasterComponent.CubeDestroyed -= DestroyCube;
+        foreach (Cube cube in _currentCubes)
+            if (cube != null)
+                cube.CubeDestroyed -= DestroyCube;
     }
 
     private bool IsSuccessfullChance(int chance)
@@ -36,7 +39,7 @@ public class Spawner : MonoBehaviour
         if (IsSuccessfullChance(destoryedCube.NextGenerationChance) == false)
             return null;
 
-        _nextGenerationChance = destoryedCube.NextGenerationChance / 2;
+        _nextGenerationChance = destoryedCube.NextGenerationChance / ChanceDevider;
 
         List<Rigidbody> newCubes = new();
 
@@ -46,33 +49,62 @@ public class Spawner : MonoBehaviour
         {
             GameObject newObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-            newObject.transform.position = destoryedCube.transform.position;
-            newObject.transform.localScale = destoryedCube.transform.localScale / 2;
+            SetParametersFromDestroyedCube(newObject, destoryedCube);
 
-            ColorAssigner colorAssigner = new();
+            SetColor(newObject);
 
-            if (newObject.TryGetComponent<Renderer>(out Renderer renderer))
-                renderer.material.color = colorAssigner.GetRandomColor();
-            else
-                Debug.Log("Не создаётся Renderer");
+            SetMaterial(newObject);
 
-            PhysicsMaterial customMaterial = Resources.Load<PhysicsMaterial>(_physicsMaterialName);
-            BoxCollider boxCollider = newObject.AddComponent<BoxCollider>();
-            boxCollider.material = customMaterial;
+            SetNextGenerationChance(newObject);
 
-            Cube newObjectCube = newObject.AddComponent<Cube>();
-            newObjectCube.SetNextGenerationChance(_nextGenerationChance);
-            newObjectCube.SetEffect(_prefab.GetEffect());
-
-            newObject.AddComponent<Rigidbody>();
-
-            if (newObject.TryGetComponent<Rigidbody>(out Rigidbody component))
+            if (TryAddRigidbody(newObject, out Rigidbody component))
                 newCubes.Add(component);
-            else
-                Debug.Log("Не создаётся Rigidbody");
         }
 
         return newCubes;
+    }
+
+    private void SetParametersFromDestroyedCube(GameObject newObject, Cube destoryedCube)
+    {
+        newObject.transform.position = destoryedCube.transform.position;
+        newObject.transform.localScale = destoryedCube.transform.localScale / SizeDevider;
+    }
+
+    private void SetColor(GameObject newObject)
+    {
+        ColorAssigner colorAssigner = new();
+
+        if (newObject.TryGetComponent<Renderer>(out Renderer renderer))
+            renderer.material.color = colorAssigner.GetRandomColor();
+        else
+            Debug.Log("Не создаётся Renderer");
+    }
+
+    private void SetMaterial(GameObject newObject)
+    {
+        PhysicsMaterial customMaterial = Resources.Load<PhysicsMaterial>(_physicsMaterialName);
+        BoxCollider boxCollider = newObject.AddComponent<BoxCollider>();
+        boxCollider.material = customMaterial;
+    }
+
+    private void SetNextGenerationChance(GameObject newObject)
+    {
+        Cube newObjectCube = newObject.AddComponent<Cube>();
+        newObjectCube.SetNextGenerationChance(_nextGenerationChance);
+        newObjectCube.SetEffect(_prefab.GetEffect());
+        newObjectCube.CubeDestroyed += DestroyCube;
+    }
+
+    private bool TryAddRigidbody(GameObject newObject, out Rigidbody component)
+    {
+        newObject.AddComponent<Rigidbody>();
+
+        if (newObject.TryGetComponent<Rigidbody>(out component))
+            return true;
+        else
+            Debug.Log("Не создаётся Rigidbody");
+
+        return false;
     }
 
     private int GetRandomValue(int maxValue, int minValue = 1)

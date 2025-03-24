@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Cube : MonoBehaviour
@@ -7,15 +8,16 @@ public class Cube : MonoBehaviour
     public float ExplosionRadius { get; private set; } = 20f;
     public float ExplosionForce { get; private set; } = 700f;
     public int NextGenerationChance { get; private set; } = 100;
+    public event Action<GameObject> CubeDestroyed;
 
     private void OnMouseDown()
     {
-        GameObject raycaster = GameObject.Find("Raycaster");
+        DestroyedNotify(gameObject);
+    }
 
-        if (raycaster.TryGetComponent<Raycaster>(out Raycaster raycasterComponent))
-            raycasterComponent.DestroyedNotify(gameObject);
-        else
-            Debug.Log("Не создаётся Raycaster");
+    public void DestroyedNotify(GameObject destroyedObject)
+    {
+        CubeDestroyed?.Invoke(destroyedObject);
     }
 
     public void SetEffect(ParticleSystem value)

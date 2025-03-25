@@ -45,7 +45,7 @@ public class Spawner : MonoBehaviour
 
         for (int i = 0; i <= newCubesCount; i++)
         {
-            Cube newObject = Cube.Instantiate(destoryedCube); //GameObject.CreatePrimitive(PrimitiveType.Cube);
+            Cube newObject = Cube.Instantiate(destoryedCube);
 
             SetName(newObject, destoryedCube);
 

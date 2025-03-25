@@ -20,11 +20,6 @@ public class Cube : MonoBehaviour
         CubeDestroyed?.Invoke(destroyedObject);
     }
 
-    public void SetEffect(ParticleSystem value)
-    {
-        _effect = value;
-    }
-
     public void SetNextGenerationChance(int value)
     {
         NextGenerationChance = value;

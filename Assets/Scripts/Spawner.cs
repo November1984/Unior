@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,14 +13,11 @@ public class Spawner : MonoBehaviour
     [SerializeField] private string _physicsMaterialName = MaterialName;
 
     private int _nextGenerationChance;
-    private Effector _prefab;
 
     private void OnEnable()
     {
         foreach (Cube cube in _currentCubes)
             cube.CubeDestroyed += DestroyCube;
-
-        _prefab = new();
     }
 
     private void OnDisable()
@@ -47,7 +45,9 @@ public class Spawner : MonoBehaviour
 
         for (int i = 0; i <= newCubesCount; i++)
         {
-            GameObject newObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            Cube newObject = Cube.Instantiate(destoryedCube); //GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+            SetName(newObject, destoryedCube);
 
             SetParametersFromDestroyedCube(newObject, destoryedCube);
 
@@ -57,20 +57,29 @@ public class Spawner : MonoBehaviour
 
             SetNextGenerationChance(newObject);
 
-            if (TryAddRigidbody(newObject, out Rigidbody component))
-                newCubes.Add(component);
+            EditRigidbody(newObject, out Rigidbody component);
+
+            newCubes.Add(component);
         }
 
         return newCubes;
     }
 
-    private void SetParametersFromDestroyedCube(GameObject newObject, Cube destoryedCube)
+    private void SetName(Cube newObject, Cube destoryedCube)
+    {
+        string[] oldName = destoryedCube.name.Split("_");
+        int genNumber = Int32.Parse(oldName[2]) + 1;
+
+        newObject.name = oldName[0] + "_" + oldName[1] + "_" + genNumber;
+    }
+
+    private void SetParametersFromDestroyedCube(Cube newObject, Cube destoryedCube)
     {
         newObject.transform.position = destoryedCube.transform.position;
         newObject.transform.localScale = destoryedCube.transform.localScale / SizeDevider;
     }
 
-    private void SetColor(GameObject newObject)
+    private void SetColor(Cube newObject)
     {
         ColorAssigner colorAssigner = new();
 
@@ -80,31 +89,27 @@ public class Spawner : MonoBehaviour
             Debug.Log("Не создаётся Renderer");
     }
 
-    private void SetMaterial(GameObject newObject)
+    private void SetMaterial(Cube newObject)
     {
         PhysicsMaterial customMaterial = Resources.Load<PhysicsMaterial>(_physicsMaterialName);
-        BoxCollider boxCollider = newObject.AddComponent<BoxCollider>();
+        BoxCollider boxCollider = newObject.gameObject.AddComponent<BoxCollider>();
         boxCollider.material = customMaterial;
     }
 
-    private void SetNextGenerationChance(GameObject newObject)
+    private void SetNextGenerationChance(Cube newObject)
     {
-        Cube newObjectCube = newObject.AddComponent<Cube>();
-        newObjectCube.SetNextGenerationChance(_nextGenerationChance);
-        newObjectCube.SetEffect(_prefab.GetEffect());
-        newObjectCube.CubeDestroyed += DestroyCube;
+        newObject.SetNextGenerationChance(_nextGenerationChance);
+        newObject.CubeDestroyed += DestroyCube;
     }
 
-    private bool TryAddRigidbody(GameObject newObject, out Rigidbody component)
+    private void EditRigidbody(Cube newObject, out Rigidbody rigidbodyComponent)
     {
-        newObject.AddComponent<Rigidbody>();
+        rigidbodyComponent = newObject.GetComponent<Rigidbody>();
+        rigidbodyComponent.useGravity = true;
+        rigidbodyComponent.isKinematic = false;
 
-        if (newObject.TryGetComponent<Rigidbody>(out component))
-            return true;
-        else
-            Debug.Log("Не создаётся Rigidbody");
-
-        return false;
+        BoxCollider colliderComponent = newObject.GetComponent<BoxCollider>();
+        colliderComponent.size /= SizeDevider;
     }
 
     private int GetRandomValue(int maxValue, int minValue = 1)

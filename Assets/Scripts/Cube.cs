@@ -8,14 +8,14 @@ public class Cube : MonoBehaviour
     public float ExplosionRadius { get; private set; } = 20f;
     public float ExplosionForce { get; private set; } = 700f;
     public int NextGenerationChance { get; private set; } = 100;
-    public event Action<GameObject> CubeDestroyed;
+    public event Action<Cube> CubeDestroyed;
 
     private void OnMouseDown()
     {
-        DestroyedNotify(gameObject);
+        DestroyedNotify(this);
     }
 
-    public void DestroyedNotify(GameObject destroyedObject)
+    public void DestroyedNotify(Cube destroyedObject)
     {
         CubeDestroyed?.Invoke(destroyedObject);
     }

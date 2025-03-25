@@ -114,11 +114,10 @@ public class Spawner : MonoBehaviour
         return randomCount.Next(minValue, maxValue);
     }
 
-    private void DestroyCube(GameObject destroyedObject)
+    private void DestroyCube(Cube destroyedCube)
     {
-        Destroyer destroyer = new();
+        Exploder exploder = new();
 
-        if (destroyedObject.TryGetComponent<Cube>(out Cube destroyedCube))
-            destroyer.ExplodeCube(destroyedObject, SpawnCubes(destroyedCube));
+        exploder.Explode(destroyedCube, SpawnCubes(destroyedCube));
     }
 }

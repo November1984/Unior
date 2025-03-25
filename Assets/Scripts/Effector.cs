@@ -1,13 +1,12 @@
-using System.Collections;
 using UnityEngine;
 
 public class Effector
 {
-    private GameObject _prefab;
+    private ParticleSystem _prefab;
 
     public Effector()
     {
-        _prefab = Resources.Load<GameObject>("Prefabs/CFXR Explosion 1");
+        _prefab = Resources.Load<ParticleSystem>("Prefabs/CFXR Explosion 1");
     }
 
     public ParticleSystem GetEffect()

@@ -1,17 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Destroyer
+public class Exploder
 {
-    public void ExplodeCube(GameObject destroyedObject, List<Rigidbody> explodableObjects)
-    {
-        Explode(explodableObjects);
-
-        Cube destroyedCube = destroyedObject.GetComponent<Cube>();
-        destroyedCube.Destroy();
-    }
-
-    public void Explode(List<Rigidbody> explodableObjects)
+    public void Explode(Cube destroyedCube, List<Rigidbody> explodableObjects)
     {
         if (explodableObjects != null)
             foreach (Rigidbody explodableObject in explodableObjects)
@@ -22,5 +14,7 @@ public class Destroyer
                                                    explodableCube.ExplosionRadius
                                                    );
             }
+
+        destroyedCube.Destroy();
     }
 }

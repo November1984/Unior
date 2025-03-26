@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -32,12 +33,9 @@ public class Spawner : MonoBehaviour
         return GetRandomValue(100) <= chance;
     }
 
-    private List<Rigidbody> SpawnCubes(Cube destoryedCube)
+    private List<Rigidbody> SpawnCubes(Cube destroyedCube)
     {
-        if (IsSuccessfullChance(destoryedCube.NextGenerationChance) == false)
-            return null;
-
-        _nextGenerationChance = destoryedCube.NextGenerationChance / ChanceDevider;
+        _nextGenerationChance = destroyedCube.NextGenerationChance / ChanceDevider;
 
         List<Rigidbody> newCubes = new();
 
@@ -45,11 +43,11 @@ public class Spawner : MonoBehaviour
 
         for (int i = 0; i <= newCubesCount; i++)
         {
-            Cube newObject = Cube.Instantiate(destoryedCube);
+            Cube newObject = Cube.Instantiate(destroyedCube);
 
-            SetName(newObject, destoryedCube);
+            SetName(newObject, destroyedCube);
 
-            SetParametersFromDestroyedCube(newObject, destoryedCube);
+            SetParametersFromDestroyedCube(newObject, destroyedCube);
 
             SetColor(newObject);
 
@@ -77,6 +75,9 @@ public class Spawner : MonoBehaviour
     {
         newObject.transform.position = destoryedCube.transform.position;
         newObject.transform.localScale = destoryedCube.transform.localScale / SizeDevider;
+
+        newObject.IncreaseExplosionForce();
+        newObject.IncreaseExplosionRadius();
     }
 
     private void SetColor(Cube newObject)
@@ -123,6 +124,22 @@ public class Spawner : MonoBehaviour
     {
         Exploder exploder = new();
 
-        exploder.Explode(destroyedCube, SpawnCubes(destroyedCube));
+        if (IsSuccessfullChance(destroyedCube.NextGenerationChance))
+            exploder.Explode(destroyedCube, SpawnCubes(destroyedCube));
+        else
+            exploder.Explode(destroyedCube, ScatterCubes(destroyedCube));
+    }
+
+    private List<Rigidbody> ScatterCubes(Cube destroyedCube)
+    {
+        Collider[] hits = Physics.OverlapSphere(destroyedCube.transform.position, destroyedCube.ExplosionRadius);
+
+        List<Rigidbody> cubes = new();
+
+        foreach (Collider hit in hits)
+            if (hit.attachedRigidbody != null)
+                cubes.Add(hit.attachedRigidbody);
+
+        return cubes;
     }
 }

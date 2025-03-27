@@ -4,10 +4,10 @@ using UnityEngine;
 public class Cube : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _effect;
+    [SerializeField] private float _explosionRadius = 2f;
+    [SerializeField] private float _explosionForce = 20f;
     [SerializeField] private float _coefficient = 10f;
 
-    public float ExplosionRadius { get; private set; } = 2f;
-    public float ExplosionForce { get; private set; } = 200f;
     public int NextGenerationChance { get; private set; } = 100;
     public event Action<Cube> CubeDestroyed;
 
@@ -16,14 +16,24 @@ public class Cube : MonoBehaviour
         DestroyedNotify(this);
     }
 
+    public float GetExplosionRadius()
+    {
+        return _explosionRadius;
+    }
+
+    public float GetExplosionForce()
+    {
+        return _explosionForce;
+    }
+
     public void IncreaseExplosionRadius()
     {
-        ExplosionRadius *= _coefficient;
+        _explosionRadius *= _coefficient;
     }
 
     public void IncreaseExplosionForce()
     {
-        ExplosionForce *= _coefficient;
+        _explosionForce *= _coefficient;
     }
 
     public void DestroyedNotify(Cube destroyedObject)

@@ -207,7 +207,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.007017008, y: -0, z: -0, w: 0.9999754}
-  m_LocalPosition: {x: 3.9, y: -3.2, z: -28}
+  m_LocalPosition: {x: -0.5, y: -3, z: -42.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -424,7 +424,7 @@ Transform:
   m_GameObject: {fileID: 440710015}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.24, y: 4.02, z: 1.41}
+  m_LocalPosition: {x: -2.710001, y: 4, z: -0.31000102}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -449,7 +449,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 2}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &440710018
 MeshRenderer:
@@ -517,7 +517,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effect: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
-  _increaseCoefficient: 1.68
+  _explosionRadius: 2
+  _explosionForce: 20
+  _coefficient: 2
 --- !u!54 &440710023
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -540,7 +542,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -573,7 +575,7 @@ Transform:
   m_GameObject: {fileID: 494664968}
   serializedVersion: 2
   m_LocalRotation: {x: 0.35671481, y: 0.14949673, z: -0.35644004, w: 0.85050327}
-  m_LocalPosition: {x: -1.2, y: -0.34, z: 2.99}
+  m_LocalPosition: {x: -1.2, y: 1.22, z: 1.45}
   m_LocalScale: {x: 40, y: 40, z: 6.8760004}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -840,7 +842,7 @@ Transform:
   m_GameObject: {fileID: 869159649}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.99, y: -2.53, z: 1.35}
+  m_LocalPosition: {x: -1, y: -0.72999954, z: -0.57000124}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -865,7 +867,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 2}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &869159652
 MeshRenderer:
@@ -933,7 +935,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effect: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
-  _increaseCoefficient: 1.5
+  _explosionRadius: 2
+  _explosionForce: 20
+  _coefficient: 2
 --- !u!54 &869159657
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -956,7 +960,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -1099,7 +1103,7 @@ Transform:
   m_GameObject: {fileID: 892747809}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.53, y: 7.37, z: 1.3}
+  m_LocalPosition: {x: -3.9300003, y: 1.4000001, z: -0.6200024}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1124,7 +1128,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 2}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &892747812
 MeshRenderer:
@@ -1192,7 +1196,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effect: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
-  _increaseCoefficient: 1.5
+  _explosionRadius: 2
+  _explosionForce: 20
+  _coefficient: 2
 --- !u!54 &892747817
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1215,7 +1221,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -1250,7 +1256,7 @@ Transform:
   m_GameObject: {fileID: 915622392}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.32, y: 0, z: 1.36}
+  m_LocalPosition: {x: -2.73, y: 1.8, z: 0.9}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1275,7 +1281,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 2}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &915622395
 MeshRenderer:
@@ -1343,7 +1349,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effect: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
-  _increaseCoefficient: 1.5
+  _explosionRadius: 2
+  _explosionForce: 20
+  _coefficient: 2
 --- !u!54 &915622400
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1366,7 +1374,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0

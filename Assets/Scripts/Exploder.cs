@@ -8,10 +8,9 @@ public class Exploder
         if (explodableObjects != null)
             foreach (Rigidbody explodableObject in explodableObjects)
             {
-                Cube explodableCube = explodableObject.GetComponent<Cube>();
-                explodableObject.AddExplosionForce(explodableCube.ExplosionForce, 
-                                                   explodableCube.transform.position, 
-                                                   explodableCube.ExplosionRadius
+                explodableObject.AddExplosionForce(destroyedCube.GetExplosionForce(), 
+                                                   destroyedCube.transform.position, 
+                                                   destroyedCube.GetExplosionRadius()
                                                    );
             }
 

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -132,7 +131,7 @@ public class Spawner : MonoBehaviour
 
     private List<Rigidbody> ScatterCubes(Cube destroyedCube)
     {
-        Collider[] hits = Physics.OverlapSphere(destroyedCube.transform.position, destroyedCube.ExplosionRadius);
+        Collider[] hits = Physics.OverlapSphere(destroyedCube.transform.position, destroyedCube.GetExplosionRadius());
 
         List<Rigidbody> cubes = new();
 

@@ -207,7 +207,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.007017008, y: -0, z: -0, w: 0.9999754}
-  m_LocalPosition: {x: -0.5, y: -3, z: -42.5}
+  m_LocalPosition: {x: -0.5, y: -3, z: -28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -437,7 +437,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440710015}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c310427b51ee7cb5bba4cc40e59a86ca, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -519,7 +519,7 @@ MonoBehaviour:
   _effect: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
   _explosionRadius: 2
   _explosionForce: 20
-  _coefficient: 2
+  _coefficient: 10
 --- !u!54 &440710023
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -855,7 +855,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 869159649}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c310427b51ee7cb5bba4cc40e59a86ca, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -937,7 +937,7 @@ MonoBehaviour:
   _effect: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
   _explosionRadius: 2
   _explosionForce: 20
-  _coefficient: 2
+  _coefficient: 10
 --- !u!54 &869159657
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1116,7 +1116,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 892747809}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c310427b51ee7cb5bba4cc40e59a86ca, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1198,7 +1198,7 @@ MonoBehaviour:
   _effect: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
   _explosionRadius: 2
   _explosionForce: 20
-  _coefficient: 2
+  _coefficient: 10
 --- !u!54 &892747817
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1269,7 +1269,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 915622392}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c310427b51ee7cb5bba4cc40e59a86ca, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1351,7 +1351,7 @@ MonoBehaviour:
   _effect: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
   _explosionRadius: 2
   _explosionForce: 20
-  _coefficient: 2
+  _coefficient: 10
 --- !u!54 &915622400
 Rigidbody:
   m_ObjectHideFlags: 0

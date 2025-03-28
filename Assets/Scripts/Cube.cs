@@ -9,7 +9,13 @@ public class Cube : MonoBehaviour
     [SerializeField] private float _coefficient = 10f;
 
     public int NextGenerationChance { get; private set; } = 100;
+    public Rigidbody Rigidbody { get; private set; }
     public event Action<Cube> CubeDestroyed;
+
+    private void OnEnable()
+    {
+        Rigidbody = GetComponent<Rigidbody>();
+    }
 
     private void OnMouseDown()
     {
@@ -36,19 +42,20 @@ public class Cube : MonoBehaviour
         _explosionForce *= _coefficient;
     }
 
-    public void DestroyedNotify(Cube destroyedObject)
-    {
-        CubeDestroyed?.Invoke(destroyedObject);
-    }
-
     public void SetNextGenerationChance(int value)
     {
         NextGenerationChance = value;
     }
 
+    public void DestroyedNotify(Cube destroyedObject)
+    {
+        CubeDestroyed?.Invoke(destroyedObject);
+    }
+
     public void Destroy()
     {
         Instantiate(_effect, transform.position, transform.rotation);
+        
         Destroy(gameObject);
     }
 }

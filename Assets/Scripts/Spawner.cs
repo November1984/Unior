@@ -4,27 +4,28 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    private const string MaterialName = "BouncyMaterial";
     private const int ChanceDevider = 2;
     private const int SizeDevider = 2;
 
     [SerializeField] private int _maximumCubesCount = 6;
     [SerializeField] private List<Cube> _currentCubes;
-    [SerializeField] private string _physicsMaterialName = MaterialName;
 
     private int _nextGenerationChance;
+    private ColorAssigner _colorAssigner;
 
     private void OnEnable()
     {
+        _colorAssigner = new();
+
         foreach (Cube cube in _currentCubes)
-            cube.CubeDestroyed += DestroyCube;
+            cube.CubeDestroyed += ExplodeCube;
     }
 
     private void OnDisable()
     {
         foreach (Cube cube in _currentCubes)
             if (cube != null)
-                cube.CubeDestroyed -= DestroyCube;
+                cube.CubeDestroyed -= ExplodeCube;
     }
 
     private bool IsSuccessfullChance(int chance)
@@ -50,13 +51,11 @@ public class Spawner : MonoBehaviour
 
             SetColor(newObject);
 
-            SetMaterial(newObject);
-
             SetNextGenerationChance(newObject);
 
-            EditRigidbody(newObject, out Rigidbody component);
+            EditRigidbody(newObject);
 
-            newCubes.Add(component);
+            newCubes.Add(newObject.Rigidbody);
         }
 
         return newCubes;
@@ -81,35 +80,22 @@ public class Spawner : MonoBehaviour
 
     private void SetColor(Cube newObject)
     {
-        ColorAssigner colorAssigner = new();
-
         if (newObject.TryGetComponent<Renderer>(out Renderer renderer))
-            renderer.material.color = colorAssigner.GetRandomColor();
+            renderer.material.color = _colorAssigner.GetRandomColor();
         else
             Debug.Log("Не создаётся Renderer");
-    }
-
-    private void SetMaterial(Cube newObject)
-    {
-        PhysicsMaterial customMaterial = Resources.Load<PhysicsMaterial>(_physicsMaterialName);
-        BoxCollider boxCollider = newObject.gameObject.AddComponent<BoxCollider>();
-        boxCollider.material = customMaterial;
     }
 
     private void SetNextGenerationChance(Cube newObject)
     {
         newObject.SetNextGenerationChance(_nextGenerationChance);
-        newObject.CubeDestroyed += DestroyCube;
+        newObject.CubeDestroyed += ExplodeCube;
     }
 
-    private void EditRigidbody(Cube newObject, out Rigidbody rigidbodyComponent)
+    private void EditRigidbody(Cube newObject)
     {
-        rigidbodyComponent = newObject.GetComponent<Rigidbody>();
-        rigidbodyComponent.useGravity = true;
-        rigidbodyComponent.isKinematic = false;
-
-        BoxCollider colliderComponent = newObject.GetComponent<BoxCollider>();
-        colliderComponent.size /= SizeDevider;
+        newObject.Rigidbody.useGravity = true;
+        newObject.Rigidbody.isKinematic = false;
     }
 
     private int GetRandomValue(int maxValue, int minValue = 1)
@@ -119,26 +105,16 @@ public class Spawner : MonoBehaviour
         return randomCount.Next(minValue, maxValue);
     }
 
-    private void DestroyCube(Cube destroyedCube)
+    private void ExplodeCube(Cube destroyedCube)
     {
         Exploder exploder = new();
 
+        destroyedCube.CubeDestroyed -= ExplodeCube;
+        
         if (IsSuccessfullChance(destroyedCube.NextGenerationChance))
             exploder.Explode(destroyedCube, SpawnCubes(destroyedCube));
         else
-            exploder.Explode(destroyedCube, ScatterCubes(destroyedCube));
+            exploder.Explode(destroyedCube, exploder.ScatterCubes(destroyedCube));
     }
 
-    private List<Rigidbody> ScatterCubes(Cube destroyedCube)
-    {
-        Collider[] hits = Physics.OverlapSphere(destroyedCube.transform.position, destroyedCube.GetExplosionRadius());
-
-        List<Rigidbody> cubes = new();
-
-        foreach (Collider hit in hits)
-            if (hit.attachedRigidbody != null)
-                cubes.Add(hit.attachedRigidbody);
-
-        return cubes;
-    }
 }

@@ -46,13 +46,9 @@ public class Spawner : MonoBehaviour
             Cube newObject = Cube.Instantiate(destroyedCube);
 
             SetName(newObject, destroyedCube);
-
             SetParametersFromDestroyedCube(newObject, destroyedCube);
-
             SetColor(newObject);
-
             SetNextGenerationChance(newObject);
-
             EditRigidbody(newObject);
 
             newCubes.Add(newObject.Rigidbody);
@@ -116,5 +112,4 @@ public class Spawner : MonoBehaviour
         else
             exploder.Explode(destroyedCube, exploder.ScatterCubes(destroyedCube));
     }
-
 }

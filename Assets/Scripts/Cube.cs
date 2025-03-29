@@ -8,9 +8,10 @@ public class Cube : MonoBehaviour
     [SerializeField] private float _explosionForce = 20f;
     [SerializeField] private float _coefficient = 10f;
 
+    public event Action<Cube> CubeDestroyed;
+
     public int NextGenerationChance { get; private set; } = 100;
     public Rigidbody Rigidbody { get; private set; }
-    public event Action<Cube> CubeDestroyed;
 
     private void OnEnable()
     {

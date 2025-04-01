@@ -1,17 +1,10 @@
 using UnityEngine;
-using System;
 
 public class Cube : MonoBehaviour
 {
-    public event Action<Cube> CubeRecolored;
-
-    public void ColoredNotify(Cube recoloredObject)
+    private void OnEnable()
     {
-        CubeRecolored?.Invoke(recoloredObject);
-    }
-
-    public void Destroy()
-    {
-        Destroy(gameObject);
+        if (TryGetComponent<Renderer>(out Renderer renderer))
+            renderer.material.color = Color.blue;
     }
 }

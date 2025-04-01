@@ -9,9 +9,8 @@ public class ColorChanger : MonoBehaviour
             if (renderer.material.color != Color.red)
             {
                 renderer.material.color = Color.red;
-
-                if (collision.gameObject.TryGetComponent<Cube>(out Cube cube))
-                    cube.ColoredNotify(cube);
+                if (collision.gameObject.TryGetComponent<Destroyer>(out Destroyer destroyer))
+                    destroyer.StartSelfDestroy();
             }
         }
     }

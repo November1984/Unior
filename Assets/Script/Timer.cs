@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
@@ -34,5 +33,10 @@ public class Timer : MonoBehaviour
     {
         _isStarted = true;
         _startValue = value;
+    }
+    
+    public void Stop()
+    {
+        _isStarted = false;
     }
 }

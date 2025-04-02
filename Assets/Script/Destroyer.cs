@@ -26,7 +26,8 @@ public class Destroyer : MonoBehaviour
         if (_coroutine != null)
             StopCoroutine(_coroutine);
 
-        _spawner.Collect(gameObject);
+        if (gameObject.TryGetComponent<Cube>(out Cube cube))
+            cube.DestroyedNotify(cube);
     }
 
     private IEnumerator Count(float delay)

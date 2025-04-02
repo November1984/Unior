@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> _displays;
+    [SerializeField] private List<TextMeshPro> _displays;
 
     private bool _isStarted;
     private double _startValue;
@@ -17,15 +17,14 @@ public class Timer : MonoBehaviour
 
     private void Update()
     {
+        const float decimalShift = 100f;
+        
         if (_isStarted)
         {
-            _startValue = Math.Round((_startValue - Time.deltaTime)*100) / 100f;
+            _startValue = Math.Round((_startValue - Time.deltaTime)*decimalShift) / decimalShift;
             
-            foreach (GameObject display in _displays)
-            {
-                TextMeshPro disp = display.GetComponent<TextMeshPro>();
-                disp.text = _startValue.ToString();
-            }
+            foreach (TextMeshPro display in _displays)
+                display.text = _startValue.ToString();
         }
     }
 

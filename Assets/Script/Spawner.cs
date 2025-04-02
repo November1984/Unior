@@ -5,15 +5,14 @@ public class Spawner : MonoBehaviour
 {
     private const float SpawnHeight = 6;
 
-    [SerializeField] private GameObject _prefab;
-    [SerializeField] private GameObject _startPoint;
+    [SerializeField] private Cube _prefab;
     [SerializeField] private float _repeateRate = 1f;
     [SerializeField] private int _poolCapasity = 5;
     [SerializeField] private int _poolMaxSize = 5;
     [SerializeField] private float _minSpawnCoordinate = -3;
     [SerializeField] private float _maxSpawnCoordinate = 3;
 
-    private ObjectPool<GameObject> _pool;
+    private ObjectPool<Cube> _pool;
 
     private void Start()
     {
@@ -22,10 +21,10 @@ public class Spawner : MonoBehaviour
 
     private void Awake()
     {
-        _pool = new ObjectPool<GameObject>(
-            createFunc: () => Instantiate(_prefab),
+        _pool = new ObjectPool<Cube>(
+            createFunc: () => Create(),
             actionOnGet: (obj) => ActionOnGet(obj),
-            actionOnRelease: (obj) => obj.SetActive(false),
+            actionOnRelease: (obj) => obj.gameObject.SetActive(false),
             actionOnDestroy: (obj) => Destroy(obj),
             collectionCheck: true,
             defaultCapacity: _poolCapasity,
@@ -33,12 +32,20 @@ public class Spawner : MonoBehaviour
         );
     }
 
-    public void Collect(GameObject obj)
+    public void Collect(Cube obj)
     {
         _pool.Release(obj);
     }
 
-    private void ActionOnGet(GameObject obj)
+    private Cube Create()
+    {
+        Cube cube = Instantiate(_prefab);
+        cube.Destroyed += Collect;
+
+        return cube;
+    }
+
+    private void ActionOnGet(Cube obj)
     {
         obj.transform.position = new Vector3(
             Random.Range(_minSpawnCoordinate, _maxSpawnCoordinate),
@@ -46,7 +53,7 @@ public class Spawner : MonoBehaviour
             Random.Range(_minSpawnCoordinate, _maxSpawnCoordinate)
             );
         obj.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
-        obj.SetActive(true);
+        obj.gameObject.SetActive(true);
     }
 
     private void GetCube()

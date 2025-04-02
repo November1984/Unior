@@ -4,11 +4,29 @@ using UnityEngine;
 public class Cube : MonoBehaviour
 {
     public event Action<Cube> Destroyed;
+    private Renderer _renderer;
+    private bool _isFirstContact;
+
+    private void Awake()
+    {
+        _renderer = GetComponent<Renderer>();
+    }
 
     private void OnEnable()
     {
-        if (TryGetComponent<Renderer>(out Renderer renderer))
-            renderer.material.color = Color.blue;
+        _renderer.material.color = Color.blue;
+        _isFirstContact = false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent<PlatformFlag>(out PlatformFlag flag)
+            & _isFirstContact == false)
+        {
+            _isFirstContact = true;
+            Paint(Color.red);
+            LaunchSelfDestroy();
+        }
     }
 
     public void DestroyedNotify(Cube destroyedCube)
@@ -16,24 +34,9 @@ public class Cube : MonoBehaviour
         Destroyed?.Invoke(destroyedCube);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void Paint(Color color)
     {
-        if (collision.gameObject.TryGetComponent<PlatformFlag>(out PlatformFlag flag))
-            if (TryPaint(Color.red))
-                LaunchSelfDestroy();
-    }
-
-    private bool TryPaint(Color color)
-    {
-        Renderer renderer = GetComponent<Renderer>();
-
-        if (renderer.material.color != color)
-        {
-            renderer.material.color = color;
-            return true;
-        }
-
-        return false;
+        _renderer.material.color = color;
     }
 
     private void LaunchSelfDestroy()

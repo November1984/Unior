@@ -4,7 +4,6 @@ using UnityEngine;
 public class Destroyer : MonoBehaviour
 {
     [SerializeField] private int MaxDestroyDelay = 5;
-    [SerializeField] private Spawner _spawner;
 
     private Coroutine _coroutine;
 

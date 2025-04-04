@@ -1,17 +1,16 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private float _rotationSpeed = -150f;
     [SerializeField] private Unit _prefab;
     [SerializeField] private float _repeateRate = 2f;
     [SerializeField] private int _poolCapasity = 15;
     [SerializeField] private int _poolMaxSize = 15;
+    [SerializeField] private List<SpawnPoint> _spowns;
 
     private ObjectPool<Unit> _pool;
-    private Vector3 _direction;
-    private Quaternion _rotation;
 
     private void Awake()
     {
@@ -29,13 +28,6 @@ public class Spawner : MonoBehaviour
     private void Start()
     {
         InvokeRepeating(nameof(GetUnit), 0.0f, _repeateRate);
-    }
-
-    private void Update()
-    {
-        _direction = Time.deltaTime * _rotationSpeed * Vector3.forward;
-        transform.Rotate(_direction);
-        _rotation = transform.rotation;
     }
 
     private void OnDestroy()
@@ -70,7 +62,18 @@ public class Spawner : MonoBehaviour
     private void ActionOnGet(Unit unit)
     {
         unit.gameObject.SetActive(true);
-        unit.transform.SetPositionAndRotation(transform.position, _rotation);
+
+        SpawnPoint spawnPoint = GetRandomSpawnPoint();
+        
+        unit.Rigidbody.transform.position = spawnPoint.transform.position;
+        unit.transform.rotation = spawnPoint.Rotation;
         unit.Rigidbody.AddForce(unit.transform.up * unit.Speed);
+    }
+
+    private SpawnPoint GetRandomSpawnPoint()
+    {
+        int index = UnityEngine.Random.Range(0, _spowns.Count);
+
+        return _spowns[index];
     }
 }

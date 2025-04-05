@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Pool;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Spawner : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private List<SpawnPoint> _spowns;
 
     private ObjectPool<Unit> _pool;
+    private Coroutine _coroutine;
 
     private void Awake()
     {
@@ -27,11 +29,12 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating(nameof(GetUnit), 0.0f, _repeateRate);
+        _coroutine = StartCoroutine(Count(_repeateRate));
     }
 
     private void OnDestroy()
     {
+        StopCoroutine(_coroutine);
         _pool.Dispose();
     }
 
@@ -39,7 +42,7 @@ public class Spawner : MonoBehaviour
     {
         var unit = Instantiate(_prefab);
         unit.Crashed += Collect;
-        
+
         return unit;
     }
 
@@ -54,20 +57,11 @@ public class Spawner : MonoBehaviour
         Destroy(unit);
     }
 
-    private void GetUnit()
-    {
-        _pool.Get();
-    }
-
     private void ActionOnGet(Unit unit)
     {
         unit.gameObject.SetActive(true);
-
         SpawnPoint spawnPoint = GetRandomSpawnPoint();
-        
-        unit.Rigidbody.transform.position = spawnPoint.transform.position;
-        unit.transform.rotation = spawnPoint.Rotation;
-        unit.Rigidbody.AddForce(unit.transform.up * unit.Speed);
+        unit.SetDirection(spawnPoint.transform.position, spawnPoint.Rotation);
     }
 
     private SpawnPoint GetRandomSpawnPoint()
@@ -75,5 +69,17 @@ public class Spawner : MonoBehaviour
         int index = UnityEngine.Random.Range(0, _spowns.Count);
 
         return _spowns[index];
+    }
+
+    private IEnumerator Count(float delay)
+    {
+        var wait = new WaitForSecondsRealtime(delay);
+
+        while (true)
+        {
+            yield return wait;
+
+            _pool.Get();
+        }
     }
 }

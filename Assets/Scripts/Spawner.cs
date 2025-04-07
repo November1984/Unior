@@ -13,6 +13,7 @@ public class Spawner : MonoBehaviour
 
     private ObjectPool<Unit> _pool;
     private Coroutine _coroutine;
+    private List<Unit> _activeUnits;
 
     private void Awake()
     {
@@ -25,6 +26,8 @@ public class Spawner : MonoBehaviour
             defaultCapacity: _poolCapasity,
             maxSize: _poolMaxSize
         );
+
+        _activeUnits = new();
     }
 
     private void Start()
@@ -48,7 +51,18 @@ public class Spawner : MonoBehaviour
 
     private void Collect(Unit unit)
     {
-        _pool.Release(unit);
+        ExplodeAllUnits();
+    }
+
+    private void ExplodeAllUnits()
+    {
+        foreach (Unit unit in _activeUnits)
+        {
+            unit.Explode();
+            _pool.Release(unit);
+        }
+
+        _activeUnits.Clear();
     }
 
     private void DestroyUnit(Unit unit)
@@ -62,6 +76,8 @@ public class Spawner : MonoBehaviour
         unit.gameObject.SetActive(true);
         SpawnPoint spawnPoint = GetRandomSpawnPoint();
         unit.SetDirection(spawnPoint.transform.position, spawnPoint.Rotation);
+
+        _activeUnits.Add(unit);
     }
 
     private SpawnPoint GetRandomSpawnPoint()

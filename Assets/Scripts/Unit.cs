@@ -5,7 +5,6 @@ public class Unit : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _effect;
     [SerializeField] private float _speed = 100f;
-    [SerializeField] private Exploder _exploder;
 
     public event Action<Unit> Crashed;
 
@@ -21,18 +20,12 @@ public class Unit : MonoBehaviour
     private void OnEnable()
     {
         Speed = _speed;
-        _exploder.Exploded += Explode;
-    }
-
-    private void OnDestroy()
-    {
-        _exploder.Exploded -= Explode;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.TryGetComponent<UnitFlag>(out UnitFlag flag))
-            _exploder.ExplodedNotify();
+            CrashNotify(this);
     }
 
     public void SetDirection(Vector3 position, Quaternion rotation)
@@ -42,13 +35,10 @@ public class Unit : MonoBehaviour
         Rigidbody.AddForce(transform.up * Speed);
     }
 
-    private void Explode()
+    public void Explode()
     {
         if (gameObject.activeSelf)
-        {
             Instantiate(_effect, transform.position, transform.rotation);
-            CrashNotify(this);
-        }
     }
 
     private void CrashNotify(Unit crashedUnit)

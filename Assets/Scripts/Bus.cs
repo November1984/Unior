@@ -5,7 +5,6 @@ using UnityEngine;
 public class Bus : MonoBehaviour
 {
     [SerializeField] private float _speed = 4f;
-    [SerializeField] private RouteGenerator _routeGenerator;
 
     public event Action<Bus> FinishedRoute;
     private List<Vector3> _waypoints;
@@ -13,7 +12,6 @@ public class Bus : MonoBehaviour
 
     private void OnEnable()
     {
-        _waypoints = _routeGenerator.GetRoute();
         _currentWaypoint = 0;
         transform.position = _waypoints[_currentWaypoint];
     }
@@ -29,6 +27,11 @@ public class Bus : MonoBehaviour
         }
         else
             FinishedRouteNotify(this);
+    }
+
+    public void SetRoute(List<Vector3> waypoints)
+    {
+        _waypoints = waypoints;
     }
 
     private void FinishedRouteNotify(Bus bus)

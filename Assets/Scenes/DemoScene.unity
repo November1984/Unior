@@ -3505,7 +3505,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154120804}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 9eb8650a96d9c3ab186329e893280000, type: 2}
   m_CullingMode: 0
@@ -3586,8 +3586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9547bd5dd32843e239f8c4b18a41b944, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1
-  _routeGenerator: {fileID: 1192029999}
+  _speed: 2
 --- !u!1 &237726552
 GameObject:
   m_ObjectHideFlags: 0
@@ -3629,7 +3628,7 @@ GameObject:
   m_Component:
   - component: {fileID: 242937953}
   m_Layer: 0
-  m_Name: Spowns
+  m_Name: Spawns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3697,7 +3696,7 @@ GameObject:
   m_Component:
   - component: {fileID: 382213743}
   m_Layer: 0
-  m_Name: Spown3
+  m_Name: Spawn3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3728,7 +3727,7 @@ GameObject:
   m_Component:
   - component: {fileID: 516791070}
   m_Layer: 0
-  m_Name: Spown1
+  m_Name: Spawn1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4408,16 +4407,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741826
-  - first: {x: 13, y: -5, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 2
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 14, y: -5, z: 0}
     second:
       serializedVersion: 2
@@ -4433,6 +4422,16 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 1
       m_TileSpriteIndex: 3
+      m_TileMatrixIndex: 2
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 14, y: -4, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 2
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -4619,12 +4618,12 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 787612607}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 9eb8650a96d9c3ab186329e893280000, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -4700,8 +4699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9547bd5dd32843e239f8c4b18a41b944, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 40
-  _routeGenerator: {fileID: 0}
+  _speed: 2
 --- !u!1 &823297091
 GameObject:
   m_ObjectHideFlags: 0
@@ -30524,7 +30522,7 @@ GameObject:
   - component: {fileID: 1130738705}
   - component: {fileID: 1130738706}
   m_Layer: 0
-  m_Name: Spown1
+  m_Name: BusSpawn1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30539,7 +30537,7 @@ Transform:
   m_GameObject: {fileID: 1130738704}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.26, y: 3.78, z: 0}
+  m_LocalPosition: {x: 4.87, y: 4.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30557,6 +30555,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a4d9ca186d9291fae8fd1fe5bc1ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolCapasity: 15
+  _poolMaxSize: 15
+  _routeGenerator: {fileID: 1192029999}
 --- !u!1 &1192029998
 GameObject:
   m_ObjectHideFlags: 0
@@ -30621,7 +30622,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1206749809}
   m_Layer: 0
-  m_Name: Spown2
+  m_Name: Spawn2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30777,7 +30778,7 @@ GameObject:
   - component: {fileID: 1752173925}
   - component: {fileID: 1752173926}
   m_Layer: 0
-  m_Name: Spown2
+  m_Name: BusSpawn2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30810,6 +30811,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a4d9ca186d9291fae8fd1fe5bc1ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolCapasity: 15
+  _poolMaxSize: 15
+  _routeGenerator: {fileID: 1192029999}
 --- !u!1 &1793942988
 GameObject:
   m_ObjectHideFlags: 0
@@ -30891,7 +30895,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1951045461}
   m_Layer: 0
-  m_Name: Spown4
+  m_Name: Spawn4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30923,7 +30927,7 @@ GameObject:
   - component: {fileID: 2083841627}
   - component: {fileID: 2083841626}
   m_Layer: 0
-  m_Name: BusSpawner
+  m_Name: SpawnsController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30941,13 +30945,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6e33a96350ad29eb018cbbf67d03f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 154120808}
-  _repeateRate: 10
-  _poolCapasity: 15
-  _poolMaxSize: 15
+  _prefabs:
+  - {fileID: 154120808}
+  - {fileID: 787612611}
   _spawns:
   - {fileID: 1130738706}
   - {fileID: 1752173926}
+  _repeateRate: 2
 --- !u!4 &2083841627
 Transform:
   m_ObjectHideFlags: 0

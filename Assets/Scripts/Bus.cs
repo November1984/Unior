@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Bus : MonoBehaviour
 {
-    [SerializeField] private float _speed = 4f;
+    [SerializeField] private float _speed = 2f;
+    [SerializeField] private int _type = -1;
 
     public event Action<Bus> FinishedRoute;
     private List<Vector3> _waypoints;
     private int _currentWaypoint;
+
+    public int Type => _type;
 
     private void OnEnable()
     {

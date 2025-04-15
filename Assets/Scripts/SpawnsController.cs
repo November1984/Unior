@@ -1,22 +1,46 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class SpawnsController : MonoBehaviour
 {
-    [SerializeField] private List<Bus> _prefabs;
-    [SerializeField] private List<SpawnPoint> _spawns;
-    [SerializeField] private float _repeateRate = 30f;
+    [SerializeField] private List<Bus> _busPrefabs;
+    [SerializeField] private List<Unit> _unitPrefabs;
+    [SerializeField] private List<BusSpawnPoint> _busSpawns;
+    [SerializeField] private List<UnitSpawnPoint> _unitSpawns;
+    [SerializeField] private float _repeateRate = 50f;
 
     private Coroutine _coroutine;
+    private Dictionary<int, List<UnitSpawnPoint>> _unitSpawnsClassifyed;
 
     private void Awake()
     {
         int index = 0;
-        foreach (SpawnPoint spawn in _spawns)
+
+        foreach (BusSpawnPoint spawn in _busSpawns)
         {
-            spawn.SetPrefab(_prefabs[index]);
-            index = ++index % _prefabs.Count;
+            spawn.SetPrefab(_busPrefabs[index]);
+            index = ++index % _busPrefabs.Count;
+        }
+
+        index = 0;
+        _unitSpawnsClassifyed = new Dictionary<int, List<UnitSpawnPoint>>();
+
+        foreach (UnitSpawnPoint spawn in _unitSpawns)
+        {
+            spawn.SetPrefab(_unitPrefabs[index]);
+            index = ++index % _busPrefabs.Count;
+
+            if (_unitSpawnsClassifyed.ContainsKey(index))
+            {
+                _unitSpawnsClassifyed[index].Add(spawn);
+            }
+            else
+            {
+                _unitSpawnsClassifyed.Add(index, new List<UnitSpawnPoint>());
+                _unitSpawnsClassifyed[index].Add(spawn);
+            }
         }
     }
 
@@ -33,12 +57,18 @@ public class SpawnsController : MonoBehaviour
     private IEnumerator Count()
     {
         var wait = new WaitForSecondsRealtime(_repeateRate);
+        int busSpawnIndex;
+        int unitSpawnIndex;
 
         while (true)
         {
-            int spawnIndex = GetRandomValue(_spawns.Count);
-            _spawns[spawnIndex].LaunchBus();
-            
+            busSpawnIndex = GetRandomValue(_busSpawns.Count);
+            Bus bus = _busSpawns[busSpawnIndex].LaunchBus();
+
+            unitSpawnIndex = GetRandomValue(_unitSpawnsClassifyed[bus.Type].Count);
+
+            _unitSpawnsClassifyed[bus.Type][unitSpawnIndex].SetAim(bus);
+
             yield return wait;
         }
     }

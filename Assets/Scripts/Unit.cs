@@ -4,11 +4,12 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _effect;
-    [SerializeField] private float _speed = 100f;
+    [SerializeField] private float _speed = 2f;
 
     public event Action<Unit> Crashed;
 
-    public float Speed { get; private set; }
+    private Bus _aim;
+
     public Rigidbody2D Rigidbody { get; private set; }
 
     private void Awake()
@@ -17,28 +18,46 @@ public class Unit : MonoBehaviour
         Rigidbody = rigidbody2D;
     }
 
-    private void OnEnable()
+    private void Update()
     {
-        Speed = _speed;
+        transform.position = Vector3.MoveTowards(transform.position, _aim.transform.position, _speed * Time.deltaTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.TryGetComponent<UnitFlag>(out UnitFlag flag))
-            CrashNotify(this);
+        if (collision.gameObject.TryGetComponent<Bus>(out Bus bus))
+            if (bus == _aim)
+            {
+                _aim.FinishedRoute -= Explode;
+                CrashNotify(this);
+            }
+    }
+
+    public void SetStartPosition(Vector3 position)
+    {
+        transform.position = position;
+    }
+
+    public void SetAim(Bus aim)
+    {
+        _aim = aim;
+        _aim.FinishedRoute += Explode;
     }
 
     public void SetDirection(Vector3 position, Quaternion rotation)
     {
         Rigidbody.transform.position = position;
         transform.rotation = rotation;
-        Rigidbody.AddForce(transform.up * Speed);
+        Rigidbody.AddForce(transform.up * _speed);
     }
 
-    public void Explode()
+    public void Explode(Bus aim)
     {
         if (gameObject.activeSelf)
             Instantiate(_effect, transform.position, transform.rotation);
+
+        _aim.FinishedRoute -= Explode;
+        CrashNotify(this);
     }
 
     private void CrashNotify(Unit crashedUnit)

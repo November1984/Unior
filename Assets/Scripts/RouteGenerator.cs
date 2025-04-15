@@ -11,7 +11,7 @@ public class RouteGenerator : MonoBehaviour
     private void Awake()
     {
         _routes = new Dictionary<int, List<int>>();
-        CreateRoutes();
+        _routes = TempleRoutes();
     }
 
     public List<Vector3> GetRoute(Vector3 startPosition)
@@ -69,11 +69,14 @@ public class RouteGenerator : MonoBehaviour
         return Random.Range(0, maxValue);
     }
 
-    private void CreateRoutes()
+    private Dictionary<int, List<int>> TempleRoutes()
     {
-        _routes.Add(0, new List<int>() { 5, 4, 2, 7, 8 });
-        _routes.Add(1, new List<int>() { 5, 4, 1, 6, 8 });
-        _routes.Add(2, new List<int>() { 8, 7, 2, 4, 5 });
-        _routes.Add(3, new List<int>() { 8, 6, 1, 4, 5 });
+        return new Dictionary<int, List<int>>()
+        {
+            {0, new List<int>() { 5, 4, 2, 7, 8 }},
+            {1, new List<int>() { 5, 4, 1, 6, 8 }},
+            {2, new List<int>() { 8, 7, 2, 4, 5 }},
+            {3, new List<int>() { 8, 6, 1, 4, 5 }}
+        };
     }
 }

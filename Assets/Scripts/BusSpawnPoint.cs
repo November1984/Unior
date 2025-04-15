@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class SpawnPoint : MonoBehaviour
+public class BusSpawnPoint : MonoBehaviour
 {
     [SerializeField] private int _poolCapasity = 15;
     [SerializeField] private int _poolMaxSize = 15;
@@ -34,21 +34,15 @@ public class SpawnPoint : MonoBehaviour
         _prefab = prefab;
     }
 
-    public void LaunchBus()
+    public Bus LaunchBus()
     {
-        _pool.Get();
-    }
-
-    private void DestroyBus(Bus bus)
-    {
-        bus.FinishedRoute -= Collect;
-        Destroy(bus);
+       return _pool.Get();
     }
 
     private void ActionOnGet(Bus bus)
     {
-        List<Vector3> waipoints = _routeGenerator.GetRoute(transform.position);
-        bus.SetRoute(waipoints);
+        List<Vector3> waypoints = _routeGenerator.GetRoute(transform.position);
+        bus.SetRoute(waypoints);
         bus.gameObject.SetActive(true);
     }
 
@@ -60,7 +54,13 @@ public class SpawnPoint : MonoBehaviour
         return bus;
     }
 
-    private void Collect(Bus bus)
+     private void DestroyBus(Bus bus)
+    {
+        bus.FinishedRoute -= Collect;
+        Destroy(bus);
+    }
+
+   private void Collect(Bus bus)
     {
         _pool.Release(bus);
     }

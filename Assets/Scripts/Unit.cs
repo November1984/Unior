@@ -6,7 +6,7 @@ public class Unit : MonoBehaviour
     [SerializeField] private ParticleSystem _effect;
     [SerializeField] private float _speed = 2f;
 
-    public event Action<Unit> Crashed;
+    public event Action<Unit> Disappeared;
 
     private Bus _aim;
 
@@ -14,8 +14,7 @@ public class Unit : MonoBehaviour
 
     private void Awake()
     {
-        Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
-        Rigidbody = rigidbody2D;
+        Rigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -26,11 +25,10 @@ public class Unit : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.TryGetComponent<Bus>(out Bus bus))
+        {
             if (bus == _aim)
-            {
-                _aim.FinishedRoute -= Explode;
-                CrashNotify(this);
-            }
+            { Disappear(); }
+        }
     }
 
     public void SetStartPosition(Vector3 position)
@@ -41,27 +39,25 @@ public class Unit : MonoBehaviour
     public void SetAim(Bus aim)
     {
         _aim = aim;
-        _aim.FinishedRoute += Explode;
+        _aim.Stoped += Die;
     }
 
-    public void SetDirection(Vector3 position, Quaternion rotation)
-    {
-        Rigidbody.transform.position = position;
-        transform.rotation = rotation;
-        Rigidbody.AddForce(transform.up * _speed);
-    }
-
-    public void Explode(Bus aim)
+    public void Die(Bus aim)
     {
         if (gameObject.activeSelf)
             Instantiate(_effect, transform.position, transform.rotation);
 
-        _aim.FinishedRoute -= Explode;
-        CrashNotify(this);
+        Disappear();
     }
 
-    private void CrashNotify(Unit crashedUnit)
+    private void Disappear()
     {
-        Crashed?.Invoke(crashedUnit);
+        _aim.Stoped -= Die;
+        DisappearedNotify(this);
+    }
+
+    private void DisappearedNotify(Unit crashedUnit)
+    {
+        Disappeared?.Invoke(crashedUnit);
     }
 }

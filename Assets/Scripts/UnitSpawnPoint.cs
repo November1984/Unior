@@ -41,7 +41,7 @@ public class UnitSpawnPoint : MonoBehaviour
 
     private void DestroyUnit(Unit unit)
     {
-        unit.Crashed -= Collect;
+        unit.Disappeared -= Collect;
         Destroy(unit);
     }
 
@@ -55,7 +55,7 @@ public class UnitSpawnPoint : MonoBehaviour
     private Unit Create()
     {
         var unit = Instantiate(_prefab);
-        unit.Crashed += Collect;
+        unit.Disappeared += Collect;
 
         return unit;
     }

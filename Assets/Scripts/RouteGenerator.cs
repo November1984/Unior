@@ -11,7 +11,7 @@ public class RouteGenerator : MonoBehaviour
     private void Awake()
     {
         _routes = new Dictionary<int, List<int>>();
-        _routes = TempleRoutes();
+        _routes = SampleRoutes();
     }
 
     public List<Vector3> GetRoute(Vector3 startPosition)
@@ -26,23 +26,6 @@ public class RouteGenerator : MonoBehaviour
             route.Add(_waipoints[point].position);
 
         return route;
-    }
-
-    private Dictionary<int, List<int>> GetActualRoutes(int spawnPositionCode)
-    {
-        Dictionary<int, List<int>> result = new();
-        int i = 0;
-
-        foreach (List<int> route in _routes.Values)
-        {
-            if (route[0] == spawnPositionCode)
-            {
-                result.Add(i, route);
-                i++;
-            }
-        }
-
-        return result;
     }
 
     private int GetSpawnPositionCode(Vector3 startPosition)
@@ -64,12 +47,29 @@ public class RouteGenerator : MonoBehaviour
         return result;
     }
 
+    private Dictionary<int, List<int>> GetActualRoutes(int spawnPositionCode)
+    {
+        Dictionary<int, List<int>> result = new();
+        int i = 0;
+
+        foreach (List<int> route in _routes.Values)
+        {
+            if (route[0] == spawnPositionCode)
+            {
+                result.Add(i, route);
+                i++;
+            }
+        }
+
+        return result;
+    }
+
     private int GetRandomValue(int maxValue)
     {
         return Random.Range(0, maxValue);
     }
 
-    private Dictionary<int, List<int>> TempleRoutes()
+    private Dictionary<int, List<int>> SampleRoutes()
     {
         return new Dictionary<int, List<int>>()
         {

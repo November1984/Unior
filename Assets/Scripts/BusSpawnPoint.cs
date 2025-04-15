@@ -49,14 +49,14 @@ public class BusSpawnPoint : MonoBehaviour
     private Bus Create()
     {
         var bus = Instantiate(_prefab);
-        bus.FinishedRoute += Collect;
+        bus.Stoped += Collect;
 
         return bus;
     }
 
      private void DestroyBus(Bus bus)
     {
-        bus.FinishedRoute -= Collect;
+        bus.Stoped -= Collect;
         Destroy(bus);
     }
 

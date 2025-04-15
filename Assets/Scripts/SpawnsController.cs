@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public class SpawnsController : MonoBehaviour
 {
@@ -16,6 +15,22 @@ public class SpawnsController : MonoBehaviour
 
     private void Awake()
     {
+        SetBusPrefabs();
+        SetUnitPrefabs();
+    }
+
+    private void Start()
+    {
+        _coroutine = StartCoroutine(Count());
+    }
+
+    private void OnDestroy()
+    {
+        StopCoroutine(_coroutine);
+    }
+
+    private void SetBusPrefabs()
+    {
         int index = 0;
 
         foreach (BusSpawnPoint spawn in _busSpawns)
@@ -23,8 +38,11 @@ public class SpawnsController : MonoBehaviour
             spawn.SetPrefab(_busPrefabs[index]);
             index = ++index % _busPrefabs.Count;
         }
+    }
 
-        index = 0;
+    private void SetUnitPrefabs()
+    {
+        int index = 0;
         _unitSpawnsClassifyed = new Dictionary<int, List<UnitSpawnPoint>>();
 
         foreach (UnitSpawnPoint spawn in _unitSpawns)
@@ -44,16 +62,6 @@ public class SpawnsController : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        _coroutine = StartCoroutine(Count());
-    }
-
-    private void OnDestroy()
-    {
-        StopCoroutine(_coroutine);
-    }
-
     private IEnumerator Count()
     {
         var wait = new WaitForSecondsRealtime(_repeateRate);
@@ -66,7 +74,6 @@ public class SpawnsController : MonoBehaviour
             Bus bus = _busSpawns[busSpawnIndex].LaunchBus();
 
             unitSpawnIndex = GetRandomValue(_unitSpawnsClassifyed[bus.Type].Count);
-
             _unitSpawnsClassifyed[bus.Type][unitSpawnIndex].SetAim(bus);
 
             yield return wait;

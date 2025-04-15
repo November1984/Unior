@@ -7,7 +7,7 @@ public class Bus : MonoBehaviour
     [SerializeField] private float _speed = 2f;
     [SerializeField] private int _type = -1;
 
-    public event Action<Bus> FinishedRoute;
+    public event Action<Bus> Stoped;
     private List<Vector3> _waypoints;
     private int _currentWaypoint;
 
@@ -29,7 +29,9 @@ public class Bus : MonoBehaviour
             { ++_currentWaypoint; }
         }
         else
-            FinishedRouteNotify(this);
+        {
+            StopedNotify(this);
+        }
     }
 
     public void SetRoute(List<Vector3> waypoints)
@@ -37,8 +39,8 @@ public class Bus : MonoBehaviour
         _waypoints = waypoints;
     }
 
-    private void FinishedRouteNotify(Bus bus)
+    private void StopedNotify(Bus bus)
     {
-        FinishedRoute?.Invoke(bus);
+        Stoped?.Invoke(bus);
     }
 }

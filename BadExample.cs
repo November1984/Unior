@@ -17,7 +17,7 @@ public class GoPlaces : MonoBehaviour
         for (int abcd = 0; abcd < AllPlacespoint.childCount; abcd++)
             arrayPlaces[abcd] = AllPlacespoint.GetChild(abcd).GetComponent<Transform>();
         }
-    // Update is called once per frame
+    // Update is called once per frame.
     public void Update()
     {
         var _pointByNumberInArray= arrayPlaces[NumberOfPlaceInArrayPlaces];

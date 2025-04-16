@@ -12,7 +12,7 @@ public class InstantiateBulletsShooting : MonoBehaviour
     public Transform ObjectToShoot;
     [SerializeField] float _timeWaitShooting;
 
-    // Start is called before the first frame update
+    // Start is called before the first frame update.
     void Start() {
 
            StartCoroutine(_shootingWorker());

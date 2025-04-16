@@ -1,9 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private Transform _placesPoints;
+    [SerializeField] private float _closeDistance;
 
     private Transform[] _places;
     private int _currentPlace = 0;
@@ -18,18 +20,21 @@ public class Mover : MonoBehaviour
 
     public void Update()
     {
-        Vector3 _place = _places[_currentPlace].position;
-        transform.position = Vector3.MoveTowards(transform.position, _place, _speed * Time.deltaTime);
+        Vector3 place = _places[_currentPlace].position;
+        transform.position = Vector3.MoveTowards(transform.position, place, _speed * Time.deltaTime);
 
-        if (transform.position == _place)
-            TakeNextPlace();
+        Vector3 offset = transform.position - place;
+        float sqrLength = offset.sqrMagnitude;
+
+        if (sqrLength < _closeDistance * _closeDistance)
+            SetNextPlace();
     }
 
-    private void TakeNextPlace()
+    private void SetNextPlace()
     {
         _currentPlace = ++_currentPlace % _places.Length;
 
-        Vector3 thisPointPosition = _places[_currentPlace].transform.position;
-        transform.forward = thisPointPosition - transform.position;
+        Vector3 currentPosition = _places[_currentPlace].transform.position;
+        transform.forward = currentPosition - transform.position;
     }
 }

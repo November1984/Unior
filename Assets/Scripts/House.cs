@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -18,14 +17,14 @@ public class House : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _notifier = GetComponent<Notifier>();
         _isAlarm = false;
-        _notifier._isIndoors += SwitchAlarmOn;
-        _notifier._isOutdoors += SwitchAlarmOff;
+        _notifier.IsIndoors += SwitchAlarmOn;
+        _notifier.IsOutdoors += SwitchAlarmOff;
     }
 
     private void OnDisable()
     {
-        _notifier._isIndoors -= SwitchAlarmOn;
-        _notifier._isOutdoors -= SwitchAlarmOff;
+        _notifier.IsIndoors -= SwitchAlarmOn;
+        _notifier.IsOutdoors -= SwitchAlarmOff;
     }
 
     private IEnumerator Alarm()
@@ -58,8 +57,5 @@ public class House : MonoBehaviour
         }
     }
 
-    private void SwitchAlarmOff()
-    {
-        _isAlarm = false;
-    }
+    private void SwitchAlarmOff() => _isAlarm = false;
 }

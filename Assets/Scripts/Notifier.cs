@@ -3,14 +3,18 @@ using UnityEngine;
 
 public class Notifier : MonoBehaviour
 {
-    public event Action<Transform> IsIndoors;
-    public event Action IsOutdoors;
+    public event Action ObjectIndoored;
+    public event Action ObjectOutdoored;
 
-    private void OnTriggerEnter2D(Collider2D collision) => IndoorsNotify(collision.transform);
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<Thieft>(out Thieft fool))
+            IndoorsNotify();
+    }
 
     private void OnTriggerExit2D(Collider2D collision) => OutdoorsNotify();
 
-    private void IndoorsNotify(Transform obj) => IsIndoors?.Invoke(obj);
+    private void IndoorsNotify() => ObjectIndoored?.Invoke();
 
-    private void OutdoorsNotify() => IsOutdoors?.Invoke();
+    private void OutdoorsNotify() => ObjectOutdoored?.Invoke();
 }

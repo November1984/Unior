@@ -8,63 +8,58 @@ public class House : MonoBehaviour
     [SerializeField] private float _volumeStep = 0.004f;
     [SerializeField] private float _maxAlarmVolume = 1f;
 
-    private bool _isAlarm;
     private Notifier _notifier;
     private Coroutine _coroutine;
-    private float _alarmTargetVolume;
 
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
         _notifier = GetComponent<Notifier>();
-        _isAlarm = false;
     }
 
     private void OnEnable()
     {
-        _notifier.ObjectIndoored += SwitchAlarmOn;
-        _notifier.ObjectOutdoored += SwitchAlarmOff;
+        _notifier.ObjectIndoored += SwitchAlarm;
+        _notifier.ObjectOutdoored += SwitchAlarm;
     }
 
     private void OnDisable()
     {
-        _notifier.ObjectIndoored -= SwitchAlarmOn;
-        _notifier.ObjectOutdoored -= SwitchAlarmOff;
+        _notifier.ObjectIndoored -= SwitchAlarm;
+        _notifier.ObjectOutdoored -= SwitchAlarm;
 
         if (_coroutine != null)
             StopCoroutine(_coroutine);
     }
 
-    private IEnumerator Alarm()
+    private IEnumerator Alarm(float alarmTargetVolume)
     {
         _audioSource.Play();
 
-        while (_isAlarm || _audioSource.isPlaying)
+        while (_audioSource.volume != alarmTargetVolume)
         {
-            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, _alarmTargetVolume, _volumeStep);
-
-            if (_audioSource.isPlaying && _audioSource.volume == 0)
-            {
-                _audioSource.Stop();
-                yield break;
-            }
+            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, alarmTargetVolume, _volumeStep);
 
             yield return 0;
         }
+
+        if (_audioSource.isPlaying && _audioSource.volume == 0)
+            _audioSource.Stop();
     }
 
-    private void SwitchAlarmOn()
+    private void SwitchAlarm(Thieft fool = null)
     {
-        _isAlarm = true;
-        _audioSource.volume = 0;
+        float targetVolume = 0;
 
-        _alarmTargetVolume = _maxAlarmVolume;
-        _coroutine = StartCoroutine(Alarm());
-    }
+        if (fool != null)
+        {
+            _audioSource.volume = 0;
+            targetVolume = _maxAlarmVolume;
+        }
 
-    private void SwitchAlarmOff()
-    {
-        _isAlarm = false;
-        _alarmTargetVolume = 0;
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+
+        _coroutine = StartCoroutine(Alarm(targetVolume));
     }
 }

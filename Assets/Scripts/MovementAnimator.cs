@@ -1,44 +1,25 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(Movement))]
 public class MovementAnimator : MonoBehaviour
 {
-    private IAnimateAble _object;
-    private IMover _movement;
     private Animator _animator;
 
-    private void Start()
-    {
-        _animator = GetComponent<Animator>();
-        _movement = GetComponent<IMover>();
-        _object = GetComponent<IAnimateAble>();
+    private void Awake() =>_animator = GetComponent<Animator>();
 
-        _movement.ObjectMoved += SetMove;
-        _movement.ObjectJumped += SetJump;
+    public void Move(int value) => _animator.SetInteger("Direction", value);
+    public void Idle() => _animator.SetBool("IsOnGround", true);
+
+    public void Jump()
+    {
+        _animator.SetBool("IsJumped", true);
+        _animator.SetBool("IsOnGround", false);
     }
 
-    private void OnDisable()
+    public void Landing(bool value)
     {
-        _movement.ObjectMoved -= SetMove;
-        _movement.ObjectJumped -= SetJump;
-    }
+        _animator.SetBool("IsLanded", true);
+        _animator.SetBool("IsJumped", value);
 
-    private void SetMove(int value) => _animator.SetInteger("Direction", value);
-
-    private void SetJump(bool value)
-    {
-        if (_object.IsGrounded && value)
-        {
-            _animator.SetBool("IsJumped", true);
-            _animator.SetBool("IsOnGround", false);
-        }
-        else if (_object.IsGrounded && value == false)
-        { _animator.SetBool("IsOnGround", true); }
-        else
-        {
-            _animator.SetBool("IsLanded", true);
-            _animator.SetBool("IsJumped", value);
-        }
     }
 }

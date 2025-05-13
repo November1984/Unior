@@ -8,10 +8,26 @@ public class MoveGenerator : MonoBehaviour
 
     private int _currentWaypointNumber = 0;
     private Vector2 _currentWaypointDistance;
+    private Transform _aim;
 
     private void Start() => transform.position = _waypoints[0].position;
 
     private void Update()
+    {
+        if (_aim == null)
+            Patroling();
+        else
+            Chase();
+    }
+
+    public void GetAim(Transform value) => _aim = value;
+
+    private void Chase()
+    {
+        _mover.Move(_aim.position);
+    }
+
+    private void Patroling()
     {
         _currentWaypointDistance = transform.position - _waypoints[_currentWaypointNumber].position;
 

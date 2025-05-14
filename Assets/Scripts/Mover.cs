@@ -3,19 +3,33 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    MovementAnimator _movementAnimator;
+    [SerializeField] private MovementInput _movementInput;
 
+    private MovementAnimator _movementAnimator;
     private IMoveAble _unit;
 
-    private void Start()
+    private void Awake()
     {
         _movementAnimator = GetComponent<MovementAnimator>();
         _unit = GetComponent<IMoveAble>();
-
-        _movementAnimator.Idle();
     }
 
-    public void Jump(float value)
+    private void Start()
+    { _movementAnimator.Idle(); }
+
+    private void OnEnable()
+    {
+        _movementInput.Jumping += JumpInput;
+        _movementInput.Moving += MoveInput;
+    }
+
+    private void OnDisable()
+    {
+        _movementInput.Jumping -= JumpInput;
+        _movementInput.Moving -= MoveInput;
+    }
+
+    public void JumpInput(float value)
     {
         if (_unit.IsOnGround)
         { _movementAnimator.Idle(); }
@@ -43,7 +57,7 @@ public class Mover : MonoBehaviour
         _movementAnimator.Move(GetDirectionCode(finishPosition.x - _unit.Transform.position.x));
     }
 
-    public void Move(float value)
+    public void MoveInput(float value)
     {
         Vector2 direction = new(value, 0);
         _unit.Transform.Translate(_unit.RunSpeed * Time.deltaTime * direction);
@@ -51,5 +65,6 @@ public class Mover : MonoBehaviour
         _movementAnimator.Move(GetDirectionCode(value));
     }
 
-    private int GetDirectionCode(float value) => (value == 0) ? 0 : (int)(value / Math.Abs(value));
+    private int GetDirectionCode(float value)
+    { return (value == 0) ? 0 : Math.Sign(value); }
 }

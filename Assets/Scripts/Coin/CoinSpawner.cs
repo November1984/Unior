@@ -33,9 +33,11 @@ public class CoinSpawner : MonoBehaviour
         }
     }
 
-    private void OnDestroy() => _pool.Dispose();
+    private void OnDestroy() => 
+        _pool.Dispose();
 
-    public void Collect(Coin obj) => _pool.Release(obj);
+    public void Collect(Coin obj) => 
+        _pool.Release(obj);
 
     private Coin Create()
     {

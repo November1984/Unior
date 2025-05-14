@@ -7,6 +7,9 @@ public class Wallet : MonoBehaviour
 
     private int _coins = 0;
 
-    private void Start() => _coins = 0;
-    public void AddCoin() => AmountChanged?.Invoke(++_coins);
+    private void Start()
+    { _coins = 0; }
+
+    public void AddCoin()
+    { AmountChanged?.Invoke(++_coins); }
 }

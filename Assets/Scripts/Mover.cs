@@ -5,12 +5,12 @@ public class Mover : MonoBehaviour
 {
     [SerializeField] private MovementInput _movementInput;
 
-    private MovementAnimator _movementAnimator;
+    private ActionAnimator _movementAnimator;
     private IMoveAble _unit;
 
     private void Awake()
     {
-        _movementAnimator = GetComponent<MovementAnimator>();
+        _movementAnimator = GetComponent<ActionAnimator>();
         _unit = GetComponent<IMoveAble>();
     }
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class MovementAnimator : MonoBehaviour
+public class ActionAnimator : MonoBehaviour
 {
     private const string IsOnGround = nameof(IsOnGround);
     private const string IsJumped = nameof(IsJumped);

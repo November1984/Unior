@@ -2,6 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(MoveGenerator))]
+
 public class Shadower : MonoBehaviour
 {
     private MoveGenerator _moveGenerator;

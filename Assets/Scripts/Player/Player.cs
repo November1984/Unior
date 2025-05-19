@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 
-public class Player : MonoBehaviour, IMoveAble
+public class Player : MonoBehaviour
 {
     [SerializeField] private float _jumpSpeed = 6f;
     [SerializeField] private float _runSpeed = 1f;

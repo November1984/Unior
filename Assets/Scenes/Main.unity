@@ -3837,7 +3837,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83496d5d7b07e126283b57d4fc4df467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementInput: {fileID: 0}
 --- !u!114 &1466627836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4725,6 +4724,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cdf083e5de79db12970efe8361490f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _movementAnimator: {fileID: 294199219}
+  _unit: {fileID: 2121019483}
 --- !u!114 &2121019483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4786,7 +4787,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83496d5d7b07e126283b57d4fc4df467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementInput: {fileID: 2121019481}
 --- !u!114 &2121019487
 MonoBehaviour:
   m_ObjectHideFlags: 0

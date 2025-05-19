@@ -4,7 +4,7 @@ public class MoveGenerator : MonoBehaviour
 {
     [SerializeField] private float _closeRange = 0.1f;
     [SerializeField] private Transform[] _waypoints;
-    [SerializeField] private Mover _mover;
+    [SerializeField] private BotMovement _mover;
 
     private int _currentWaypointNumber = 0;
     private Vector2 _currentWaypointDistance;

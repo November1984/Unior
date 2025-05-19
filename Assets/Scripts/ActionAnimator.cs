@@ -17,31 +17,31 @@ public class ActionAnimator : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        // _isOnGround = Animator.StringToHash(IsOnGround);
-        // _isJumped = Animator.StringToHash(IsJumped);
-        // _isLanding = Animator.StringToHash(IsLanding);
-        // _direction = Animator.StringToHash(Direction);
+        _isOnGround = Animator.StringToHash(IsOnGround);
+        _isJumped = Animator.StringToHash(IsJumped);
+        _isLanding = Animator.StringToHash(IsLanding);
+        _direction = Animator.StringToHash(Direction);
     }
 
     public void Move(int value)
-    { _animator.SetInteger(Direction, value); }
+    { _animator.SetInteger(_direction, value); }
 
     public void Idle()
     {
-        _animator.SetBool(IsOnGround, true);
-        _animator.SetBool(IsJumped, false);
+        _animator.SetBool(_isOnGround, true);
+        _animator.SetBool(_isJumped, false);
     }
 
     public void Jump()
     {
-        _animator.SetBool(IsJumped, true);
-        _animator.SetBool(IsLanding, false);
-        _animator.SetBool(IsOnGround, false);
+        _animator.SetBool(_isJumped, true);
+        _animator.SetBool(_isLanding, false);
+        _animator.SetBool(_isOnGround, false);
     }
 
     public void Landing()
     {
-        _animator.SetBool(IsLanding, true);
-        _animator.SetBool(IsJumped, false);
+        _animator.SetBool(_isLanding, true);
+        _animator.SetBool(_isJumped, false);
     }
 }

@@ -1,15 +1,15 @@
 using System;
 using UnityEngine;
 
-public class BotMovement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour
 {
     private ActionAnimator _movementAnimator;
-    private IMoveAble _unit;
+    private Enemy _unit;
 
     private void Awake()
     {
         _movementAnimator = GetComponent<ActionAnimator>();
-        _unit = GetComponent<IMoveAble>();
+        _unit = GetComponent<Enemy>();
     }
 
     private void Start()

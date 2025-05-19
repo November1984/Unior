@@ -1,11 +1,12 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Player))]
+[RequireComponent(typeof(PlayerState))]
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private Player _unit;
+    [SerializeField] private PlayerState _palyerState;
+    [SerializeField] private Player _palyer;
 
     private const string Horisontal = "Horizontal";
     private const string Vertical = "Vertical";
@@ -25,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(float value)
     {
-        if (_unit.IsOnGround)
+        if (_palyerState.IsOnGround)
         { _movementAnimator.Idle(); }
         else
         {
@@ -33,9 +34,9 @@ public class PlayerMovement : MonoBehaviour
                 _movementAnimator.Landing();
         }
 
-        if (value > 0 && _unit.IsOnGround)
+        if (value > 0 && _palyerState.IsOnGround)
         {
-            _unit.Rigidbody.linearVelocityY = _unit.JumpSpeed;
+            _palyer.Rigidbody.linearVelocityY = _palyer.JumpSpeed;
 
             _movementAnimator.Jump();
         }
@@ -44,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
     public void Move(float value)
     {
         Vector2 direction = new(value, 0);
-        _unit.Transform.Translate(_unit.RunSpeed * Time.deltaTime * direction);
+        _palyer.Transform.Translate(_palyer.RunSpeed * Time.deltaTime * direction);
 
         _movementAnimator.Move(GetDirectionCode(value));
     }

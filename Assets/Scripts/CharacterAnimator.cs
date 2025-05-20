@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class ActionAnimator : MonoBehaviour
+public class CharacterAnimator : MonoBehaviour
 {
     private const string IsOnGround = nameof(IsOnGround);
     private const string IsJumped = nameof(IsJumped);
@@ -24,7 +24,9 @@ public class ActionAnimator : MonoBehaviour
     }
 
     public void Move(int value)
-    { _animator.SetInteger(_direction, value); }
+    {
+        _animator.SetInteger(_direction, value);
+    }
 
     public void Idle()
     {

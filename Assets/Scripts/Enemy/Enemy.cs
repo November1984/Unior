@@ -1,11 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(GroundDetector))]
 
-public class Enemy : MonoBehaviour
-{
-    [SerializeField] private float _runSpeed = 1f;
-
-    public float RunSpeed => _runSpeed;
-    public Transform Transform => transform;
-}
+public class Enemy : Unit, IMovable 
+{}

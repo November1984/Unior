@@ -25,11 +25,17 @@ public class Unit : MonoBehaviour, IMovable
     }
 
     private void OnEnable()
-    { _groundContactCounter.Grounded += Grounded; }
+    {
+        _groundContactCounter.Grounded += OnGrounded;
+    }
 
     private void OnDisable()
-    { _groundContactCounter.Grounded -= Grounded; }
+    {
+        _groundContactCounter.Grounded -= OnGrounded;
+    }
 
-    private void Grounded(bool value)
-    { _isOnGround = value; }
+    private void OnGrounded(bool value)
+    {
+        _isOnGround = value;
+    }
 }

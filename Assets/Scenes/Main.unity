@@ -4754,6 +4754,7 @@ GameObject:
   - component: {fileID: 2121019487}
   - component: {fileID: 2121019488}
   - component: {fileID: 2121019489}
+  - component: {fileID: 2121019490}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4909,7 +4910,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _runSpeed: 1
   _jumpSpeed: 6
-  _wallet: {fileID: 2125990474}
 --- !u!114 &2121019484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4980,6 +4980,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baecffd0e77aaf2b2bcd713987e675ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2121019490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121019476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1aeafd8d79ef524ca059c4a2501359d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wallet: {fileID: 2125990474}
 --- !u!1 &2125990473
 GameObject:
   m_ObjectHideFlags: 0

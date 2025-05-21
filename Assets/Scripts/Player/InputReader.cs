@@ -1,22 +1,17 @@
+using System;
 using UnityEngine;
 
-[RequireComponent(typeof(UnitMover))]
-
-public class InputReader : MonoBehaviour
+public class InputReader : MonoBehaviour, IMove, IJump
 {
     private const string Horisontal = "Horizontal";
     private const string Vertical = "Vertical";
 
-    private UnitMover _unitMover;
+    public event Action<float> UnitMoved;
+    public event Action<float> UnitJumped;
 
-    private void Awake()
+    private void Update()
     {
-        _unitMover = GetComponent<UnitMover>();
-    }
-
-    private void FixedUpdate()
-    {
-        _unitMover.Move(Input.GetAxisRaw(Horisontal));
-        _unitMover.Jump(Input.GetAxisRaw(Vertical));
+        UnitMoved?.Invoke(Input.GetAxisRaw(Horisontal));
+        UnitJumped?.Invoke(Input.GetAxisRaw(Vertical));
     }
 }

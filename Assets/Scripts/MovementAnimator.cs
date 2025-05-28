@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class CharacterAnimator : MonoBehaviour
+public class MovementAnimator : MonoBehaviour
 {
     private const string IsOnGround = nameof(IsOnGround);
     private const string IsJumped = nameof(IsJumped);
@@ -32,6 +32,7 @@ public class CharacterAnimator : MonoBehaviour
     {
         _animator.SetBool(_isOnGround, true);
         _animator.SetBool(_isJumped, false);
+        _animator.SetInteger(_direction, 0);
     }
 
     public void Jump()

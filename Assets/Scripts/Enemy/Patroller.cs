@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class Patroller : MonoBehaviour, IMove, IIdle
+public class Patroller : MonoBehaviour
 {
     [SerializeField] private float _closeRange = 0.1f;
     [SerializeField] private Transform[] _waypoints;

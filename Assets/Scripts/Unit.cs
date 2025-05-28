@@ -1,9 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(GroundDetector))]
-
-public class Unit : MonoBehaviour, IMovable
+public class Unit
 {
     [SerializeField] private float _runSpeed = 1f;
     [SerializeField] private float _jumpSpeed = 6f;
@@ -11,17 +8,30 @@ public class Unit : MonoBehaviour, IMovable
     private Rigidbody2D _rigidBody;
     private bool _isOnGround;
     private GroundDetector _groundContactCounter;
+    private Fsm _fsm;
+    private MovementAnimator _movementAnimator;
 
-    public float RunSpeed => _runSpeed;
-    public float JumpSpeed => _jumpSpeed;
-    public Rigidbody2D Rigidbody => _rigidBody;
+    public Rigidbody2D RigidBody => _rigidBody;
     public bool IsOnGround => _isOnGround;
-    public Transform Transform => transform;
+
+    public Unit(Rigidbody2D rigidbody2D,
+                GroundDetector groundDetector,
+                MovementAnimator movementAnimator)
+    {
+        _rigidBody = rigidbody2D;
+        _groundContactCounter = groundDetector;
+        _movementAnimator = movementAnimator;
+    }
 
     private void Awake()
     {
-        _rigidBody = GetComponent<Rigidbody2D>();
-        _groundContactCounter = GetComponent<GroundDetector>();
+        _fsm = new Fsm();
+
+        _fsm.AddState(new FsmStateIdle(_fsm, this, _runSpeed, _jumpSpeed, _movementAnimator));
+        _fsm.AddState(new FsmStateRun(_fsm, this, _runSpeed, _jumpSpeed, _movementAnimator));
+        _fsm.AddState(new FsmStateJump(_fsm, this, _runSpeed, _jumpSpeed, _movementAnimator));
+
+        _fsm.SetState<FsmStateIdle>();
     }
 
     private void OnEnable()
@@ -32,6 +42,11 @@ public class Unit : MonoBehaviour, IMovable
     private void OnDisable()
     {
         _groundContactCounter.Grounded -= OnGrounded;
+    }
+
+    private void Update()
+    {
+        _fsm.Update();
     }
 
     private void OnGrounded(bool value)

@@ -36,13 +36,13 @@ public class UnitMover : MonoBehaviour
     private void OnDisable()
     {
         if(_jumpInput != null)
-        _jumpInput.UnitJumped += Jump;
+        _jumpInput.UnitJumped -= Jump;
 
         if(_moveInput != null)
-        _moveInput.UnitMoved += Move;
+        _moveInput.UnitMoved -= Move;
 
         if(_idleInput != null)
-        _idleInput.UnitIdle += Idle;
+        _idleInput.UnitIdle -= Idle;
     }
 
     public void Jump(float value)

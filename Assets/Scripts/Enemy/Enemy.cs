@@ -4,5 +4,5 @@ using UnityEngine;
 [RequireComponent(typeof(GroundDetector))]
 [RequireComponent(typeof(UnitMover))]
 
-public class Enemy : Unit, IMovable 
+public class Enemy : Unit 
 {}

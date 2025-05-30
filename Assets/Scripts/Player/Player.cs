@@ -6,5 +6,5 @@ using UnityEngine;
 [RequireComponent(typeof(UnitMover))]
 [RequireComponent(typeof(Collector))]
 
-public class Player : Unit, IMovable
-{ }
+public class Player : Unit
+{}

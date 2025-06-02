@@ -3,7 +3,7 @@ using UnityEngine;
 public class JumpState : FsmState
 {
     private readonly float _jumpSpeed;
-    private Rigidbody2D _rigidbody;
+    private readonly Rigidbody2D _rigidbody;
 
     public JumpState(
                 Fsm fsm,
@@ -16,17 +16,21 @@ public class JumpState : FsmState
 
     public override void Enter()
     {
-        _characterAnimator.Jump();
+        if (_fsm.IsOnGround)
+            _characterAnimator.Jump();
     }
 
     public override void Update()
     {
-        if (_fsm.IsOnGround)
+        if (_fsm.IsOnGround && _fsm.JumpDirection > 0)
             _rigidbody.linearVelocityY = _jumpSpeed;
 
         if (_fsm.JumpDirection == 0 && _fsm.IsOnGround)
-            _characterAnimator.Idle();
+            _fsm.SetState<IdleState>();
         else
             _characterAnimator.Landing();
+
+        if (_fsm.MoveDirection != 0)
+            _fsm.SetState<MoveState>();
     }
 }

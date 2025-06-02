@@ -36,7 +36,9 @@ public class CharacterAnimator : MonoBehaviour
     {
         _animator.SetBool(_isOnGround, true);
         _animator.SetBool(_isStanding, true);
+        _animator.SetBool(_isLanding, false);
         _animator.SetBool(_isJumped, false);
+        _animator.SetFloat(_direction, 0);
     }
 
     public void Jump()

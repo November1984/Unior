@@ -4,32 +4,17 @@ using System.Collections.Generic;
 public class Fsm
 {
     private FsmState _currentState;
-    private Dictionary<Type, FsmState> _states = new();
+    private readonly Dictionary<Type, FsmState> _states = new();
 
-    public Fsm(
-        ref Action<float> move,
-        CharacterAnimator characterAnimator
-        )
+    public Fsm(CharacterAnimator characterAnimator)
     {
-        move += ReadMoveInput;
-        CharacterAnimator = characterAnimator;
-    }
-
-    public Fsm(
-            ref Action<float> move,
-            ref Action<float> jump,
-            CharacterAnimator characterAnimator
-            )
-    {
-        move += ReadMoveInput;
-        jump += ReadJumpInput;
         CharacterAnimator = characterAnimator;
     }
 
     public float MoveDirection { get; private set; }
     public float JumpDirection { get; private set; }
     public bool IsOnGround { get; private set; }
-    public  CharacterAnimator CharacterAnimator { get; private set; }
+    public CharacterAnimator CharacterAnimator { get; private set; }
 
     public void SetState<Type>() where Type : FsmState
     {
@@ -50,24 +35,21 @@ public class Fsm
 
     public void AddState(FsmState state)
     {
-            _states.Add(state.GetType(), state);
+        _states.Add(state.GetType(), state);
     }
 
-    public void Update()
-    {
-        _currentState?.Update();
-    }
-
-    private void ReadMoveInput(float value)
+    public void SetMoveInput(float value, bool isOnGround)
     {
         MoveDirection = value;
+        IsOnGround = isOnGround;
 
         _currentState?.Update();
     }
 
-    private void ReadJumpInput(float value)
+    public void SetJumpInput(float value, bool isOnGround)
     {
         JumpDirection = value;
+        IsOnGround = isOnGround;
 
         _currentState?.Update();
     }

@@ -13,7 +13,8 @@ public class MoveState : FsmState
 
     public override void Enter()
     {
-        _characterAnimator.Move(_fsm.MoveDirection);
+        if (_fsm.IsOnGround)
+            _characterAnimator.Move(_fsm.MoveDirection);
     }
 
     public override void Update()
@@ -24,8 +25,13 @@ public class MoveState : FsmState
             return;
         }
 
+        if (_fsm.JumpDirection > 0)
+            _fsm.SetState<JumpState>();
+
         Vector2 direction = new(_fsm.MoveDirection, 0);
         _transform.Translate(_runSpeed * Time.deltaTime * direction);
-        _characterAnimator.Move(_fsm.MoveDirection);
+
+        if (_fsm.IsOnGround)
+            _characterAnimator.Move(_fsm.MoveDirection);
     }
 }

@@ -1,8 +1,6 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterAnimator))]
-[RequireComponent(typeof(Unit))]
 public class InputReader : MonoBehaviour, IUnitMover
 {
     private const string Horisontal = "Horizontal";

@@ -1,9 +1,6 @@
 using UnityEngine;
 using System;
 
-[RequireComponent(typeof(CharacterAnimator))]
-[RequireComponent(typeof(Unit))]
-
 public class Patroller : MonoBehaviour, IUnitMover
 {
     [SerializeField] private float _closeRange = 0.1f;

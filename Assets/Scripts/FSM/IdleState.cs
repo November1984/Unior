@@ -1,9 +1,17 @@
+using UnityEngine;
+
 public class IdleState : FsmState
 {
-    public IdleState(Fsm fsm) : base(fsm) { }
+    protected readonly CharacterAnimator _characterAnimator;
+    
+    public IdleState(FiniteStateMachine fsm) : base(fsm)
+    {
+        _characterAnimator = _fsm.CharacterAnimator;
+    }
 
     public override void Enter()
     {
+        Debug.Log($"{this.GetType()} - Enter");
         _characterAnimator.Idle();
     }
 

@@ -30,6 +30,16 @@ public class CharacterAnimator : MonoBehaviour
     {
         _animator.SetFloat(_direction, value);
         _animator.SetBool(_isStanding, false);
+        _animator.SetBool(_isOnGround, false);
+    }
+
+    public void GroundMove(float value)
+    {
+        _animator.SetFloat(_direction, value);
+        _animator.SetBool(_isStanding, false);
+        _animator.SetBool(_isOnGround, true);
+        _animator.SetBool(_isLanding, false);
+        _animator.SetBool(_isJumped, false);
     }
 
     public void Idle()
@@ -53,5 +63,7 @@ public class CharacterAnimator : MonoBehaviour
     {
         _animator.SetBool(_isLanding, true);
         _animator.SetBool(_isJumped, false);
+        _animator.SetBool(_isOnGround, false);
+        _animator.SetBool(_isStanding, false);
     }
 }

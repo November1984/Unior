@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-
-public class Fsm
+    
+public class FiniteStateMachine
 {
-    private FsmState _currentState;
     private readonly Dictionary<Type, FsmState> _states = new();
+    private FsmState _currentState;
 
-    public Fsm(CharacterAnimator characterAnimator)
+    public FiniteStateMachine(CharacterAnimator characterAnimator)
     {
         CharacterAnimator = characterAnimator;
     }

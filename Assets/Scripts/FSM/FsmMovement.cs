@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Unit))]
 public class FsmMovement : MonoBehaviour
 {
-    private Fsm _fsm;
+    private FiniteStateMachine _fsm;
     private IUnitMover _unitMovement;
     private Unit _unit;
     private CharacterAnimator _characterAnimator;

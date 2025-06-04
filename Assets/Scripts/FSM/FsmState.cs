@@ -1,12 +1,10 @@
 public abstract class FsmState
 {
-    protected readonly Fsm _fsm;
-    protected readonly CharacterAnimator _characterAnimator;
+    protected readonly FiniteStateMachine _fsm;
 
-    public FsmState(Fsm fsm)
+    public FsmState(FiniteStateMachine fsm)
     {
         _fsm = fsm;
-        _characterAnimator = _fsm.CharacterAnimator;
     }
 
     public virtual void Enter() { }

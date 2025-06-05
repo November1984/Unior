@@ -2,47 +2,64 @@ using UnityEngine;
 
 public class MoveState : FsmState
 {
-    private readonly Transform _transform;
-    private readonly float _runSpeed;
-    protected readonly CharacterAnimator _characterAnimator;
+    private readonly CharacterAnimator _characterAnimator;
+    private readonly Unit _unit;
 
-    public MoveState(FiniteStateMachine fsm, Transform transform, float runSpeed) : base(fsm)
+    private int _moveDirection;
+    public MoveState(
+            FiniteStateMachine fsm,
+            Unit unit,
+            CharacterAnimator characterAnimator
+            ) : base(fsm)
     {
-        _transform = transform;
-        _runSpeed = runSpeed;
-        _characterAnimator = _fsm.CharacterAnimator;
+        _characterAnimator = characterAnimator;
+        _unit = unit;
     }
 
     public override void Enter()
     {
-        Debug.Log($"{this.GetType()} - Enter");
-        if (_fsm.IsOnGround)
-            _characterAnimator.GroundMove(_fsm.MoveDirection);
+        _unit.Moved += SetMoveDirection;
+        _unit.Jumped += MakeJump;
+
+        if (_unit.IsOnGround)
+            _characterAnimator.GroundMove(_moveDirection);
     }
 
     public override void Update()
     {
-        if (_fsm.MoveDirection == 0)
-        {
-            Debug.Log($"{this.GetType()} - Exit");
+        if (_unit.IsOnGround)
+            _characterAnimator.GroundMove(_moveDirection);
+        else
+            _characterAnimator.Move(_moveDirection);
 
-            _fsm.SetState<IdleState>();
-            return;
+        Vector2 direction = new(_moveDirection, 0);
+        _unit.Transform.Translate(_unit.RunSpeed * Time.deltaTime * direction);
+    }
+
+    public override void Exit()
+    {
+        _unit.Moved -= SetMoveDirection;
+        _unit.Jumped -= MakeJump;
+    }
+
+    private void SetMoveDirection(int value)
+    {
+        if (value != 0)
+        {
+            _moveDirection = value;
+
+            Update();
         }
 
-        if (_fsm.JumpDirection > 0)
+        if (_unit.IsOnGround && value == 0)
+            _fsm.SetState<IdleState>();
+    }
+
+    private void MakeJump(int value)
+    {
+        if (value != 0 && _unit.IsOnGround)
             _fsm.SetState<JumpState>();
 
-        Vector2 direction = new(_fsm.MoveDirection, 0);
-        _transform.Translate(_runSpeed * Time.deltaTime * direction);
-
-        if (_fsm.IsOnGround)
-        {
-            Debug.Log($"{this.GetType()} - OnGround");
-
-            _characterAnimator.GroundMove(_fsm.MoveDirection);
-        }
-        else
-            _characterAnimator.Move(_fsm.MoveDirection);
+        Update();
     }
 }

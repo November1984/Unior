@@ -1,13 +1,17 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(GroundDetector))]
 
-public class Unit : MonoBehaviour, IMovable
+public class Unit : MonoBehaviour
 {
     [SerializeField] private float _runSpeed = 1f;
     [SerializeField] private float _jumpSpeed = 6f;
 
+    public event Action<int> Moved;
+    public event Action<int> Jumped;
+    
     private Rigidbody2D _rigidBody;
     private bool _isOnGround;
     private GroundDetector _groundContactCounter;
@@ -32,6 +36,16 @@ public class Unit : MonoBehaviour, IMovable
     private void OnDisable()
     {
         _groundContactCounter.Grounded -= OnGrounded;
+    }
+
+    public void MoveNotify(int value)
+    {
+        Moved?.Invoke(value);
+    }
+
+    public void JumpedNotify(int value)
+    {
+        Jumped?.Invoke(value);
     }
 
     private void OnGrounded(bool value)

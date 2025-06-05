@@ -26,16 +26,14 @@ public class CharacterAnimator : MonoBehaviour
         _direction = Animator.StringToHash(Direction);
     }
 
-    public void Move(float value)
+    public void Move(int value)
     {
-        _animator.SetFloat(_direction, value);
-        _animator.SetBool(_isStanding, false);
-        _animator.SetBool(_isOnGround, false);
+        _animator.SetInteger(_direction, value);
     }
 
-    public void GroundMove(float value)
+    public void GroundMove(int value)
     {
-        _animator.SetFloat(_direction, value);
+        _animator.SetInteger(_direction, value);
         _animator.SetBool(_isStanding, false);
         _animator.SetBool(_isOnGround, true);
         _animator.SetBool(_isLanding, false);
@@ -48,7 +46,7 @@ public class CharacterAnimator : MonoBehaviour
         _animator.SetBool(_isStanding, true);
         _animator.SetBool(_isLanding, false);
         _animator.SetBool(_isJumped, false);
-        _animator.SetFloat(_direction, 0);
+        _animator.SetInteger(_direction, 0);
     }
 
     public void Jump()

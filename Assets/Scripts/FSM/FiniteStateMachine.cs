@@ -6,17 +6,7 @@ public class FiniteStateMachine
     private readonly Dictionary<Type, FsmState> _states = new();
     private FsmState _currentState;
 
-    public FiniteStateMachine(CharacterAnimator characterAnimator)
-    {
-        CharacterAnimator = characterAnimator;
-    }
-
-    public float MoveDirection { get; private set; }
-    public float JumpDirection { get; private set; }
-    public bool IsOnGround { get; private set; }
-    public CharacterAnimator CharacterAnimator { get; private set; }
-
-    public void SetState<Type>() where Type : FsmState
+      public void SetState<Type>() where Type : FsmState
     {
         var type = typeof(Type);
 
@@ -38,19 +28,8 @@ public class FiniteStateMachine
         _states.Add(state.GetType(), state);
     }
 
-    public void SetMoveInput(float value, bool isOnGround)
+    public void Update()
     {
-        MoveDirection = value;
-        IsOnGround = isOnGround;
-
-        _currentState?.Update();
-    }
-
-    public void SetJumpInput(float value, bool isOnGround)
-    {
-        JumpDirection = value;
-        IsOnGround = isOnGround;
-
         _currentState?.Update();
     }
 }

@@ -4,44 +4,73 @@ public class JumpState : FsmState
 {
     private readonly float _jumpSpeed;
     private readonly Rigidbody2D _rigidbody;
-    protected readonly CharacterAnimator _characterAnimator;
+    private readonly CharacterAnimator _characterAnimator;
+    private readonly Unit _unit;
+
+    private int _jumpDirection;
+    private int _moveDirection;
+    private bool _isLanded = false;
 
     public JumpState(
                 FiniteStateMachine fsm,
-                Rigidbody2D rigidbody,
-                float jumpSpeed) : base(fsm)
+                Unit unit,
+                CharacterAnimator characterAnimator
+                ) : base(fsm)
     {
-        _rigidbody = rigidbody;
-        _jumpSpeed = jumpSpeed;
-        _characterAnimator = _fsm.CharacterAnimator;
+        _unit = unit;
+        _characterAnimator = characterAnimator;
+        _rigidbody = _unit.Rigidbody;
+        _jumpSpeed = _unit.JumpSpeed;
     }
 
     public override void Enter()
     {
-        Debug.Log($"{this.GetType()} - Enter");
-
-
-        _characterAnimator.Jump();
+        _unit.Moved += SetMoveDirection;
+        _unit.Jumped += SetJumpDirection;
     }
 
     public override void Update()
     {
-        if (_fsm.IsOnGround && _fsm.JumpDirection > 0)
+        if (_unit.IsOnGround && _jumpDirection > 0)
         {
+            _characterAnimator.Jump();
             _rigidbody.linearVelocityY = _jumpSpeed;
-            return;
         }
 
-        if (_fsm.IsOnGround)
+        if (_unit.IsOnGround == false)
         {
-            _fsm.SetState<IdleState>();
-            return;
+            _characterAnimator.Landing();
+            _isLanded = true;
         }
 
-        if (_fsm.IsOnGround == false)
-            _characterAnimator.Landing();
-
-        if (_fsm.MoveDirection != 0)
+        if (_moveDirection != 0)
+        {
             _fsm.SetState<MoveState>();
+            _moveDirection = 0;
+        }
+
+        if (_unit.IsOnGround && _isLanded)
+        {
+            _characterAnimator.Idle();
+            _isLanded = false;
+        }
+    }
+
+    public override void Exit()
+    {
+        _unit.Moved -= SetMoveDirection;
+        _unit.Jumped -= SetJumpDirection;
+    }
+
+    private void SetMoveDirection(int value)
+    {
+        if (value != 0)
+            _moveDirection = value;
+    }
+
+    private void SetJumpDirection(int value)
+    {
+        _jumpDirection = value;
+        Update();
     }
 }

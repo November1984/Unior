@@ -1,16 +1,21 @@
 using UnityEngine;
 using System;
 
-public class Patroller : MonoBehaviour, IUnitMover
+[RequireComponent(typeof(Unit))]
+
+public class Patroller : MonoBehaviour
 {
     [SerializeField] private float _closeRange = 0.1f;
     [SerializeField] private Transform[] _waypoints;
 
     private int _currentWaypointNumber = 0;
     private Vector2 _currentWaypointDistance;
+    private Unit _unit;
 
-    public event Action<float> UnitMoved;
-    public event Action<float> UnitJumped;
+    private void Awake()
+    {
+        _unit = GetComponent<Unit>();
+    }
 
     private void Start()
     {
@@ -21,13 +26,13 @@ public class Patroller : MonoBehaviour, IUnitMover
     {
         _currentWaypointDistance = _waypoints[_currentWaypointNumber].position - transform.position;
 
-        UnitMoved?.Invoke(GetDirection(_currentWaypointDistance.x));
+        _unit.MoveNotify(GetDirection(_currentWaypointDistance.x));
 
         if (Vector2.SqrMagnitude(_currentWaypointDistance) < _closeRange)
             _currentWaypointNumber = ++_currentWaypointNumber % _waypoints.Length;
     }
 
-    private float GetDirection(float value)
+    private int GetDirection(float value)
     {
         return (value == 0) ? 0 : Math.Sign(value);
     }

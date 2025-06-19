@@ -1,10 +1,10 @@
-public class IdleState : FsmState
+public class IdleState : State
 {
     private readonly CharacterAnimator _characterAnimator;
     private Unit _unit;
 
     public IdleState(
-                FiniteStateMachine fsm,
+                StateMachine fsm,
                 Unit unit,
                 CharacterAnimator characterAnimator
                 ) : base(fsm)

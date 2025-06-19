@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
     
-public class FiniteStateMachine
+public class StateMachine
 {
-    private readonly Dictionary<Type, FsmState> _states = new();
-    private FsmState _currentState;
+    private readonly Dictionary<Type, State> _states = new();
+    private State _currentState;
 
-      public void SetState<Type>() where Type : FsmState
+      public void SetState<Type>() where Type : State
     {
         var type = typeof(Type);
 
@@ -23,7 +23,7 @@ public class FiniteStateMachine
         }
     }
 
-    public void AddState(FsmState state)
+    public void AddState(State state)
     {
         _states.Add(state.GetType(), state);
     }

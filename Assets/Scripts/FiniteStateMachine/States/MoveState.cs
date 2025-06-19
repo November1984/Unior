@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class MoveState : FsmState
+public class MoveState : State
 {
     private readonly CharacterAnimator _characterAnimator;
     private readonly Unit _unit;
 
     private int _moveDirection;
     public MoveState(
-            FiniteStateMachine fsm,
+            StateMachine fsm,
             Unit unit,
             CharacterAnimator characterAnimator
             ) : base(fsm)

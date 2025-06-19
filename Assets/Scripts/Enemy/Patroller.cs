@@ -17,11 +17,6 @@ public class Patroller : MonoBehaviour
         _unit = GetComponent<Unit>();
     }
 
-    private void Start()
-    {
-        transform.position = _waypoints[0].position;
-    }
-
     private void Update()
     {
         _currentWaypointDistance = _waypoints[_currentWaypointNumber].position - transform.position;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class JumpState : FsmState
+public class JumpState : State
 {
     private readonly float _jumpSpeed;
     private readonly Rigidbody2D _rigidbody;
@@ -12,7 +12,7 @@ public class JumpState : FsmState
     private bool _isLanded = false;
 
     public JumpState(
-                FiniteStateMachine fsm,
+                StateMachine fsm,
                 Unit unit,
                 CharacterAnimator characterAnimator
                 ) : base(fsm)

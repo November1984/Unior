@@ -8,15 +8,16 @@ public class Path
     public Path(IEnumerable<Transform> path)
     {
         _waypoints = new Queue<Transform>(path);
-        NextPoint = _waypoints.Dequeue();
+        NextWaypoint = _waypoints.Dequeue();
     }
 
-    public Transform NextPoint { get; private set; }
+    public Transform NextWaypoint { get; private set; }
+    public float CloseDistance { get; private set; } = 0.1f;
 
-    public void MoveNext()
+    public void MoveNextWaypoint()
     {
-        _waypoints.Enqueue(NextPoint);
+        _waypoints.Enqueue(NextWaypoint);
 
-        NextPoint = _waypoints.Dequeue();
+        NextWaypoint = _waypoints.Dequeue();
     }
 }

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-[RequireComponent(typeof(StateMachineFactory))]
+[RequireComponent(typeof(EnemyStateMachineFactory))]
 
-public class Enemy : MonoBehaviour
+public class Enemy : Unit
 {
     private StateMachine _stateMachine;
 
@@ -13,6 +13,11 @@ public class Enemy : MonoBehaviour
 
     public void Initialize(Path path)
     {
-        _stateMachine = GetComponent<StateMachineFactory>().Create(this, path);
+        _stateMachine = GetComponent<EnemyStateMachineFactory>().Create(this, path);
+    }
+
+    public void MoveTo(Vector3 waypoint)
+    {
+        transform.position = Vector3.MoveTowards(transform.position, waypoint, _runSpeed * Time.deltaTime);
     }
 }

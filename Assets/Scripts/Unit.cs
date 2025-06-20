@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField] private float _runSpeed = 1f;
-    [SerializeField] private float _jumpSpeed = 6f;
+    [SerializeField] protected float _runSpeed = 1f;
+    [SerializeField] protected float _jumpSpeed = 6f;
 
     public event Action<int> Moved;
     public event Action<int> Jumped;
@@ -20,7 +20,6 @@ public class Unit : MonoBehaviour
     public float JumpSpeed => _jumpSpeed;
     public Rigidbody2D Rigidbody => _rigidBody;
     public bool IsOnGround => _isOnGround;
-    public Transform Transform => transform;
 
     private void Awake()
     {

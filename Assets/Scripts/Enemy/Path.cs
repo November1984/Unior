@@ -12,7 +12,7 @@ public class Path
     }
 
     public Transform NextWaypoint { get; private set; }
-    public float CloseDistance { get; private set; } = 0.1f;
+    public float CloseDistance { get; private set; } = 0.5f;
 
     public void MoveNextWaypoint()
     {

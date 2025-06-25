@@ -18,7 +18,6 @@ public class Unit : MonoBehaviour
 
     public float RunSpeed => _runSpeed;
     public float JumpSpeed => _jumpSpeed;
-    public Rigidbody2D Rigidbody => _rigidBody;
     public bool IsOnGround => _isOnGround;
 
     private void Awake()
@@ -51,6 +50,11 @@ public class Unit : MonoBehaviour
     {
         Vector2 position = (Vector2) transform.position + direction * RunSpeed * Time.deltaTime * Vector2.right;
         transform.position = position;
+    }
+
+    public void Jump()
+    {
+        _rigidBody.linearVelocityY = _jumpSpeed;
     }
 
     private void OnGrounded(bool value)

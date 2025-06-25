@@ -2760,9 +2760,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _path: {fileID: 1329984086}
-  _spawns: {fileID: 1329984086}
+  _enemySpawns: {fileID: 1327635741}
+  _playerSpawn: {fileID: 216309303}
   _enemies: 1
   _enemyPrefab: {fileID: 1466627834}
+  _playerPrefab: {fileID: 2121019483}
   _delay: 1
 --- !u!4 &1245327313
 Transform:
@@ -4734,13 +4736,14 @@ GameObject:
   - component: {fileID: 2121019488}
   - component: {fileID: 2121019490}
   - component: {fileID: 2121019491}
+  - component: {fileID: 2121019492}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!70 &2121019477
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -4960,6 +4963,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _wallet: {fileID: 2125990474}
+--- !u!114 &2121019492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121019476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2fcb669de3a711159537bca3dc9e2d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2125990473
 GameObject:
   m_ObjectHideFlags: 0

@@ -47,6 +47,12 @@ public class Unit : MonoBehaviour
         Jumped?.Invoke(value);
     }
 
+    public void Move(int direction)
+    {
+        Vector2 position = (Vector2) transform.position + direction * RunSpeed * Time.deltaTime * Vector2.right;
+        transform.position = position;
+    }
+
     private void OnGrounded(bool value)
     {
         _isOnGround = value;

@@ -1,8 +1,8 @@
 public class ToIdleStateTransition : Transition
 {
-    private Enemy _enemy;
+    private Unit _enemy;
 
-    public ToIdleStateTransition(State nextState, Enemy enemy) : base(nextState)
+    public ToIdleStateTransition(State nextState, Unit enemy) : base(nextState)
     {
         _enemy = enemy;
     }

@@ -3,7 +3,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(GroundDetector))]
-[RequireComponent(typeof(UnitAnimator))]
 
 public class Unit : MonoBehaviour
 {
@@ -16,7 +15,6 @@ public class Unit : MonoBehaviour
     private Rigidbody2D _rigidBody;
     private bool _isOnGround;
     private GroundDetector _groundContactCounter;
-    private UnitAnimator _unitAnimator;
 
     public float RunSpeed => _runSpeed;
     public float JumpSpeed => _jumpSpeed;
@@ -26,7 +24,6 @@ public class Unit : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _groundContactCounter = GetComponent<GroundDetector>();
-        _unitAnimator = GetComponent<UnitAnimator>();
     }
 
     private void OnEnable()
@@ -53,15 +50,11 @@ public class Unit : MonoBehaviour
     {
         Vector2 position = (Vector2)transform.position + direction * RunSpeed * Time.deltaTime * Vector2.right;
         transform.position = position;
-
-        _unitAnimator.Move(direction);
     }
 
     public void Jump()
     {
         _rigidBody.linearVelocityY = _jumpSpeed;
-
-        _unitAnimator.Jump();
     }
 
     private void OnGrounded(bool value)

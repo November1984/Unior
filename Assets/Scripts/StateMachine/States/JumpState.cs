@@ -1,10 +1,12 @@
 public class JumpState : State
 {
     private readonly Unit _unit;
+    private readonly UnitAnimator _unitAnimator;
 
-    public JumpState(IStateChanger stateChanger, Unit unit) : base(stateChanger)
+    public JumpState(IStateChanger stateChanger, Unit unit, UnitAnimator unitAnimator) : base(stateChanger)
     {
         _unit = unit;
+        _unitAnimator = unitAnimator;
     }
 
     public override void Enter()
@@ -20,6 +22,9 @@ public class JumpState : State
     private void Jump(int direction)
     {
         if (_unit.IsOnGround && direction > 0)
+        {
             _unit.Jump();
+            _unitAnimator.Jumping();
+        }
     }
 }

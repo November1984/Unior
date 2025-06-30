@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class PlayerStateMachineFactory : MonoBehaviour
 {
-    public StateMachine Create(Player player)
+    public StateMachine Create(Player player, UnitAnimator unitAnimator)
     {
         StateMachine stateMachine = new();
 
         State initState = new InitState(stateMachine);
-        State idleState = new IdleState(stateMachine);
-        State moveState = new MoveState(stateMachine, player);
-        State jumpState = new JumpState(stateMachine, player);
+        State idleState = new IdleState(stateMachine, unitAnimator);
+        State moveState = new MoveState(stateMachine, player, unitAnimator);
+        State jumpState = new JumpState(stateMachine, player, unitAnimator);
 
         ToIdleStateTransition toIdleStateTransition = new(idleState, player);
         ToMoveStateTransition toMoveStateTransition = new(moveState);

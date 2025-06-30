@@ -9,7 +9,6 @@ public class Player : Unit
     private void Update()
     {
         _stateMachine?.Update();
-        Debug.Log($"{_stateMachine.CurrentState}");
     }
 
     public void Initialize()

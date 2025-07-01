@@ -32,6 +32,6 @@ public abstract class State
         OnUpdate();
     }
 
-    protected virtual void OnUpdate() { }
     public virtual void Exit() { }
+    protected virtual void OnUpdate() { }
 }

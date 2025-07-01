@@ -19,11 +19,11 @@ public class MoveState : State
         _unit.Moved -= Move;
     }
 
-    private void Move(int direction)
+    private void Move(int value)
     {
-        _unit.Move(direction);
-        _unitAnimator.MoveDirection = direction;
-        
+        _unit.Move(value);
+        _unitAnimator.MoveDirection = value;
+
         if (_unit.IsOnGround)
             _unitAnimator.MoveOnGround();
     }

@@ -1,15 +1,14 @@
-using UnityEngine;
-
 public class ToMoveStateTransition : Transition
 {
-    const string Horizontal = nameof(Horizontal);
+    private readonly Unit _unit;
 
-    public ToMoveStateTransition(State nextState) : base(nextState)
+    public ToMoveStateTransition(State nextState, Unit unit) : base(nextState)
     {
-     }
+        _unit = unit;
+    }
 
     protected override bool CanTransit()
     {
-        return Input.GetAxisRaw(Horizontal) != 0;
+        return _unit.MoveInput != 0;
     }
 }

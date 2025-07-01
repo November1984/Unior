@@ -1,14 +1,14 @@
 public class TargetReachedState : State
 {
-    private readonly Path _path;
+    private readonly WaypointsContainer _waypointsContainer;
 
-    public TargetReachedState(IStateChanger stateMachine, Path path) : base(stateMachine)
+    public TargetReachedState(IStateChanger stateMachine, WaypointsContainer waypointsContainer) : base(stateMachine)
     {
-        _path = path;
+        _waypointsContainer = waypointsContainer;
     }
 
     protected override void OnUpdate()
     {
-        _path.MoveNextWaypoint();
+        _waypointsContainer.SetNextWaypoint();
     }
 }

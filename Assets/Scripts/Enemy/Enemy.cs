@@ -14,7 +14,7 @@ public class Enemy : Unit
         _stateMachine?.Update();
     }
 
-    public void Initialize(Path path)
+    public void Initialize(WaypointsContainer path)
     {
         _unitAnimator = GetComponent<UnitAnimator>();
         _stateMachine = GetComponent<EnemyStateMachineFactory>().Create(this, path, _unitAnimator);

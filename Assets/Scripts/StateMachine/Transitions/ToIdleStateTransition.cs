@@ -1,21 +1,16 @@
-using UnityEngine;
-
 public class ToIdleStateTransition : Transition
 {
-    const string Horizontal = nameof(Horizontal);
-    const string Vertical = nameof(Vertical);
+    private readonly Unit _unit;
 
-    private readonly Unit _enemy;
-
-    public ToIdleStateTransition(State nextState, Unit enemy) : base(nextState)
+    public ToIdleStateTransition(State nextState, Unit unit) : base(nextState)
     {
-        _enemy = enemy;
+        _unit = unit;
     }
 
     protected override bool CanTransit()
     {
-        return _enemy.IsOnGround &&
-               Input.GetAxisRaw(Horizontal) == 0 &&
-               Input.GetAxisRaw(Vertical) == 0;
+        return _unit.IsOnGround &&
+               _unit.MoveInput == 0 &&
+               _unit.JumpInput == 0;
     }
 }

@@ -2,18 +2,18 @@ public class PatrolState : State
 {
     private readonly Enemy _enemy;
     private readonly UnitAnimator _unitAnimator;
-    private readonly Path _path;
+    private readonly WaypointsContainer _waypointsContainer;
 
-    public PatrolState(IStateChanger stateChanger, Enemy enemy, Path path, UnitAnimator unitAnimator) : base(stateChanger)
+    public PatrolState(IStateChanger stateChanger, Enemy enemy, WaypointsContainer waypointsContainer, UnitAnimator unitAnimator) : base(stateChanger)
     {
         _enemy = enemy;
         _unitAnimator = unitAnimator;
-        _path = path;
+        _waypointsContainer = waypointsContainer;
     }
 
     protected override void OnUpdate()
     {
-        _enemy.MoveTo(_path.NextWaypoint.position);
+        _enemy.MoveTo(_waypointsContainer.NextWaypoint.position);
         _unitAnimator.MoveOnGround();
     }
 }

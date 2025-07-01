@@ -12,7 +12,7 @@ public class PlayerStateMachineFactory : MonoBehaviour
         State jumpState = new JumpState(stateMachine, player, unitAnimator);
 
         ToIdleStateTransition toIdleStateTransition = new(idleState, player);
-        ToMoveStateTransition toMoveStateTransition = new(moveState);
+        ToMoveStateTransition toMoveStateTransition = new(moveState, player);
         ToJumpStateTransition toJumpStateTransition = new(jumpState, player);
 
         initState.AddTransition(toIdleStateTransition);

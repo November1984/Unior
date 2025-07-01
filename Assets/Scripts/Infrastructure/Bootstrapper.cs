@@ -34,7 +34,7 @@ public class Bootstrapper : MonoBehaviour
 
             Enemy enemy = Instantiate(_enemyPrefab, position, Quaternion.identity);
 
-            enemy.Initialize(new Path(_path.Cast<Transform>()));
+            enemy.Initialize(new WaypointsContainer(_path.Cast<Transform>()));
             enemy.gameObject.SetActive(true);
         }
     }

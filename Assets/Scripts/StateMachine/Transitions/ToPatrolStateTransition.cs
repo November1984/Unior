@@ -3,19 +3,19 @@ using UnityEngine;
 public class ToPatrolStateTransition : Transition
 {
     private readonly Enemy _enemy;
-    private readonly Path _path;
+    private readonly WaypointsContainer _waypointsContainer;
 
-    public ToPatrolStateTransition(State nextState, Enemy enemy, Path path) : base(nextState)
+    public ToPatrolStateTransition(State nextState, Enemy enemy, WaypointsContainer waypointsContainer) : base(nextState)
     {
         _enemy = enemy;
-        _path = path;
+        _waypointsContainer = waypointsContainer;
     }
 
     protected override bool CanTransit()
     {
-        Vector3 offset = _enemy.transform.position - _path.NextWaypoint.position;
+        Vector3 offset = _enemy.transform.position - _waypointsContainer.NextWaypoint.position;
         float sqrLength = offset.sqrMagnitude;
 
-        return _enemy.IsOnGround && sqrLength > _path.CloseDistance * _path.CloseDistance;
+        return _enemy.IsOnGround && sqrLength > _waypointsContainer.CloseDistance * _waypointsContainer.CloseDistance;
     }
 }

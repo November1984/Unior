@@ -1,9 +1,5 @@
-using System;
 using System.Collections;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Animator))]
 
@@ -18,6 +14,11 @@ public class UnitAnimator : MonoBehaviour
     private Animator _animator;
     private Coroutine _coroutine;
     private int _moveDirection;
+    private int _jumpForward;
+    private int _jumpBackward;
+    private int _moveForward;
+    private int _moveBackward;
+    private int _idle;
 
     public int MoveDirection
     {
@@ -31,6 +32,11 @@ public class UnitAnimator : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _jumpForward = Animator.StringToHash(JumpForward);
+        _jumpBackward = Animator.StringToHash(JumpBackward);
+        _moveForward = Animator.StringToHash(MoveForward);
+        _moveBackward = Animator.StringToHash(MoveBackward);
+        _idle = Animator.StringToHash(Idle);
     }
 
     public void Jumping()
@@ -41,14 +47,14 @@ public class UnitAnimator : MonoBehaviour
     public void MoveOnGround()
     {
         if (_moveDirection >= 0)
-            _animator.Play(MoveForward);
+            _animator.Play(_moveForward);
         else
-            _animator.Play(MoveBackward);
+            _animator.Play(_moveBackward);
     }
 
     public void Standing()
     {
-        _animator.Play(Idle);
+        _animator.Play(_idle);
     }
 
     private IEnumerator JumpForcing()
@@ -61,9 +67,9 @@ public class UnitAnimator : MonoBehaviour
             yield return waitForEndOfFrame;
 
             if (_moveDirection >= 0)
-                _animator.Play(JumpForward);
+                _animator.Play(_jumpForward);
             else
-                _animator.Play(JumpBackward);
+                _animator.Play(_jumpBackward);
 
             canJump = false;
         }

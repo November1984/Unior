@@ -1,8 +1,17 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Unit))]
+
 public class Collector : MonoBehaviour
 {
     [SerializeField] private Wallet _wallet;
+
+    private Unit _unit;
+
+    private void Awake()
+    {
+        _unit = GetComponent<Unit>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -10,10 +19,18 @@ public class Collector : MonoBehaviour
         {
             CollectCoin();
             coin.CollectedNotify();
+            return;
+        }
+
+        if (collision.gameObject.TryGetComponent<MedKit>(out MedKit medKit) &&
+            _unit.CanHeal)
+        {
+            _unit.Heal(medKit.HealAmount);
+            medKit.CollectedNotify();
         }
     }
 
-    public void CollectCoin()
+    private void CollectCoin()
     {
         _wallet.AddCoin();
     }

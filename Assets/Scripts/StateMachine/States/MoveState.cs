@@ -11,17 +11,19 @@ public class MoveState : State
 
     public override void Enter()
     {
-        _unit.Moved += Move;
+        _unit.Movement.Moved += Move;
+
+        Move(_unit.Movement.MoveInput);
     }
 
     public override void Exit()
     {
-        _unit.Moved -= Move;
+        _unit.Movement.Moved -= Move;
     }
 
     private void Move(int value)
     {
-        _unit.Move(value);
+        _unit.Movement.Move(value);
         _unitAnimator.MoveDirection = value;
 
         if (_unit.IsOnGround)

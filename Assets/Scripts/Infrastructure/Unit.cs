@@ -1,78 +1,58 @@
-using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(UnitMovement))]
 [RequireComponent(typeof(GroundDetector))]
-[RequireComponent(typeof(InputReader))]
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField] protected float _runSpeed = 1f;
-    [SerializeField] protected float _jumpSpeed = 6f;
-
-    private Rigidbody2D _rigidBody;
-    private bool _isOnGround;
+    private UnitMovement _movement;
     private GroundDetector _groundContactCounter;
-    private InputReader _inputReader;
-    private int _moveInput;
-    private int _jumpInput;
+    private bool _isOnGround;
+    private Health _health;
+    private bool _canHeal;
+    private Fighter _fighter;
+    private bool _canFight;
 
-    public event Action<int> Jumped;
-    public event Action<int> Moved;
-
-    public int MoveInput => _moveInput;
-    public int JumpInput => _jumpInput;
-    public float RunSpeed => _runSpeed;
-    public float JumpSpeed => _jumpSpeed;
+    public UnitMovement Movement => _movement;
     public bool IsOnGround => _isOnGround;
+    public bool CanHeal => _canHeal;
+    public float HitDistance
+    {
+        get
+        {
+            if (_canFight)
+                return _fighter.HitDistance;
+
+            return 0;
+        }
+    }
 
     private void Awake()
     {
-        _rigidBody = GetComponent<Rigidbody2D>();
+        _movement = GetComponent<UnitMovement>();
         _groundContactCounter = GetComponent<GroundDetector>();
-        _inputReader = GetComponent<InputReader>();
+
+        _canHeal = TryGetComponent<Health>(out _health);
+
+        _canFight = TryGetComponent<Fighter>(out _fighter);
     }
 
     private void OnEnable()
     {
         _groundContactCounter.Grounded += OnGrounded;
-        _inputReader.Moved += MovedNotify;
-        _inputReader.Jumped += JumpedNotify;
     }
 
     private void OnDisable()
     {
         _groundContactCounter.Grounded -= OnGrounded;
-        _inputReader.Moved -= MovedNotify;
-        _inputReader.Jumped -= JumpedNotify;
     }
 
-     public void Move(int direction)
+    public void Heal(float value)
     {
-        Vector2 position = (Vector2)transform.position + direction * RunSpeed * Time.deltaTime * Vector2.right;
-        transform.position = position;
+        _health.Increase(value);
     }
 
-    public void Jump()
-    {
-        _rigidBody.linearVelocityY = _jumpSpeed;
-    }
-
-    public void MovedNotify(int value)
-    {
-        _moveInput = value;
-
-        Moved?.Invoke(value);
-    }
-
-    public void JumpedNotify(int value)
-    {
-        _jumpInput = value;
-
-        Jumped?.Invoke(value);
-    }
-
-   private void OnGrounded(bool value)
+    private void OnGrounded(bool value)
     {
         _isOnGround = value;
     }

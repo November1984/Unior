@@ -12,9 +12,9 @@ public class WaypointsContainer
     }
 
     public Transform NextWaypoint { get; private set; }
-    public float CloseDistance { get; private set; } = 0.5f;
+    public float CloseDistance => 0.5f;
 
-    public void SetNextWaypoint()
+    public void EnqueueNextWaypoint()
     {
         _waypoints.Enqueue(NextWaypoint);
 

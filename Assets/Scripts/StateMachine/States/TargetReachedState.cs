@@ -9,6 +9,6 @@ public class TargetReachedState : State
 
     protected override void OnUpdate()
     {
-        _waypointsContainer.SetNextWaypoint();
+        _waypointsContainer.EnqueueNextWaypoint();
     }
 }

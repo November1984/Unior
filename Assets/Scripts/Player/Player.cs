@@ -19,6 +19,4 @@ public class Player : Unit
         _unitAnimator = GetComponent<UnitAnimator>();
         _stateMachine = GetComponent<PlayerStateMachineFactory>().Create(this, _unitAnimator);
     }
-
-
 }

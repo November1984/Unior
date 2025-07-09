@@ -11,19 +11,14 @@ public class JumpState : State
 
     public override void Enter()
     {
-        _unit.Jumped += Jump;
-    }
-
-    public override void Exit()
-    {
-        _unit.Jumped -= Jump;
+        Jump(_unit.Movement.JumpInput);
     }
 
     private void Jump(int value)
     {
         if (_unit.IsOnGround && value > 0)
         {
-            _unit.Jump();
+            _unit.Movement.Jump();
             _unitAnimator.Jumping();
         }
     }

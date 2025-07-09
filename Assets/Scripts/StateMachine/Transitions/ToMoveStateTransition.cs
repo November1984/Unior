@@ -9,6 +9,6 @@ public class ToMoveStateTransition : Transition
 
     protected override bool CanTransit()
     {
-        return _unit.MoveInput != 0;
+        return _unit.Movement.MoveInput != 0;
     }
 }

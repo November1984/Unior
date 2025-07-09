@@ -9,6 +9,6 @@ public class ToJumpStateTransition : Transition
 
     protected override bool CanTransit()
     {
-        return _unit.IsOnGround && _unit.JumpInput != 0;
+        return _unit.IsOnGround && _unit.Movement.JumpInput != 0;
     }
 }

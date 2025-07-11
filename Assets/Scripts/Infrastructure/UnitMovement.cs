@@ -12,13 +12,11 @@ public class UnitMovement : MonoBehaviour
 
     private Rigidbody2D _rigidBody;
     private InputReader _inputReader;
-    private int _moveInput;
-    private int _jumpInput;
 
     public event Action<int> Moved;
 
-    public int MoveInput => _moveInput;
-    public int JumpInput => _jumpInput;
+    public int MoveInput { get; private set; }
+    public int JumpInput { get; private set; }
     public float RunSpeed => _runSpeed;
     public float JumpSpeed => _jumpSpeed;
 
@@ -53,13 +51,13 @@ public class UnitMovement : MonoBehaviour
 
     public void MovedNotify(int value)
     {
-        _moveInput = value;
+        MoveInput = value;
 
         Moved?.Invoke(value);
     }
 
     public void JumpedNotify(int value)
     {
-        _jumpInput = value;
+        JumpInput = value;
     }
 }

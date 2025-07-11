@@ -10,31 +10,22 @@ public class Unit : MonoBehaviour
     private bool _isOnGround;
     private Health _health;
     private bool _canHeal;
-    private Fighter _fighter;
+    private UnitFight _fighter;
     private bool _canFight;
 
     public UnitMovement Movement => _movement;
     public bool IsOnGround => _isOnGround;
     public bool CanHeal => _canHeal;
-    public float HitDistance
-    {
-        get
-        {
-            if (_canFight)
-                return _fighter.HitDistance;
-
-            return 0;
-        }
-    }
-
+    public float HitDistance => _canFight ? _fighter.HitDistance : 0;
+    public bool IsHitting => _fighter.IsHitting;
+    
     private void Awake()
     {
         _movement = GetComponent<UnitMovement>();
         _groundContactCounter = GetComponent<GroundDetector>();
 
         _canHeal = TryGetComponent<Health>(out _health);
-
-        _canFight = TryGetComponent<Fighter>(out _fighter);
+        _canFight = TryGetComponent<UnitFight>(out _fighter);
     }
 
     private void OnEnable()

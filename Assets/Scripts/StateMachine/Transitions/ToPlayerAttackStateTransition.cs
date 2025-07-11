@@ -10,6 +10,6 @@ public class ToPlayerAttackStateTransition : Transition
 
     protected override bool CanTransit()
     {
-        return  true; //"Нажата клавиша атаки" ====
+        return _player.IsHitting;
     }
 }

@@ -10,9 +10,15 @@ public class ToEnemyAttackStateTransition : Transition
 
     protected override bool CanTransit()
     {
-        Vector3 offset = _enemy.transform.position - _enemy.SpottedPlayer.transform.position;
-        float sqrLength = offset.sqrMagnitude;
+        if (_enemy.SpottedPlayer)
+        {
+            Vector3 offset = _enemy.transform.position - _enemy.SpottedPlayer.transform.position;
+            float sqrLength = offset.sqrMagnitude;
 
-        return sqrLength < _enemy.HitDistance * _enemy.HitDistance;
+            return sqrLength < _enemy.HitDistance * _enemy.HitDistance;
+
+        }
+
+        return false;
     }
 }

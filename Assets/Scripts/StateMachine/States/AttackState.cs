@@ -9,8 +9,8 @@ public class AttackState : State
         _unitAnimator = unitAnimator;
     }
 
-    protected override void OnUpdate()
+    public override void Enter()
     {
-        
+        _unitAnimator.Attacking();
     }
 }

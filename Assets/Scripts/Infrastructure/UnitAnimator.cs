@@ -10,6 +10,7 @@ public class UnitAnimator : MonoBehaviour
     const string MoveForward = nameof(MoveForward);
     const string MoveBackward = nameof(MoveBackward);
     const string Idle = nameof(Idle);
+    const string Attack = nameof(Attack);
 
     private Animator _animator;
     private Coroutine _coroutine;
@@ -19,6 +20,7 @@ public class UnitAnimator : MonoBehaviour
     private int _moveForward;
     private int _moveBackward;
     private int _idle;
+    private int _attack;
 
     public int MoveDirection
     {
@@ -37,6 +39,7 @@ public class UnitAnimator : MonoBehaviour
         _moveForward = Animator.StringToHash(MoveForward);
         _moveBackward = Animator.StringToHash(MoveBackward);
         _idle = Animator.StringToHash(Idle);
+        _attack = Animator.StringToHash(Attack);
     }
 
     public void Jumping()
@@ -55,6 +58,11 @@ public class UnitAnimator : MonoBehaviour
     public void Standing()
     {
         _animator.Play(_idle);
+    }
+
+    public void Attacking()
+    {
+        _animator.Play(_attack);
     }
 
     private IEnumerator JumpForcing()

@@ -3,16 +3,19 @@ using UnityEngine;
 
 public class InputReader : MonoBehaviour
 {
-    private const string Horisontal = "Horizontal";
-    private const string Vertical = "Vertical";
+    private const string Horizontal = nameof(Horizontal);
+    private const string Vertical = nameof(Vertical);
+    private const string Jump = nameof(Jump);
 
     public event Action<int> Moved;
     public event Action<int> Jumped;
+    public event Action<bool> IsHitting;
 
     private void Update()
     {
-        MoveNotify((int)Input.GetAxisRaw(Horisontal));
+        MoveNotify((int)Input.GetAxisRaw(Horizontal));
         JumpedNotify((int)Input.GetAxisRaw(Vertical));
+        AttackimgNotify(Input.GetButton(Jump));
     }
 
     private void JumpedNotify(int value)
@@ -23,5 +26,10 @@ public class InputReader : MonoBehaviour
     private void MoveNotify(int value)
     {
         Moved?.Invoke(value);
+    }
+
+    private void AttackimgNotify(bool value)
+    {
+        IsHitting?.Invoke(value);
     }
 }

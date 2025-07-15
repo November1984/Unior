@@ -9,7 +9,7 @@ public class InputReader : MonoBehaviour
 
     public event Action<int> Moved;
     public event Action<int> Jumped;
-    public event Action<bool> IsHitting;
+    public event Action<bool> IsTalking;
 
     private void Update()
     {
@@ -30,6 +30,6 @@ public class InputReader : MonoBehaviour
 
     private void AttackimgNotify(bool value)
     {
-        IsHitting?.Invoke(value);
+        IsTalking?.Invoke(value);
     }
 }

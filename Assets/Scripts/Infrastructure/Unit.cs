@@ -8,24 +8,24 @@ public class Unit : MonoBehaviour
     private UnitMovement _movement;
     private GroundDetector _groundContactCounter;
     private bool _isOnGround;
-    private Health _health;
-    private bool _canHeal;
-    private UnitFight _fighter;
-    private bool _canFight;
+    private Starve _starve;
+    private bool _canStarve;
+    private Talker _talker;
+    private bool _canTalk;
 
     public UnitMovement Movement => _movement;
     public bool IsOnGround => _isOnGround;
-    public bool CanHeal => _canHeal;
-    public float HitDistance => _canFight ? _fighter.HitDistance : 0;
-    public bool IsHitting => _fighter.IsHitting;
-    
+    public bool CanStarve => _canStarve;
+    public float TalkDistance => _canTalk ? _talker.TalkDistance : 0;
+    public bool IsTalking => _talker.IsTalking;
+
     private void Awake()
     {
         _movement = GetComponent<UnitMovement>();
         _groundContactCounter = GetComponent<GroundDetector>();
 
-        _canHeal = TryGetComponent<Health>(out _health);
-        _canFight = TryGetComponent<UnitFight>(out _fighter);
+        _canStarve = TryGetComponent<Starve>(out _starve);
+        _canTalk = TryGetComponent<Talker>(out _talker);
     }
 
     private void OnEnable()
@@ -38,9 +38,14 @@ public class Unit : MonoBehaviour
         _groundContactCounter.Grounded -= OnGrounded;
     }
 
-    public void Heal(float value)
+    public void Talk()
     {
-        _health.Increase(value);
+        _talker.ShowDialog();
+    }
+
+    public void Feed(float value)
+    {
+        _starve.Decrease(value);
     }
 
     private void OnGrounded(bool value)

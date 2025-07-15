@@ -1,9 +1,9 @@
-public class AttackState : State
+public class TalkState : State
 {
     private readonly Unit _unit;
     private readonly UnitAnimator _unitAnimator;
 
-    public AttackState(IStateChanger stateChanger, Unit unit, UnitAnimator unitAnimator) : base(stateChanger)
+    public TalkState(IStateChanger stateChanger, Unit unit, UnitAnimator unitAnimator) : base(stateChanger)
     {
         _unit = unit;
         _unitAnimator = unitAnimator;
@@ -11,6 +11,6 @@ public class AttackState : State
 
     public override void Enter()
     {
-        _unitAnimator.Attacking();
+        _unit.Talk();
     }
 }

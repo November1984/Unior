@@ -11,13 +11,13 @@ public class EnemyStateMachineFactory : MonoBehaviour
         State patrolState = new PatrolState(stateMachine, enemy, waypointsContainer, unitAnimator);
         State targetReachedState = new TargetReachedState(stateMachine, waypointsContainer);
         State chaseState = new ChaseState(stateMachine, enemy, unitAnimator);
-        State attackState = new AttackState(stateMachine, enemy, unitAnimator);
+        State talkState = new TalkState(stateMachine, enemy, unitAnimator);
 
         ToPatrolStateTransition toPatrolStateTransition = new (patrolState, enemy, waypointsContainer);
         ToIdleStateTransition toIdleStateTransition = new (idleState, enemy);
         ToTargetReachedStateTransition toTargetReachedStateTransition = new(targetReachedState, enemy, waypointsContainer);
         ToChaseStateTransition toChaseStateTransition = new(chaseState, enemy);
-        ToEnemyAttackStateTransition toAttackStateTransition = new(attackState, enemy);
+        ToEnemyTalkStateTransition toAttackStateTransition = new(talkState, enemy);
 
         initState.AddTransition(toIdleStateTransition);
         initState.AddTransition(toPatrolStateTransition);

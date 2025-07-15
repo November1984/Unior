@@ -23,9 +23,9 @@ public class Collector : MonoBehaviour
         }
 
         if (collision.gameObject.TryGetComponent<MedKit>(out MedKit medKit) &&
-            _unit.CanHeal)
+            _unit.CanStarve)
         {
-            _unit.Heal(medKit.HealAmount);
+            _unit.Feed(medKit.HealAmount);
             medKit.CollectedNotify();
         }
     }

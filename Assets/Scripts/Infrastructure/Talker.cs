@@ -2,7 +2,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(Starve))]
 [RequireComponent(typeof(InputReader))]
-[RequireComponent(typeof(Dialogue))]
 
 public class Talker : MonoBehaviour
 {
@@ -10,7 +9,6 @@ public class Talker : MonoBehaviour
 
     private Starve _starve;
     private InputReader _inputReader;
-    private Dialogue _dialog;
 
     public float TalkDistance => 1f;
 
@@ -22,12 +20,12 @@ public class Talker : MonoBehaviour
 
     private void OnEnable()
     {
-        _inputReader.IsTalking += TalkingNotify;
+        _inputReader.IsTalked += TalkingNotify;
     }
 
     private void OnDisable()
     {
-        _inputReader.IsTalking -= TalkingNotify;
+        _inputReader.IsTalked -= TalkingNotify;
     }
 
     public void Feed(float value)
@@ -35,9 +33,9 @@ public class Talker : MonoBehaviour
         _starve.Decrease(value);
     }
 
-    public void ShowDialog()
+    public void Talk()
     {
-        _dialog = new();
+        // _dialog = new();
 
         // _dialog.Show(transform.position, value);
     }

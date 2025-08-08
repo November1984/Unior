@@ -9,13 +9,13 @@ public class InputReader : MonoBehaviour
 
     public event Action<int> Moved;
     public event Action<int> Jumped;
-    public event Action<bool> IsTalking;
+    public event Action<bool> IsTalked;
 
     private void Update()
     {
         MoveNotify((int)Input.GetAxisRaw(Horizontal));
         JumpedNotify((int)Input.GetAxisRaw(Vertical));
-        AttackimgNotify(Input.GetButton(Jump));
+        TalkingNotify(Input.GetButton(Jump));
     }
 
     private void JumpedNotify(int value)
@@ -28,8 +28,8 @@ public class InputReader : MonoBehaviour
         Moved?.Invoke(value);
     }
 
-    private void AttackimgNotify(bool value)
+    private void TalkingNotify(bool value)
     {
-        IsTalking?.Invoke(value);
+        IsTalked?.Invoke(value);
     }
 }

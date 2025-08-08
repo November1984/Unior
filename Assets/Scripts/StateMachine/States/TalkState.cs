@@ -11,6 +11,7 @@ public class TalkState : State
 
     public override void Enter()
     {
-        _unit.Talk();
+        if (_unit.IsTalking)
+            _unitAnimator.Talking();
     }
 }

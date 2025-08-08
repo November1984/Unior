@@ -14,6 +14,7 @@ public class UnitMovement : MonoBehaviour
     private InputReader _inputReader;
 
     public event Action<int> Moved;
+    public event Action Talked;
 
     public int MoveInput { get; private set; }
     public int JumpInput { get; private set; }
@@ -38,7 +39,7 @@ public class UnitMovement : MonoBehaviour
         _inputReader.Jumped -= JumpedNotify;
     }
 
-     public void Move(int direction)
+    public void Move(int direction)
     {
         Vector2 position = (Vector2)transform.position + direction * RunSpeed * Time.deltaTime * Vector2.right;
         transform.position = position;

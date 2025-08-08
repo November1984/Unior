@@ -40,7 +40,7 @@ public class Unit : MonoBehaviour
 
     public void Talk()
     {
-        _talker.ShowDialog();
+        _talker.Talk();
     }
 
     public void Feed(float value)

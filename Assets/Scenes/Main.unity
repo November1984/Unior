@@ -4123,7 +4123,6 @@ GameObject:
   - component: {fileID: 1466627850}
   - component: {fileID: 1466627851}
   - component: {fileID: 1466627852}
-  - component: {fileID: 1466627853}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -4244,10 +4243,10 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.2, y: 3.1}
+  m_Size: {x: 1, y: 1.5625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1466627832
@@ -4373,6 +4372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83fee3c42a35bddf48ea25a0c8a770e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _talkDistance: 1
 --- !u!114 &1466627849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4444,18 +4444,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf4be1af176e50f1cb2502bcaebb8453, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1466627853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466627828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b07eabf84edbd5678d7dfcd8071e23d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1737274643
@@ -5696,6 +5684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83fee3c42a35bddf48ea25a0c8a770e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _talkDistance: 2.5
 --- !u!114 &2121019496
 MonoBehaviour:
   m_ObjectHideFlags: 0

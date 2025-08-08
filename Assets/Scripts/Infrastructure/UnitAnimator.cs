@@ -11,6 +11,7 @@ public class UnitAnimator : MonoBehaviour
     const string MoveBackward = nameof(MoveBackward);
     const string Idle = nameof(Idle);
     const string Talk = nameof(Talk);
+    const string EnemyTalk = nameof(EnemyTalk);
 
     private Animator _animator;
     private Coroutine _coroutine;
@@ -21,6 +22,7 @@ public class UnitAnimator : MonoBehaviour
     private int _moveBackward;
     private int _idle;
     private int _talk;
+    private int _enemyTalk;
 
     public int MoveDirection
     {
@@ -40,6 +42,7 @@ public class UnitAnimator : MonoBehaviour
         _moveBackward = Animator.StringToHash(MoveBackward);
         _idle = Animator.StringToHash(Idle);
         _talk = Animator.StringToHash(Talk);
+        _enemyTalk = Animator.StringToHash(EnemyTalk);
     }
 
     public void Jumping()
@@ -63,6 +66,11 @@ public class UnitAnimator : MonoBehaviour
     public void Talking()
     {
         _animator.Play(_talk);
+    }
+
+    public void TalkingEnemy()
+    {
+        _animator.Play(_enemyTalk);
     }
 
     private IEnumerator JumpForcing()

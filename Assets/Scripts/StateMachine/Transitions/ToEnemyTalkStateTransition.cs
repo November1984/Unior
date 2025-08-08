@@ -16,7 +16,6 @@ public class ToEnemyTalkStateTransition : Transition
             float sqrLength = offset.sqrMagnitude;
 
             return sqrLength < _enemy.TalkDistance * _enemy.TalkDistance;
-
         }
 
         return false;

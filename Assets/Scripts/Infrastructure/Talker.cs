@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class Talker : MonoBehaviour
 {
-    public bool IsTalking { get; private set; }
+    [SerializeField] private float _talkDistance = 2.5f;
 
     private Starve _starve;
     private InputReader _inputReader;
 
-    public float TalkDistance => 1f;
+    public bool IsTalking { get; private set; }
+    public float TalkDistance => _talkDistance;
 
     private void Awake()
     {

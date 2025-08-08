@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 65678437}
   - component: {fileID: 65678436}
   m_Layer: 0
-  m_Name: Dialog
+  m_Name: Dialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4459,7 +4459,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sprite: {fileID: 6059874666925905259, guid: 8bc2da378ae6faf9d953df4d86bf5cb7, type: 3}
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 65678437}
+  _spriteRenderer: {fileID: 0}
+  _object: {fileID: 0}
 --- !u!1 &1737274643
 GameObject:
   m_ObjectHideFlags: 0
@@ -5820,7 +5822,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sprite: {fileID: 755906940944176786, guid: 74f928663364320afa8b2a9507d2f285, type: 3}
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 65678437}
+  _spriteRenderer: {fileID: 0}
+  _object: {fileID: 0}
 --- !u!1 &2125990473
 GameObject:
   m_ObjectHideFlags: 0

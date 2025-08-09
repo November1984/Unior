@@ -16,6 +16,6 @@ public class ToPatrolStateTransition : Transition
         Vector3 offset = _enemy.transform.position - _waypointsContainer.NextWaypoint.position;
         float sqrLength = offset.sqrMagnitude;
 
-        return _enemy.IsOnGround && sqrLength > _waypointsContainer.CloseDistance * _waypointsContainer.CloseDistance;
+        return _enemy.IsOnGround && _enemy.IsPlayerSpotted == false && sqrLength > _waypointsContainer.CloseDistance * _waypointsContainer.CloseDistance;
     }
 }

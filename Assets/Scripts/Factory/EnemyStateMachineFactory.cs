@@ -31,6 +31,8 @@ public class EnemyStateMachineFactory : MonoBehaviour
         targetReachedState.AddTransition(toChaseStateTransition);
         targetReachedState.AddTransition(toAttackStateTransition);
         chaseState.AddTransition(toAttackStateTransition);
+        chaseState.AddTransition(toPatrolStateTransition);
+        enemyTalkState.AddTransition(toPatrolStateTransition);
         
         stateMachine.ChangeState(initState);
         

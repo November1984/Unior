@@ -44,7 +44,7 @@ public class Enemy : Unit
 
     private void PlayerSpottedNotify(Player player)
     {
-        _isPlayerSpotted = true;
+        _isPlayerSpotted = _contactor.IsPlayerSpoted;
         _spottedPlayer = player;
     }
 }

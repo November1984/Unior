@@ -22,12 +22,8 @@ public class Collector : MonoBehaviour
             return;
         }
 
-        if (collision.gameObject.TryGetComponent<MedKit>(out MedKit medKit) &&
-            _unit.CanStarve)
-        {
-            _unit.Feed(medKit.HealAmount);
+        if (collision.gameObject.TryGetComponent<MedKit>(out MedKit medKit))
             medKit.CollectedNotify();
-        }
     }
 
     private void CollectCoin()

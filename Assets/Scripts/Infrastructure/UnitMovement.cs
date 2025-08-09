@@ -14,7 +14,6 @@ public class UnitMovement : MonoBehaviour
     private InputReader _inputReader;
 
     public event Action<int> Moved;
-    public event Action Talked;
 
     public int MoveInput { get; private set; }
     public int JumpInput { get; private set; }

@@ -348,9 +348,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1482494388}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
+      - m_Target: {fileID: 1482494389}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: StartPause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -544,6 +544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 137368640}
   - component: {fileID: 137368641}
+  - component: {fileID: 137368642}
   m_Layer: 5
   m_Name: Audio Source
   m_TagString: Untagged
@@ -667,6 +668,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &137368642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137368639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e217275a35fafd1138c145ab59d28042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 137368641}
 --- !u!1 &240884432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,6 +1052,7 @@ GameObject:
   m_Component:
   - component: {fileID: 518092310}
   - component: {fileID: 518092311}
+  - component: {fileID: 518092312}
   m_Layer: 5
   m_Name: Audio Source
   m_TagString: Untagged
@@ -1161,6 +1176,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &518092312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518092309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e217275a35fafd1138c145ab59d28042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 518092311}
 --- !u!1 &518445124
 GameObject:
   m_ObjectHideFlags: 0
@@ -2568,6 +2596,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1482494387}
   - component: {fileID: 1482494388}
+  - component: {fileID: 1482494389}
   m_Layer: 5
   m_Name: Audio Source
   m_TagString: Untagged
@@ -2691,6 +2720,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1482494389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482494386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e217275a35fafd1138c145ab59d28042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 1482494388}
 --- !u!1 &1572501366
 GameObject:
   m_ObjectHideFlags: 0
@@ -2717,7 +2759,7 @@ AudioSource:
   m_GameObject: {fileID: 1572501366}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 6c8246e76a317ff9585f5936c79c52ff, type: 2}
+  OutputAudioMixerGroup: {fileID: 5856073747175562646, guid: 6c8246e76a317ff9585f5936c79c52ff, type: 2}
   m_audioClip: {fileID: 8300000, guid: b8bfed7d6321e219c8688bdd287c5c47, type: 3}
   m_Resource: {fileID: 8300000, guid: b8bfed7d6321e219c8688bdd287c5c47, type: 3}
   m_PlayOnAwake: 1
@@ -3006,9 +3048,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 137368641}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
+      - m_Target: {fileID: 137368642}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: StartPause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3368,9 +3410,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 518092311}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
+      - m_Target: {fileID: 518092312}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: StartPause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

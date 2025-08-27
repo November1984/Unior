@@ -1,33 +1,29 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
+
+[RequireComponent(typeof(Slider))]
 
 public class VolumeChanger : MonoBehaviour
 {
-    [SerializeField] private AudioMixerGroup _audioMixer;
+    [SerializeField] private AudioMixer _audioMixer;
+    [SerializeField] private string _mixerControllerName;
 
-    private bool _isMuting;
-    private string _mixerName;
+    private Slider _slider;
 
-    public void Awake()
+    private void Awake()
     {
-        _isMuting = false;
+        _slider = GetComponent<Slider>();
     }
 
-    public void Mute()
+    private void OnEnable()
     {
-        float valueLevel;
-        const float MinimumValue = -80f;
-        const float MaximumValue = 0;
-
-        valueLevel = _isMuting ? MaximumValue : MinimumValue;
-        _isMuting = !_isMuting;
-
-        _audioMixer.audioMixer.SetFloat(_mixerName, valueLevel);
+        _slider.onValueChanged.AddListener(ChangeVolume);
     }
 
-    public void SetMixerName(string value)
+    private void OnDisable()
     {
-        _mixerName = value;
+        _slider.onValueChanged.RemoveListener(ChangeVolume);
     }
 
     public void ChangeVolume(float value)
@@ -35,7 +31,7 @@ public class VolumeChanger : MonoBehaviour
         const float SomeCoeff = 20;
         const float MinimumValue = -80f;
         const float MaximumValue = 0;
-
-        _audioMixer.audioMixer.SetFloat(_mixerName, Mathf.Clamp(Mathf.Log10(value) * SomeCoeff,MinimumValue,MaximumValue));
+        
+        _audioMixer.SetFloat(_mixerControllerName, Mathf.Clamp(Mathf.Log10(value) * SomeCoeff, MinimumValue, MaximumValue));
     }
 }

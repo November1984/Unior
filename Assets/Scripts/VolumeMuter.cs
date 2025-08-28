@@ -6,8 +6,7 @@ using UnityEngine.UI;
 
 public class VolumeMuter : MonoBehaviour
 {
-    [SerializeField] private AudioMixer _audioMixer;
-    [SerializeField] private string _mixerName;
+    [SerializeField] private AudioMixerGroup _audioMixerGroup;
 
     private Button _button;
     private bool _isMuting;
@@ -37,6 +36,6 @@ public class VolumeMuter : MonoBehaviour
         valueLevel = _isMuting ? MaximumValue : MinimumValue;
         _isMuting = !_isMuting;
 
-        _audioMixer.SetFloat(_mixerName, valueLevel);
+        _audioMixerGroup.audioMixer.SetFloat(_audioMixerGroup.name, valueLevel);
     }
 }

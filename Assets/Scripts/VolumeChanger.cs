@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class VolumeChanger : MonoBehaviour
 {
     [SerializeField] private AudioMixer _audioMixer;
-    [SerializeField] private string _mixerControllerName;
 
     private Slider _slider;
 
@@ -32,6 +31,6 @@ public class VolumeChanger : MonoBehaviour
         const float MinimumValue = -80f;
         const float MaximumValue = 0;
         
-        _audioMixer.SetFloat(_mixerControllerName, Mathf.Clamp(Mathf.Log10(value) * SomeCoeff, MinimumValue, MaximumValue));
+        _audioMixer.SetFloat(_slider.name, Mathf.Clamp(Mathf.Log10(value) * SomeCoeff, MinimumValue, MaximumValue));
     }
 }

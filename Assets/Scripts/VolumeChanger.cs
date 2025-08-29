@@ -3,7 +3,6 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Slider))]
-
 public class VolumeChanger : MonoBehaviour
 {
     [SerializeField] private AudioMixerGroup _audioMixerGroup;
@@ -30,7 +29,9 @@ public class VolumeChanger : MonoBehaviour
         const float SomeCoeff = 20;
         const float MinimumValue = -80f;
         const float MaximumValue = 0;
-        
-        _audioMixerGroup.audioMixer.SetFloat(_audioMixerGroup.name, Mathf.Clamp(Mathf.Log10(value) * SomeCoeff, MinimumValue, MaximumValue));
+
+        float newVolumeLevel = value > 0 ? Mathf.Clamp(SomeCoeff * Mathf.Log10(value), MinimumValue, MaximumValue): MinimumValue;
+
+        _audioMixerGroup.audioMixer.SetFloat(_audioMixerGroup.name, newVolumeLevel);
     }
 }

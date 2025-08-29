@@ -3,13 +3,13 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-
 public class VolumeMuter : MonoBehaviour
 {
-    [SerializeField] private AudioMixerGroup _audioMixerGroup;
+    [SerializeField] private AudioMixer _audioMixer;
 
     private Button _button;
     private bool _isMuting;
+    private float _currentVolumeLevel;
 
     public void Awake()
     {
@@ -29,13 +29,13 @@ public class VolumeMuter : MonoBehaviour
 
     public void Mute()
     {
-        float valueLevel;
+        float newVolumeLevel;
         const float MinimumValue = -80f;
-        const float MaximumValue = 0;
 
-        valueLevel = _isMuting ? MaximumValue : MinimumValue;
+        newVolumeLevel = _isMuting ? _currentVolumeLevel : MinimumValue;
         _isMuting = !_isMuting;
 
-        _audioMixerGroup.audioMixer.SetFloat(_audioMixerGroup.name, valueLevel);
+        _audioMixer.GetFloat(_audioMixer.name, out _currentVolumeLevel);
+        _audioMixer.SetFloat(_audioMixer.name, newVolumeLevel);
     }
 }

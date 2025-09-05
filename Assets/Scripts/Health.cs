@@ -5,27 +5,25 @@ public class Health : MonoBehaviour
 {
     const float TotalHealth = 100;
 
-    public event Action<float> Changed;
+    public event Action<float, float> Changed;
 
-    private float _currentHealth;
-
-    public float CurrentHealth => _currentHealth;
-    public float FullHealth => TotalHealth;
+    public float CurrentHealth { get; private set; }
+    public float MaxHealth => TotalHealth;
 
     private void Awake()
     {
-        _currentHealth = TotalHealth;
+        CurrentHealth = TotalHealth;
     }
 
-    public void Change(float value)
+    public void Change(float delta)
     {
-        _currentHealth += value;
+        CurrentHealth += delta;
 
-        if (_currentHealth > TotalHealth)
-            _currentHealth = TotalHealth;
-        else if (_currentHealth < 0)
-            _currentHealth = 0;
+        if (CurrentHealth > TotalHealth)
+            CurrentHealth = TotalHealth;
+        else if (CurrentHealth < 0)
+            CurrentHealth = 0;
 
-        Changed?.Invoke(value);
+        Changed?.Invoke(CurrentHealth, delta);
     }
 }

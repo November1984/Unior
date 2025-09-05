@@ -38,11 +38,11 @@ public class PopUpPointsSpawner : MonoBehaviour
         _pool.Dispose();
     }
 
-    private void CreatePopUpPoint(float value)
+    private void CreatePopUpPoint(float value, float delta)
     {
         _popUpPoint = _pool.Get();
 
-        _popUpPoint.Launch(value);
+        _popUpPoint.Launch(delta);
     }
 
     private void ActionOnGet(PopUpPoint obj)

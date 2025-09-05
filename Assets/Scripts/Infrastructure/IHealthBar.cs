@@ -2,7 +2,7 @@ using System;
 
 interface IHealthBar
 {
-    public event Action<float> Changed;
+    public event Action<float, float> Changed;
 
     public float Width { get; }
 }

@@ -1,34 +1,45 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Slider))]
 public class SmoothHealthBar : Healthbar
 {
-    [SerializeField] private float _fillingSpeed = 1f;
+    [SerializeField] private float _fillingDelay = 0.01f;
+    [SerializeField] private float _fillingStep = 1f;
 
     private Slider _slider;
-    private bool _canChange = false;
-    private float _targetValue;
+    private Coroutine _coroutine;
 
     private void Awake()
     {
         _slider = GetComponent<Slider>();
     }
 
-    private void Update()
+    protected override void OnDisable()
     {
-        if (_canChange)
-        {
-            _slider.value = Mathf.MoveTowards(_slider.value, _targetValue, _fillingSpeed);
-            _canChange = _slider.value != _targetValue;
-        }
+        base.OnDisable();
+        StopCoroutine(_coroutine);
     }
 
-    protected override void Change(float value)
+    protected override void Change(float value, float delta)
     {
-        _targetValue = _slider.value + value;
-        _canChange = true;
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
 
-        base.Change(value);
+        _coroutine = StartCoroutine(RunChanger(value));
+        base.Change(value, delta);
+    }
+
+    private IEnumerator RunChanger(float value)
+    {
+        var wait = new WaitForSecondsRealtime(_fillingDelay);
+
+        while (_slider.value != value)
+        {
+            _slider.value = Mathf.MoveTowards(_slider.value, value, _fillingStep);
+
+            yield return wait;
+        }
     }
 }

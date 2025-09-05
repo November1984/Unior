@@ -12,10 +12,10 @@ public class TextHealthBar : Healthbar
         Width = _textMeshPro.preferredWidth;
     }
 
-    protected override void Change(float value)
+    protected override void Change(float value, float delta)
     {
-        _textMeshPro.text = $"{_health.CurrentHealth}/{_health.FullHealth}";
+        _textMeshPro.text = $"{_health.CurrentHealth}/{_health.MaxHealth}";
 
-        base.Change(value);
+        base.Change(value, delta);
     }
 }

@@ -11,10 +11,10 @@ public class AbruptHealthbar : Healthbar
         _slider = GetComponent<Slider>();
     }
 
-    protected override void Change(float value)
+    protected override void Change(float value, float delta)
     {
-        _slider.value += value;
+        _slider.value = value;
 
-        base.Change(value);
+        base.Change(value, delta);
     }
 }

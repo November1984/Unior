@@ -5,7 +5,7 @@ public abstract class Healthbar : MonoBehaviour, IHealthBar
 {
     [SerializeField] protected Health _health;
 
-    public event Action<float> Changed;
+    public event Action<float, float> Changed;
 
     public float Width { get; protected set; }
 
@@ -16,7 +16,7 @@ public abstract class Healthbar : MonoBehaviour, IHealthBar
 
     private void Start()
     {
-        Change(_health.CurrentHealth);
+        Change(_health.CurrentHealth, 0);
     }
 
     protected void OnEnable()
@@ -24,18 +24,18 @@ public abstract class Healthbar : MonoBehaviour, IHealthBar
         _health.Changed += Change;
     }
 
-    protected void OnDisable()
+    protected virtual void OnDisable()
     {
         _health.Changed -= Change;
     }
 
-    protected virtual void Change(float value)
+    protected virtual void Change(float value, float delta)
     { 
-        ChangeNotify(value);
+        ChangeNotify(value, delta);
     }
 
-    protected void ChangeNotify(float value)
+    protected void ChangeNotify(float value, float delta)
     {
-        Changed?.Invoke(value);
+        Changed?.Invoke(value, delta);
     }
 }

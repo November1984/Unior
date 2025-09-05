@@ -447,7 +447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 81015058}
-  _fillingSpeed: 3
+  _fillingSpeed: 1
 --- !u!1 &194949078
 GameObject:
   m_ObjectHideFlags: 0
@@ -1349,7 +1349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1215fe8d59f4ba23287427450c01a1c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _impactValue: -10
+  _impactValue: -30
   _health: {fileID: 81015058}
 --- !u!1 &1090543926
 GameObject:
@@ -1485,7 +1485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1215fe8d59f4ba23287427450c01a1c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _impactValue: 10
+  _impactValue: 30
   _health: {fileID: 81015058}
 --- !u!1 &1593807107
 GameObject:

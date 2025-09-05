@@ -1533,10 +1533,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 852895959}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0da583ff9d63d66f99903cbe5efffa4, type: 3}
+  m_Script: {fileID: 11500000, guid: 1215fe8d59f4ba23287427450c01a1c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _decreaseValue: 10
+  _impactValue: -10
   _health: {fileID: 81015058}
 --- !u!1 &1049065059
 GameObject:
@@ -1708,7 +1708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1215fe8d59f4ba23287427450c01a1c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _increaseValue: 10
+  _impactValue: 10
   _health: {fileID: 81015058}
 --- !u!1 &1593807107
 GameObject:

@@ -17,28 +17,15 @@ public class Health : MonoBehaviour
         _currentHealth = TotalHealth;
     }
 
-    public void Decrease(float value)
-    {
-        _currentHealth -= value;
-
-        if (_currentHealth < 0)
-            _currentHealth = 0;
-
-        ChangetNotify(value);
-    }
-
-    public void Increase(float value)
+    public void Change(float value)
     {
         _currentHealth += value;
 
         if (_currentHealth > TotalHealth)
             _currentHealth = TotalHealth;
+        else if (_currentHealth < 0)
+            _currentHealth = 0;
 
-        ChangetNotify(value);
-    }
-
-    public void ChangetNotify(float value)
-    {
         Changed?.Invoke(value);
     }
 }

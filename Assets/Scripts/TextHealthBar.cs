@@ -38,11 +38,6 @@ public class TextHealthBar : MonoBehaviour
     {
         _textMeshPro.text = $"{_health.CurrentHealth}/{_health.FullHealth}";
 
-        CahngedNotify(value);
-    }
-
-    private void CahngedNotify(float value)
-    {
         Changed?.Invoke(value);
     }
 }

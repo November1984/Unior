@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -6,7 +7,12 @@ using UnityEngine;
 public class TextHealthBar : MonoBehaviour
 {
     [SerializeField] private Health _health;
+
+    public event Action<float> Changed;
+
     private TextMeshPro _textMeshPro;
+
+    public float Width => _textMeshPro.preferredWidth;
 
     private void Awake()
     {
@@ -31,5 +37,12 @@ public class TextHealthBar : MonoBehaviour
     private void Change(float value)
     {
         _textMeshPro.text = $"{_health.CurrentHealth}/{_health.FullHealth}";
+
+        CahngedNotify(value);
+    }
+
+    private void CahngedNotify(float value)
+    {
+        Changed?.Invoke(value);
     }
 }

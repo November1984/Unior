@@ -1,19 +1,20 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
 
+[RequireComponent(typeof(Healthbar))]
 public class PopUpPointsSpawner : MonoBehaviour
 {
     [SerializeField] private PopUpPoint _prefab;
-    [SerializeField] private TextHealthBar _textHealthBar;
 
+    private Healthbar _HealthBar;
     private ObjectPool<PopUpPoint> _pool;
+    private PopUpPoint _popUpPoint;
     private int _poolCapasity = 5;
     private int _poolMaxSize = 5;
-    private PopUpPoint _popUpPoint;
 
     private void Awake()
     {
+        _HealthBar = GetComponent<Healthbar>();
         _pool = new ObjectPool<PopUpPoint>(
             createFunc: () => Create(),
             actionOnGet: (obj) => ActionOnGet(obj),
@@ -27,12 +28,12 @@ public class PopUpPointsSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        _textHealthBar.Changed += CreatePopUpPoint;
+        _HealthBar.Changed += CreatePopUpPoint;
     }
 
     private void OnDisable()
     {
-        _textHealthBar.Changed -= CreatePopUpPoint;
+        _HealthBar.Changed -= CreatePopUpPoint;
 
         _pool.Dispose();
     }
@@ -47,7 +48,7 @@ public class PopUpPointsSpawner : MonoBehaviour
     private void ActionOnGet(PopUpPoint obj)
     {
         _popUpPoint = obj;
-        _popUpPoint.transform.position = transform.position + _textHealthBar.Width /2 * Vector3.right;
+        _popUpPoint.transform.position = transform.position + _HealthBar.Width / 2 * Vector3.right;
 
         _popUpPoint.gameObject.SetActive(true);
     }

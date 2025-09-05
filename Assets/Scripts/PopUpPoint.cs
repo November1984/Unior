@@ -12,11 +12,8 @@ public class PopUpPoint : MonoBehaviour
     private bool _downDirection = true;
     private TextMeshPro _textMeshPro;
     private Coroutine _coroutine;
-    private float _width;
 
     public event Action<PopUpPoint> Disappeared;
-
-    public float Width => _width;
 
     private void Awake()
     {
@@ -26,28 +23,22 @@ public class PopUpPoint : MonoBehaviour
     public void Update()
     {
         float step = _popUpSpeed * Time.deltaTime;
+        Vector3 newPosition;
 
         if (_downDirection)
-            transform.position = Vector3.MoveTowards(transform.position, transform.position + Vector3.down * _popUpDelay, step);
+            newPosition = transform.position + Vector3.down * _popUpDelay;
         else
-            transform.position = Vector3.MoveTowards(transform.position, transform.position + Vector3.up * _popUpDelay, step);
+            newPosition = transform.position + Vector3.up * _popUpDelay;
+
+        transform.position = Vector3.MoveTowards(transform.position, newPosition, step);
     }
 
     public void Launch(float value)
     {
         _textMeshPro.text = value.ToString("F0");
-        _width = _textMeshPro.preferredWidth;
 
-        if (value < 0)
-        {
-            _downDirection = true;
-            _textMeshPro.color = Color.red;
-        }
-        else
-        {
-            _downDirection = false;
-            _textMeshPro.color = Color.green;
-        }
+        _downDirection = value < 0;
+        _textMeshPro.color = _downDirection?Color.red:Color.green;
 
         _coroutine = StartCoroutine(StartCountDown(_popUpDelay));
     }

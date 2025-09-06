@@ -16,7 +16,7 @@ public abstract class Healthbar : MonoBehaviour, IHealthBar
 
     private void Start()
     {
-        Change(_health.CurrentHealth, 0);
+        Change(_health.Current, 0);
     }
 
     protected void OnEnable()

@@ -47,8 +47,10 @@ public class PopUpPointsSpawner : MonoBehaviour
 
     private void ActionOnGet(PopUpPoint obj)
     {
+        float healthbarCenter = _HealthBar.Width / 2;
+        
         _popUpPoint = obj;
-        _popUpPoint.transform.position = transform.position + _HealthBar.Width / 2 * Vector3.right;
+        _popUpPoint.transform.position = transform.position + healthbarCenter * Vector3.right;
 
         _popUpPoint.gameObject.SetActive(true);
     }

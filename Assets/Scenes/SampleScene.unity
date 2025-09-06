@@ -422,7 +422,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1593807109}
   m_FillRect: {fileID: 1593807108}
   m_HandleRect: {fileID: 0}
@@ -447,7 +447,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 81015058}
-  _fillingSpeed: 1
+  _fillingDelay: 0.1
+  _fillingStep: 1
 --- !u!1 &194949078
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,7 +997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _popUpSpeed: 100
-  _popUpDelay: 1.5
+  _popUpTime: 1
 --- !u!114 &642556228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1835,8 +1836,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.45178223, y: 0}
-  m_SizeDelta: {x: 0.903595, y: 0}
+  m_AnchoredPosition: {x: 0.000030517578, y: 0}
+  m_SizeDelta: {x: 0.000030518, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1972583317
 MonoBehaviour:

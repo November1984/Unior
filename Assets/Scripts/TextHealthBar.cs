@@ -14,7 +14,7 @@ public class TextHealthBar : Healthbar
 
     protected override void Change(float value, float delta)
     {
-        _textMeshPro.text = $"{_health.CurrentHealth}/{_health.MaxHealth}";
+        _textMeshPro.text = $"{_health.Current}/{_health.Max}";
 
         base.Change(value, delta);
     }

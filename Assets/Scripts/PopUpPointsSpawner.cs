@@ -17,7 +17,7 @@ public class PopUpPointsSpawner : MonoBehaviour
         _HealthBar = GetComponent<Healthbar>();
         _pool = new ObjectPool<PopUpPoint>(
             createFunc: () => Create(),
-            actionOnGet: (obj) => ActionOnGet(obj),
+            actionOnGet: (obj) => Get(obj),
             actionOnRelease: (obj) => obj.gameObject.SetActive(false),
             actionOnDestroy: (obj) => ActionOnDestroy(obj),
             collectionCheck: true,
@@ -45,7 +45,7 @@ public class PopUpPointsSpawner : MonoBehaviour
         _popUpPoint.Launch(delta);
     }
 
-    private void ActionOnGet(PopUpPoint obj)
+    private void Get(PopUpPoint obj)
     {
         float healthbarCenter = _HealthBar.Width / 2;
         

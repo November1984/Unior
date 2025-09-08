@@ -1,46 +1,37 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem.Controls;
 
 public class Health : MonoBehaviour
 {
-    const float Total = 100;
+    private const float Total = 100;
 
     public event Action<float, float> Changed;
 
-    public float Current { get; private set; }
+    public float CurrentValue { get; private set; }
     public float Max => Total;
 
     private void Awake()
     {
-        Current = Total;
+        CurrentValue = Total;
     }
 
-    public void Change(float delta)
+    public void Increase(float delta)
     {
-        if (delta > 0)
-            Increase(delta);
-        else 
-            Decrease(delta);
+        CurrentValue += delta;
+
+        if (CurrentValue > Total)
+            CurrentValue = Total;
+
+        Changed?.Invoke(CurrentValue, delta);
     }
 
-    private void Increase(float delta)
+    public void Decrease(float delta)
     {
-        Current += delta;
+        CurrentValue += delta;
 
-        if (Current > Total)
-            Current = Total;
+        if (CurrentValue < 0)
+            CurrentValue = 0;
 
-        Changed?.Invoke(Current, delta);
-    }
-
-    private void Decrease(float delta)
-    {
-        Current += delta;
-
-        if (Current < 0)
-            Current = 0;
-
-        Changed?.Invoke(Current, delta);
+        Changed?.Invoke(CurrentValue, delta);
     }
 }

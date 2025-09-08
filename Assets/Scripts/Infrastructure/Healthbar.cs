@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Healthbar : MonoBehaviour, IHealthBar
 {
-    [SerializeField] protected Health _health;
+    [SerializeField] protected Health Health;
 
     public event Action<float, float> Changed;
 
@@ -16,17 +16,17 @@ public abstract class Healthbar : MonoBehaviour, IHealthBar
 
     private void Start()
     {
-        Change(_health.Current, 0);
+        Change(Health.CurrentValue, 0);
     }
 
     protected void OnEnable()
     {
-        _health.Changed += Change;
+        Health.Changed += Change;
     }
 
     protected virtual void OnDisable()
     {
-        _health.Changed -= Change;
+        Health.Changed -= Change;
     }
 
     protected virtual void Change(float value, float delta)

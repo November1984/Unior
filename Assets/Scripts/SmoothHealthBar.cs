@@ -2,19 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Slider))]
-public class SmoothHealthBar : Healthbar
+public class SmoothHealthBar : HealthbarSlider
 {
     [SerializeField] private float _fillingDelay = 0.01f;
     [SerializeField] private float _fillingStep = 1f;
 
-    private Slider _slider;
     private Coroutine _coroutine;
-
-    private void Awake()
-    {
-        _slider = GetComponent<Slider>();
-    }
 
     protected override void OnDisable()
     {

@@ -2,15 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Slider))]
-public class AbruptHealthbar : Healthbar
+public class AbruptHealthbar : HealthbarSlider
 {
-    private Slider _slider;
-
-    private void Awake()
-    {
-        _slider = GetComponent<Slider>();
-    }
-
     protected override void Change(float value, float delta)
     {
         _slider.value = value;

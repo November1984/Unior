@@ -6,7 +6,7 @@ public class PopUpPointsSpawner : MonoBehaviour
 {
     [SerializeField] private PopUpPoint _prefab;
 
-    private Healthbar _HealthBar;
+    private Healthbar _healthBar;
     private ObjectPool<PopUpPoint> _pool;
     private PopUpPoint _popUpPoint;
     private int _poolCapasity = 5;
@@ -14,7 +14,7 @@ public class PopUpPointsSpawner : MonoBehaviour
 
     private void Awake()
     {
-        _HealthBar = GetComponent<Healthbar>();
+        _healthBar = GetComponent<Healthbar>();
         _pool = new ObjectPool<PopUpPoint>(
             createFunc: () => Create(),
             actionOnGet: (obj) => Get(obj),
@@ -28,12 +28,12 @@ public class PopUpPointsSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        _HealthBar.Changed += CreatePopUpPoint;
+        _healthBar.Changed += CreatePopUpPoint;
     }
 
     private void OnDisable()
     {
-        _HealthBar.Changed -= CreatePopUpPoint;
+        _healthBar.Changed -= CreatePopUpPoint;
 
         _pool.Dispose();
     }
@@ -47,7 +47,7 @@ public class PopUpPointsSpawner : MonoBehaviour
 
     private void Get(PopUpPoint obj)
     {
-        float healthbarCenter = _HealthBar.Width / 2;
+        float healthbarCenter = _healthBar.Width / 2;
         
         _popUpPoint = obj;
         _popUpPoint.transform.position = transform.position + healthbarCenter * Vector3.right;

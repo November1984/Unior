@@ -1350,8 +1350,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc9eed1476abaf448a4aa8d4c39fca55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: {fileID: 81015058}
-  _impactValue: -15
+  Health: {fileID: 81015058}
+  _impactValue: -54.2
 --- !u!1 &1090543926
 GameObject:
   m_ObjectHideFlags: 0
@@ -1486,7 +1486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58af7d51098c69ef7b84c3ba425e566e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: {fileID: 81015058}
+  Health: {fileID: 81015058}
   _impactValue: 10
 --- !u!1 &1593807107
 GameObject:

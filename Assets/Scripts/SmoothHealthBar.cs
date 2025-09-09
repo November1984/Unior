@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SmoothHealthBar : HealthbarSlider
 {
@@ -21,6 +20,7 @@ public class SmoothHealthBar : HealthbarSlider
             StopCoroutine(_coroutine);
 
         _coroutine = StartCoroutine(RunChanger(value));
+        
         base.Change(value, delta);
     }
 

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public abstract class ActionButton : MonoBehaviour
 {
-    [SerializeField] protected Health _health;
+    [SerializeField] protected Health Health;
 
     private Button _button;
 
@@ -23,6 +23,5 @@ public abstract class ActionButton : MonoBehaviour
         _button.onClick.RemoveListener(Affect);
     }
 
-    protected virtual void Affect()
-    { }
+    protected abstract void Affect();
 }

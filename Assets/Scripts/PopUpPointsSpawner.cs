@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
-[RequireComponent(typeof(Healthbar))]
+[RequireComponent(typeof(HealthView))]
 public class PopUpPointsSpawner : MonoBehaviour
 {
     [SerializeField] private PopUpPoint _prefab;
 
-    private Healthbar _healthBar;
+    private HealthView _healthView;
     private ObjectPool<PopUpPoint> _pool;
     private PopUpPoint _popUpPoint;
     private int _poolCapasity = 5;
@@ -14,12 +14,12 @@ public class PopUpPointsSpawner : MonoBehaviour
 
     private void Awake()
     {
-        _healthBar = GetComponent<Healthbar>();
+        _healthView = GetComponent<HealthView>();
         _pool = new ObjectPool<PopUpPoint>(
             createFunc: () => Create(),
             actionOnGet: (obj) => Get(obj),
             actionOnRelease: (obj) => obj.gameObject.SetActive(false),
-            actionOnDestroy: (obj) => ActionOnDestroy(obj),
+            actionOnDestroy: (obj) => Destroy(obj),
             collectionCheck: true,
             defaultCapacity: _poolCapasity,
             maxSize: _poolMaxSize
@@ -28,12 +28,12 @@ public class PopUpPointsSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        _healthBar.Changed += CreatePopUpPoint;
+        _healthView.GetHealth().Changed += CreatePopUpPoint;
     }
 
     private void OnDisable()
     {
-        _healthBar.Changed -= CreatePopUpPoint;
+        _healthView.GetHealth().Changed -= CreatePopUpPoint;
 
         _pool.Dispose();
     }
@@ -47,7 +47,7 @@ public class PopUpPointsSpawner : MonoBehaviour
 
     private void Get(PopUpPoint obj)
     {
-        float healthbarCenter = _healthBar.Width / 2;
+        float healthbarCenter = _healthView.Width / 2;
         
         _popUpPoint = obj;
         _popUpPoint.transform.position = transform.position + healthbarCenter * Vector3.right;
@@ -68,10 +68,10 @@ public class PopUpPointsSpawner : MonoBehaviour
         _pool.Release(obj);
     }
 
-    private void ActionOnDestroy(PopUpPoint obj)
+    private void Destroy(PopUpPoint obj)
     {
         obj.Disappeared -= Collect;
 
-        Destroy(obj);
+        Object.Destroy(obj);
     }
 }

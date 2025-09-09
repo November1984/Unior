@@ -15,22 +15,11 @@ public class Health : MonoBehaviour
         CurrentValue = Total;
     }
 
-    public void Increase(float delta)
+    public void ChangeValue(float delta)
     {
-        CurrentValue += delta;
+        float newValue = CurrentValue + delta;
 
-        if (CurrentValue > Total)
-            CurrentValue = Total;
-
-        Changed?.Invoke(CurrentValue, delta);
-    }
-
-    public void Decrease(float delta)
-    {
-        CurrentValue += delta;
-
-        if (CurrentValue < 0)
-            CurrentValue = 0;
+        CurrentValue = Mathf.Clamp(newValue, 0f, Total);
 
         Changed?.Invoke(CurrentValue, delta);
     }

@@ -6,6 +6,7 @@ public class DecreaseButton : ActionButton
 
     protected override void Affect()
     {
-        Health.Decrease(_impactValue);
+        if (_impactValue <= 0)
+            Health.ChangeValue(_impactValue);
     }
 }

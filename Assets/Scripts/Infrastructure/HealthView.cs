@@ -1,11 +1,8 @@
-using System;
 using UnityEngine;
 
-public abstract class Healthbar : MonoBehaviour, IHealthBar
+public abstract class HealthView : MonoBehaviour, IHealthBar
 {
     [SerializeField] protected Health Health;
-
-    public event Action<float, float> Changed;
 
     public float Width { get; protected set; }
 
@@ -19,6 +16,11 @@ public abstract class Healthbar : MonoBehaviour, IHealthBar
         Change(Health.CurrentValue, 0);
     }
 
+    public Health GetHealth()
+    {
+        return Health;
+    }
+
     protected void OnEnable()
     {
         Health.Changed += Change;
@@ -29,13 +31,5 @@ public abstract class Healthbar : MonoBehaviour, IHealthBar
         Health.Changed -= Change;
     }
 
-    protected virtual void Change(float value, float delta)
-    { 
-        ChangeNotify(value, delta);
-    }
-
-    protected void ChangeNotify(float value, float delta)
-    {
-        Changed?.Invoke(value, delta);
-    }
+    protected abstract void Change(float value, float delta);
 }

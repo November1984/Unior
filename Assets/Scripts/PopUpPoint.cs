@@ -32,10 +32,10 @@ public class PopUpPoint : MonoBehaviour
         _finishRoutine = StartCoroutine(StartCountDown(_popUpTime));
 
         if (_finishRoutine != null)
-            _moveRoutine = StartCoroutine(StartMove(_popUpTime));
+            _moveRoutine = StartCoroutine(Move(_popUpTime));
     }
 
-    private IEnumerator StartMove(float delay)
+    private IEnumerator Move(float delay)
     {
         Vector3 newPosition;
         float step = _popUpSpeed * delay;

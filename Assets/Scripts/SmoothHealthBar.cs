@@ -1,17 +1,25 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SmoothHealthBar : HealthbarSlider
+public class SmoothHealthBar : HealthView
 {
-    [SerializeField] private float _fillingDelay = 0.01f;
+    [SerializeField] private float _fillingDelay = 0.001f;
     [SerializeField] private float _fillingStep = 1f;
 
     private Coroutine _coroutine;
+ private Slider _slider;
+    
+    private void Awake()
+    {
+        _slider = GetComponent<Slider>();
+    }
 
     protected override void OnDisable()
     {
-        base.OnDisable();
         StopCoroutine(_coroutine);
+
+        base.OnDisable();
     }
 
     protected override void Change(float value, float delta)
@@ -20,17 +28,17 @@ public class SmoothHealthBar : HealthbarSlider
             StopCoroutine(_coroutine);
 
         _coroutine = StartCoroutine(RunChanger(value));
-        
-        base.Change(value, delta);
     }
 
-    private IEnumerator RunChanger(float value)
+    private IEnumerator RunChanger(float newValue)
     {
         var wait = new WaitForSecondsRealtime(_fillingDelay);
 
-        while (_slider.value != value)
+        while (_slider.value != newValue)
         {
-            _slider.value = Mathf.MoveTowards(_slider.value, value, _fillingStep);
+            _slider.value = Mathf.MoveTowards(_slider.value, newValue, _fillingStep);
+
+            _fillingStep = Mathf.Max(Mathf.Abs(_slider.value - newValue) * Time.deltaTime, 0.2f) ;
 
             yield return wait;
         }

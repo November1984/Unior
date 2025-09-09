@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(TextMeshPro))]
-public class TextHealthBar : Healthbar
+public class TextHealthBar : HealthView
 {
     private TextMeshPro _textMeshPro;
 
@@ -15,7 +15,5 @@ public class TextHealthBar : Healthbar
     protected override void Change(float value, float delta)
     {
         _textMeshPro.text = $"{Health.CurrentValue}/{Health.Max}";
-
-        base.Change(value, delta);
     }
 }

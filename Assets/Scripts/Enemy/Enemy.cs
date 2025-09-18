@@ -47,6 +47,6 @@ public class Enemy : MonoBehaviour
     public void Talk(bool value)
     {
         if (_canTalk)
-            _talker.Talk(value);
+            _chaser.SpottedPlayer.Health.ChangeValue(_talker.Talk(value));
     }
 }

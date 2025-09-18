@@ -1,3 +1,4 @@
+using Healthbars;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerStateMachineFactory))]
@@ -11,14 +12,18 @@ public class Player : MonoBehaviour
     private Movement _movement;
     private GroundDetector _groundContactCounter;
     private bool _isOnGround;
+    private Healthbars.Health _health;
+    private bool _hasHealth;
 
     public Movement Movement => _movement;
     public bool IsOnGround => _isOnGround;
+    public Health Health => _hasHealth ? _health : null;
 
     private void Awake()
     {
         _movement = GetComponent<Movement>();
         _groundContactCounter = GetComponent<GroundDetector>();
+        _hasHealth = TryGetComponent<Healthbars.Health>(out _health);
     }
 
     private void OnEnable()

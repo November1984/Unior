@@ -7,30 +7,24 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _runSpeed = 1f;
-    
+
     private StateMachine _stateMachine;
     private UnitAnimator _unitAnimator;
-    private Player _spottedPlayer;
-    private bool _isPlayerSpotted = false;
-    private Contactor _contactor;
     private Talker _talker;
     private bool _canTalk;
+    private Chaser _chaser;
+    private bool _canChase;
 
-    public Player SpottedPlayer => _spottedPlayer;
-    public Contactor Contactor => _contactor;
-    public bool IsPlayerSpotted => _isPlayerSpotted;
     public float TalkDistance => _canTalk ? _talker.TalkDistance : -1;
-    public bool IsTalking => _talker.IsTalking;
+    public bool IsTalking => _canTalk ? _talker.IsTalking : false;
+    public bool IsPlayerSpotted => _canChase ? _chaser.IsPlayerSpotted : false;
+    public bool IsClosePosition => _canChase ? _chaser.IsClosePosition : false;
+    public Player SpottedPlayer => _canChase ? _chaser.SpottedPlayer : null;
 
     private void Awake()
     {
         _canTalk = TryGetComponent<Talker>(out _talker);
-    }
-
-    private void OnDisable()
-    {
-        if (_contactor != null)
-            _contactor.PlayerSpotted -= PlayerSpottedNotify;
+        _canChase = TryGetComponent<Chaser>(out _chaser);
     }
 
     private void Update()
@@ -42,9 +36,6 @@ public class Enemy : MonoBehaviour
     {
         _unitAnimator = GetComponent<UnitAnimator>();
         _stateMachine = GetComponent<EnemyStateMachineFactory>().Create(this, path, _unitAnimator);
-
-        if (TryGetComponent<Contactor>(out _contactor))
-            _contactor.PlayerSpotted += PlayerSpottedNotify;
     }
 
     public void MoveTo(Vector3 waypoint)
@@ -55,12 +46,7 @@ public class Enemy : MonoBehaviour
 
     public void Talk(bool value)
     {
-        _talker.Talk(value);
-    }
-
-    private void PlayerSpottedNotify(Player player)
-    {
-        _isPlayerSpotted = _contactor.IsPlayerSpoted;
-        _spottedPlayer = player;
+        if (_canTalk)
+            _talker.Talk(value);
     }
 }

@@ -1,7 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Contactor))]
-
 public class Talker : MonoBehaviour
 {
     [SerializeField] private float _talkDistance = 2.5f;
@@ -13,5 +11,6 @@ public class Talker : MonoBehaviour
     public void Talk(bool value)
     {
         _dialogue.Show(value);
+        IsTalking = value;
     }
 }

@@ -10,14 +10,6 @@ public class ToTalkStateTransition : Transition
 
     protected override bool CanTransit()
     {
-        if (_enemy.SpottedPlayer)
-        {
-            Vector3 offset = _enemy.transform.position - _enemy.SpottedPlayer.transform.position;
-            float sqrLength = offset.sqrMagnitude;
-
-            return sqrLength < _enemy.TalkDistance * _enemy.TalkDistance;
-        }
-
-        return false;
+        return _enemy.IsClosePosition;
     }
 }

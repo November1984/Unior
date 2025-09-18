@@ -9,6 +9,6 @@ public class ToChaseStateTransition : Transition
 
     protected override bool CanTransit()
     {
-        return _enemy.IsPlayerSpotted;
+        return _enemy.IsPlayerSpotted && !_enemy.IsTalking;
     }
 }

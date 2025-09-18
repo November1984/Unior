@@ -15,6 +15,12 @@ public class TalkState : State
         _enemy.Talk(true);
     }
 
+    protected override void OnUpdate()
+    {
+        if (_enemy.IsClosePosition == false)
+            _enemy.Talk(false);
+    }
+
     public override void Exit()
     {
         _enemy.Talk(false);

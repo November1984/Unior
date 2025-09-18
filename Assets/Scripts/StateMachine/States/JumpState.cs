@@ -1,9 +1,9 @@
 public class JumpState : State
 {
-    private readonly Unit _unit;
+    private readonly Player _unit;
     private readonly UnitAnimator _unitAnimator;
 
-    public JumpState(IStateChanger stateChanger, Unit unit, UnitAnimator unitAnimator) : base(stateChanger)
+    public JumpState(IStateChanger stateChanger, Player unit, UnitAnimator unitAnimator) : base(stateChanger)
     {
         _unit = unit;
         _unitAnimator = unitAnimator;

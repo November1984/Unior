@@ -7,7 +7,7 @@ public class TargetReachedState : State
         _waypointsContainer = waypointsContainer;
     }
 
-    protected override void OnUpdate()
+    public override void Enter()
     {
         _waypointsContainer.EnqueueNextWaypoint();
     }

@@ -1,16 +1,16 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Unit))]
+[RequireComponent(typeof(Healthbars.Health))]
 
 public class Collector : MonoBehaviour
 {
     [SerializeField] private Wallet _wallet;
 
-    private Unit _unit;
+    private Healthbars.Health _health;
 
     private void Awake()
     {
-        _unit = GetComponent<Unit>();
+        _health = GetComponent <Healthbars.Health>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -23,11 +23,19 @@ public class Collector : MonoBehaviour
         }
 
         if (collision.gameObject.TryGetComponent<MedKit>(out MedKit medKit))
+        {
+            CollectMedkit(medKit.HealAmount);
             medKit.CollectedNotify();
+        }
     }
 
     private void CollectCoin()
     {
         _wallet.AddCoin();
+    }
+
+    private void CollectMedkit(float value)
+    {
+        _health.ChangeValue(value);
     }
 }

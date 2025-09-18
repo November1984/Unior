@@ -1,9 +1,9 @@
 public class MoveState : State
 {
-    private readonly Unit _unit;
+    private readonly Player _unit;
     private readonly UnitAnimator _unitAnimator;
 
-    public MoveState(IStateChanger stateChanger, Unit unit, UnitAnimator unitAnimator) : base(stateChanger)
+    public MoveState(IStateChanger stateChanger, Player unit, UnitAnimator unitAnimator) : base(stateChanger)
     {
         _unit = unit;
         _unitAnimator = unitAnimator;

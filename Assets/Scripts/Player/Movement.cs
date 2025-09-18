@@ -4,11 +4,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(InputReader))]
 
-public class UnitMovement : MonoBehaviour
+public class Movement : MonoBehaviour
 {
     [SerializeField] protected float _runSpeed = 1f;
     [SerializeField] protected float _jumpSpeed = 6f;
-
 
     private Rigidbody2D _rigidBody;
     private InputReader _inputReader;
@@ -18,7 +17,6 @@ public class UnitMovement : MonoBehaviour
     public int MoveInput { get; private set; }
     public int JumpInput { get; private set; }
     public float RunSpeed => _runSpeed;
-    public float JumpSpeed => _jumpSpeed;
 
     private void Awake()
     {

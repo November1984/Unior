@@ -1,9 +1,9 @@
 using UnityEngine;
-public class ToEnemyTalkStateTransition : Transition
+public class ToTalkStateTransition : Transition
 {
     private readonly Enemy _enemy;
 
-    public ToEnemyTalkStateTransition(State nextState, Enemy enemy) : base(nextState)
+    public ToTalkStateTransition(State nextState, Enemy enemy) : base(nextState)
     {
         _enemy = enemy;
     }

@@ -1,8 +1,8 @@
 public class ToIdleStateTransition : Transition
 {
-    private readonly Unit _unit;
+    private readonly Player _unit;
 
-    public ToIdleStateTransition(State nextState, Unit unit) : base(nextState)
+    public ToIdleStateTransition(State nextState, Player unit) : base(nextState)
     {
         _unit = unit;
     }

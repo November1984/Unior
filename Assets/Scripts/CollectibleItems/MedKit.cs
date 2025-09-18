@@ -1,4 +1,6 @@
+using UnityEngine;
 public class MedKit : CollectibleItem<MedKit>
 {
-    public float HealAmount => 10f;
+    [SerializeField] private float _valuation = 20f;
+    public float HealAmount => _valuation;
 }

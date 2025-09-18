@@ -7,32 +7,29 @@ public class EnemyStateMachineFactory : MonoBehaviour
         StateMachine stateMachine = new();
 
         State initState = new InitState(stateMachine);
-        State idleState = new IdleState(stateMachine, unitAnimator);
         State patrolState = new PatrolState(stateMachine, enemy, waypointsContainer, unitAnimator);
         State targetReachedState = new TargetReachedState(stateMachine, waypointsContainer);
         State chaseState = new ChaseState(stateMachine, enemy, unitAnimator);
-        State enemyTalkState = new EnemyTalkState(stateMachine, enemy, unitAnimator);
+        State talkState = new TalkState(stateMachine, enemy, unitAnimator);
 
         ToPatrolStateTransition toPatrolStateTransition = new (patrolState, enemy, waypointsContainer);
-        ToIdleStateTransition toIdleStateTransition = new (idleState, enemy);
         ToTargetReachedStateTransition toTargetReachedStateTransition = new(targetReachedState, enemy, waypointsContainer);
         ToChaseStateTransition toChaseStateTransition = new(chaseState, enemy);
-        ToEnemyTalkStateTransition toAttackStateTransition = new(enemyTalkState, enemy);
+        ToTalkStateTransition toTalkStateTransition = new(talkState, enemy);
 
-        initState.AddTransition(toIdleStateTransition);
         initState.AddTransition(toPatrolStateTransition);
-        idleState.AddTransition(toPatrolStateTransition);
-        idleState.AddTransition(toTargetReachedStateTransition);
-        idleState.AddTransition(toAttackStateTransition);
+        initState.AddTransition(toTargetReachedStateTransition);
         patrolState.AddTransition(toTargetReachedStateTransition);
         patrolState.AddTransition(toChaseStateTransition);
-        patrolState.AddTransition(toAttackStateTransition);
+        patrolState.AddTransition(toTalkStateTransition);
         targetReachedState.AddTransition(toPatrolStateTransition);
         targetReachedState.AddTransition(toChaseStateTransition);
-        targetReachedState.AddTransition(toAttackStateTransition);
-        chaseState.AddTransition(toAttackStateTransition);
+        targetReachedState.AddTransition(toTalkStateTransition);
+        chaseState.AddTransition(toTalkStateTransition);
         chaseState.AddTransition(toPatrolStateTransition);
-        enemyTalkState.AddTransition(toPatrolStateTransition);
+        talkState.AddTransition(toPatrolStateTransition);
+        talkState.AddTransition(toTargetReachedStateTransition);
+        talkState.AddTransition(toChaseStateTransition);
         
         stateMachine.ChangeState(initState);
         

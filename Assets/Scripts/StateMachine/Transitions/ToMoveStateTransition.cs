@@ -1,8 +1,8 @@
 public class ToMoveStateTransition : Transition
 {
-    private readonly Unit _unit;
+    private readonly Player _unit;
 
-    public ToMoveStateTransition(State nextState, Unit unit) : base(nextState)
+    public ToMoveStateTransition(State nextState, Player unit) : base(nextState)
     {
         _unit = unit;
     }

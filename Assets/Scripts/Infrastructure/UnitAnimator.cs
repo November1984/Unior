@@ -70,7 +70,7 @@ public class UnitAnimator : MonoBehaviour
 
     public void TalkingEnemy()
     {
-        _animator.Play(_enemyTalk);
+        _animator.Play(_idle);
     }
 
     private IEnumerator JumpForcing()

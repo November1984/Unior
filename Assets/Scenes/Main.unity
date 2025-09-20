@@ -1825,6 +1825,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf4be1af176e50f1cb2502bcaebb8453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &624386339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 624386340}
+  - component: {fileID: 624386341}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &624386340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624386339}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1851187473}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &624386341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624386339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1baccc565a750e5c6822bde85dc7b923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &663564629
 GameObject:
   m_ObjectHideFlags: 0
@@ -3574,12 +3618,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _path: {fileID: 1329984086}
-  _enemySpawns: {fileID: 1327635741}
+  _enemySpawns: {fileID: 1329984086}
   _playerSpawn: {fileID: 2023435788}
-  _enemies: 1
+  _enemiesCount: 1
   _enemyPrefab: {fileID: 1466627834}
   _playerPrefab: {fileID: 2121019483}
   _delay: 1
+  _enemySpawner: {fileID: 624386341}
 --- !u!4 &1245327313
 Transform:
   m_ObjectHideFlags: 0
@@ -4735,7 +4780,6 @@ GameObject:
   - component: {fileID: 1466627829}
   - component: {fileID: 1466627833}
   - component: {fileID: 1466627834}
-  - component: {fileID: 1466627845}
   - component: {fileID: 1466627846}
   - component: {fileID: 1466627848}
   - component: {fileID: 1466627850}
@@ -4921,18 +4965,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _runSpeed: 1
---- !u!114 &1466627845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466627828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 582962bc6c8795180bb14acb1703b78a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1466627846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4957,8 +4989,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83fee3c42a35bddf48ea25a0c8a770e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _talkDistance: 1
+  _distance: 2.5
   _dialogue: {fileID: 1373227892}
+  _force: 10
 --- !u!114 &1466627850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5798,6 +5831,7 @@ Transform:
   - {fileID: 1759524822}
   - {fileID: 370235712}
   - {fileID: 1004623022}
+  - {fileID: 624386340}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1917096515
@@ -6579,7 +6613,6 @@ GameObject:
   - component: {fileID: 2121019487}
   - component: {fileID: 2121019488}
   - component: {fileID: 2121019491}
-  - component: {fileID: 2121019492}
   - component: {fileID: 2121019493}
   - component: {fileID: 2121019494}
   - component: {fileID: 2121019497}
@@ -6800,18 +6833,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _wallet: {fileID: 2125990474}
---- !u!114 &2121019492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2121019476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2fcb669de3a711159537bca3dc9e2d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2121019493
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,11 +2,10 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
-
 public class Contactor : MonoBehaviour
 {
     [SerializeField] private float _closeDistance = 1f;
-    public event Action<Player> PlayerSpotted;
+    public event Action<Transform> PlayerSpotted;
 
     private bool _isPlayerSpoted = false;
     private Player _player;
@@ -24,7 +23,7 @@ public class Contactor : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<Player>(out _player))
         {
-            PlayerSpotted?.Invoke(_player);
+            PlayerSpotted?.Invoke(_player.transform);
             IsTooClose = IsCloseDistance();
         }
     }
@@ -34,7 +33,7 @@ public class Contactor : MonoBehaviour
         if (collision.gameObject.TryGetComponent<Player>(out _player))
         {
             _isPlayerSpoted = false;
-            PlayerSpotted?.Invoke(_player);
+            PlayerSpotted?.Invoke(_player.transform);
         }
     }
 

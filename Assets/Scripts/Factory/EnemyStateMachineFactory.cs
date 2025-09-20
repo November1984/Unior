@@ -1,6 +1,4 @@
-using UnityEngine;
-
-public class EnemyStateMachineFactory : MonoBehaviour
+public class EnemyStateMachineFactory
 {
     public StateMachine Create(Enemy enemy, WaypointsContainer waypointsContainer, UnitAnimator unitAnimator)
     {
@@ -10,12 +8,12 @@ public class EnemyStateMachineFactory : MonoBehaviour
         State patrolState = new PatrolState(stateMachine, enemy, waypointsContainer, unitAnimator);
         State targetReachedState = new TargetReachedState(stateMachine, waypointsContainer);
         State chaseState = new ChaseState(stateMachine, enemy, unitAnimator);
-        State talkState = new TalkState(stateMachine, enemy, unitAnimator);
+        State talkState = new AttackState(stateMachine, enemy, unitAnimator);
 
         ToPatrolStateTransition toPatrolStateTransition = new (patrolState, enemy, waypointsContainer);
         ToTargetReachedStateTransition toTargetReachedStateTransition = new(targetReachedState, enemy, waypointsContainer);
         ToChaseStateTransition toChaseStateTransition = new(chaseState, enemy);
-        ToTalkStateTransition toTalkStateTransition = new(talkState, enemy);
+        ToAttackStateTransition toTalkStateTransition = new(talkState, enemy);
 
         initState.AddTransition(toPatrolStateTransition);
         initState.AddTransition(toTargetReachedStateTransition);

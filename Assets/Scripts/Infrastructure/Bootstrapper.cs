@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 
 public class Bootstrapper : MonoBehaviour
@@ -7,10 +6,11 @@ public class Bootstrapper : MonoBehaviour
     [SerializeField] private Transform _path;
     [SerializeField] private Transform _enemySpawns;
     [SerializeField] private Transform _playerSpawn;
-    [SerializeField] private int _enemies = 1;
+    [SerializeField] private int _enemiesCount = 1;
     [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private Player _playerPrefab;
     [SerializeField] private float _delay = 1f;
+    [SerializeField] private EnemySpawner _enemySpawner;
 
     private WaitForSecondsRealtime _wait;
 
@@ -22,20 +22,19 @@ public class Bootstrapper : MonoBehaviour
     private IEnumerator Start()
     {
         Player player = Instantiate(_playerPrefab, _playerSpawn.position, Quaternion.identity);
-        
+
         player.Initialize();
         player.gameObject.SetActive(true);
-        
-        for (int i = 0; i < _enemies; i++)
+
+        for (int i = 0; i < _enemiesCount; i++)
         {
             yield return _wait;
 
-            Vector3 position = (_enemySpawns.childCount > 0) ? _enemySpawns.GetChild(i).transform.position : _enemySpawns.position;
+            Vector3 position = (_enemySpawns.childCount > 0) ?
+                               _enemySpawns.GetChild(i).transform.position :
+                               _enemySpawns.position;
 
-            Enemy enemy = Instantiate(_enemyPrefab, position, Quaternion.identity);
-
-            enemy.Initialize(new WaypointsContainer(_path.Cast<Transform>()));
-            enemy.gameObject.SetActive(true);
+            _enemySpawner.CreateEnemy(_enemyPrefab, position, _path);
         }
     }
 }

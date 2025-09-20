@@ -7,6 +7,7 @@ namespace Healthbars
     public class PopUpPointsSpawner : MonoBehaviour
     {
         [SerializeField] private PopUpPoint _prefab;
+        [SerializeField, Range(0,1)] private float _popUpPointTop = 0.14f;
 
         private HealthView _healthView;
         private ObjectPool<PopUpPoint> _pool;
@@ -50,7 +51,7 @@ namespace Healthbars
         private void Get(PopUpPoint obj)
         {
             _popUpPoint = obj;
-            _popUpPoint.transform.position = transform.position;
+            _popUpPoint.transform.position = transform.position + Vector3.up * _popUpPointTop;
 
             _popUpPoint.gameObject.SetActive(true);
         }

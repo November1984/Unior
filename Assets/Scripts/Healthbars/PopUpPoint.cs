@@ -9,7 +9,7 @@ namespace Healthbars
 public class PopUpPoint : MonoBehaviour
 {
     [SerializeField, Min(0.01f)] private float _popUpSpeed = 100f;
-    [SerializeField] private float _popUpTime = 1f;
+    [SerializeField, Min(0f)] private float _popUpTime = 1f;
 
     private bool _downDirection = true;
     private bool _isRuning = false;

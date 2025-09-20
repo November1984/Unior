@@ -1,15 +1,15 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Player))]
+[RequireComponent(typeof(IDamageable))]
 public class Collector : MonoBehaviour
 {
     [SerializeField] private Wallet _wallet;
 
-    private Player _player;
+    private IDamageable _player;
 
     private void Awake()
     {
-        _player = GetComponent<Player>();
+        _player = GetComponent<IDamageable>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

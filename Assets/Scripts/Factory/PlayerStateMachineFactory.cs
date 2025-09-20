@@ -1,6 +1,4 @@
-using UnityEngine;
-
-public class PlayerStateMachineFactory : MonoBehaviour
+public class PlayerStateMachineFactory
 {
     public StateMachine Create(Player player, UnitAnimator unitAnimator)
     {

@@ -1,11 +1,9 @@
-using Healthbars;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerStateMachineFactory))]
 [RequireComponent(typeof(UnitAnimator))]
 [RequireComponent(typeof(Movement))]
 [RequireComponent(typeof(GroundDetector))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     private StateMachine _stateMachine;
     private UnitAnimator _unitAnimator;
@@ -17,13 +15,15 @@ public class Player : MonoBehaviour
 
     public Movement Movement => _movement;
     public bool IsOnGround => _isOnGround;
-    public Health Health => _hasHealth ? _health : null;
+    Healthbars.Health IDamageable.Health { get => _hasHealth ? _health : null; }
 
     private void Awake()
     {
         _movement = GetComponent<Movement>();
         _groundContactCounter = GetComponent<GroundDetector>();
         _hasHealth = TryGetComponent<Healthbars.Health>(out _health);
+        _unitAnimator = GetComponent<UnitAnimator>();
+        
     }
 
     private void OnEnable()
@@ -41,14 +41,13 @@ public class Player : MonoBehaviour
         _stateMachine?.Update();
     }
 
+    public void Initialize()
+    {
+        _stateMachine = new PlayerStateMachineFactory().Create(this, _unitAnimator);
+    }
+
     private void OnGrounded(bool value)
     {
         _isOnGround = value;
-    }
-
-    public void Initialize()
-    {
-        _unitAnimator = GetComponent<UnitAnimator>();
-        _stateMachine = GetComponent<PlayerStateMachineFactory>().Create(this, _unitAnimator);
     }
 }

@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-
 public class UnitAnimator : MonoBehaviour
 {
     const string JumpForward = nameof(JumpForward);
@@ -22,7 +21,6 @@ public class UnitAnimator : MonoBehaviour
     private int _moveBackward;
     private int _idle;
     private int _talk;
-    private int _enemyTalk;
 
     public int MoveDirection
     {
@@ -42,7 +40,6 @@ public class UnitAnimator : MonoBehaviour
         _moveBackward = Animator.StringToHash(MoveBackward);
         _idle = Animator.StringToHash(Idle);
         _talk = Animator.StringToHash(Talk);
-        _enemyTalk = Animator.StringToHash(EnemyTalk);
     }
 
     public void Jumping()
@@ -68,7 +65,7 @@ public class UnitAnimator : MonoBehaviour
         _animator.Play(_talk);
     }
 
-    public void TalkingEnemy()
+    public void AttackingEnemy()
     {
         _animator.Play(_idle);
     }

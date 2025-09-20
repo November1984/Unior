@@ -1,30 +1,29 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyStateMachineFactory))]
 [RequireComponent(typeof(UnitAnimator))]
-
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _runSpeed = 1f;
 
     private StateMachine _stateMachine;
     private UnitAnimator _unitAnimator;
-    private Talker _talker;
-    private bool _canTalk;
+    private Attacker _attacker;
+    private bool _canAttack;
     private Chaser _chaser;
     private bool _canChase;
 
-    public float TalkDistance => _canTalk ? _talker.TalkDistance : -1;
-    public bool IsTalking => _canTalk ? _talker.IsTalking : false;
+    public IDamageable AttackedUnit => GetVictim(SpottedPlayer);
+    public Attacker Attacker => _canAttack ? _attacker : null;
     public bool IsPlayerSpotted => _canChase ? _chaser.IsPlayerSpotted : false;
     public bool IsClosePosition => _canChase ? _chaser.IsClosePosition : false;
-    public Player SpottedPlayer => _canChase ? _chaser.SpottedPlayer : null;
+    public Transform SpottedPlayer => _canChase ? _chaser.PlayerPosition : null;
 
     private void Awake()
     {
-        _canTalk = TryGetComponent<Talker>(out _talker);
+        _canAttack = TryGetComponent<Attacker>(out _attacker);
         _canChase = TryGetComponent<Chaser>(out _chaser);
+        _unitAnimator = GetComponent<UnitAnimator>();
     }
 
     private void Update()
@@ -34,8 +33,7 @@ public class Enemy : MonoBehaviour
 
     public void Initialize(WaypointsContainer path)
     {
-        _unitAnimator = GetComponent<UnitAnimator>();
-        _stateMachine = GetComponent<EnemyStateMachineFactory>().Create(this, path, _unitAnimator);
+        _stateMachine = new EnemyStateMachineFactory().Create(this, path, _unitAnimator);
     }
 
     public void MoveTo(Vector3 waypoint)
@@ -44,9 +42,11 @@ public class Enemy : MonoBehaviour
         _unitAnimator.MoveDirection = Math.Sign(waypoint.x - transform.position.x);
     }
 
-    public void Talk(bool value)
+    public IDamageable GetVictim(Transform value)
     {
-        if (_canTalk)
-            _chaser.SpottedPlayer.Health.ChangeValue(_talker.Talk(value));
+        if (value.TryGetComponent<IDamageable>(out IDamageable component))
+            return component;
+
+        return null;
     }
 }

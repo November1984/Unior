@@ -5,7 +5,7 @@ public class Chaser : MonoBehaviour
 {
     private Contactor _contactor;
 
-    public Player SpottedPlayer { get; private set; }
+    public Transform PlayerPosition { get; private set; }
     public bool IsPlayerSpotted { get; private set; }
     public bool IsClosePosition { get; private set; }
 
@@ -24,10 +24,10 @@ public class Chaser : MonoBehaviour
         _contactor.PlayerSpotted -= PlayerSpottedNotify;
     }
 
-    private void PlayerSpottedNotify(Player player)
+    private void PlayerSpottedNotify(Transform playerPosition)
     {
         IsPlayerSpotted = _contactor.IsPlayerSpoted;
-        SpottedPlayer = player;
+        PlayerPosition = playerPosition;
         IsClosePosition = _contactor.IsTooClose;
     }
 }

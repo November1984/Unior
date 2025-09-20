@@ -8,26 +8,26 @@ public class EnemyStateMachineFactory
         State patrolState = new PatrolState(stateMachine, enemy, waypointsContainer, unitAnimator);
         State targetReachedState = new TargetReachedState(stateMachine, waypointsContainer);
         State chaseState = new ChaseState(stateMachine, enemy, unitAnimator);
-        State talkState = new AttackState(stateMachine, enemy, unitAnimator);
+        State attackState = new AttackState(stateMachine, enemy, unitAnimator);
 
         ToPatrolStateTransition toPatrolStateTransition = new (patrolState, enemy, waypointsContainer);
         ToTargetReachedStateTransition toTargetReachedStateTransition = new(targetReachedState, enemy, waypointsContainer);
         ToChaseStateTransition toChaseStateTransition = new(chaseState, enemy);
-        ToAttackStateTransition toTalkStateTransition = new(talkState, enemy);
+        ToAttackStateTransition toAttackStateTransition = new(attackState, enemy);
 
         initState.AddTransition(toPatrolStateTransition);
         initState.AddTransition(toTargetReachedStateTransition);
         patrolState.AddTransition(toTargetReachedStateTransition);
         patrolState.AddTransition(toChaseStateTransition);
-        patrolState.AddTransition(toTalkStateTransition);
+        patrolState.AddTransition(toAttackStateTransition);
         targetReachedState.AddTransition(toPatrolStateTransition);
         targetReachedState.AddTransition(toChaseStateTransition);
-        targetReachedState.AddTransition(toTalkStateTransition);
-        chaseState.AddTransition(toTalkStateTransition);
+        targetReachedState.AddTransition(toAttackStateTransition);
+        chaseState.AddTransition(toAttackStateTransition);
         chaseState.AddTransition(toPatrolStateTransition);
-        talkState.AddTransition(toPatrolStateTransition);
-        talkState.AddTransition(toTargetReachedStateTransition);
-        talkState.AddTransition(toChaseStateTransition);
+        attackState.AddTransition(toPatrolStateTransition);
+        attackState.AddTransition(toTargetReachedStateTransition);
+        attackState.AddTransition(toChaseStateTransition);
         
         stateMachine.ChangeState(initState);
         

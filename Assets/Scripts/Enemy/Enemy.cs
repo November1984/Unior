@@ -23,7 +23,6 @@ public class Enemy : MonoBehaviour
     {
         _canAttack = TryGetComponent<Attacker>(out _attacker);
         _canChase = TryGetComponent<Chaser>(out _chaser);
-        _unitAnimator = GetComponent<UnitAnimator>();
     }
 
     private void Update()
@@ -33,6 +32,7 @@ public class Enemy : MonoBehaviour
 
     public void Initialize(WaypointsContainer path)
     {
+        _unitAnimator = GetComponent<UnitAnimator>();
         _stateMachine = new EnemyStateMachineFactory().Create(this, path, _unitAnimator);
     }
 

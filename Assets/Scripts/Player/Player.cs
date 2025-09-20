@@ -22,8 +22,6 @@ public class Player : MonoBehaviour, IDamageable
         _movement = GetComponent<Movement>();
         _groundContactCounter = GetComponent<GroundDetector>();
         _hasHealth = TryGetComponent<Healthbars.Health>(out _health);
-        _unitAnimator = GetComponent<UnitAnimator>();
-        
     }
 
     private void OnEnable()
@@ -43,6 +41,7 @@ public class Player : MonoBehaviour, IDamageable
 
     public void Initialize()
     {
+        _unitAnimator = GetComponent<UnitAnimator>();
         _stateMachine = new PlayerStateMachineFactory().Create(this, _unitAnimator);
     }
 

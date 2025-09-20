@@ -36,9 +36,9 @@ public class Attacker : MonoBehaviour
 
         while (true)
         {
-            yield return wait;
-
             _attackedUnit.Health.ChangeValue(-_force);
+
+            yield return wait;
         }
     }
 }

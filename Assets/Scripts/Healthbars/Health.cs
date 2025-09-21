@@ -4,7 +4,7 @@ namespace Healthbars
 {
     public class Health : MonoBehaviour
     {
-        [SerializeField] private float _startValue = 0f;
+        [SerializeField] private float _startValue = 50f;
         [SerializeField] private float _maxValue = 100;
         [SerializeField] private float _minValue = 0f;
 

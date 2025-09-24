@@ -1,19 +1,30 @@
 public class PatrolState : State
 {
-    private readonly Enemy _enemy;
+    private readonly IPatroller _patroller;
     private readonly UnitAnimator _unitAnimator;
     private readonly WaypointsContainer _waypointsContainer;
 
-    public PatrolState(IStateChanger stateChanger, Enemy enemy, WaypointsContainer waypointsContainer, UnitAnimator unitAnimator) : base(stateChanger)
+    public PatrolState(IStateChanger stateChanger, IPatroller patroller, WaypointsContainer waypointsContainer, UnitAnimator unitAnimator) : base(stateChanger)
     {
-        _enemy = enemy;
+        _patroller = patroller;
         _unitAnimator = unitAnimator;
         _waypointsContainer = waypointsContainer;
     }
 
+    public override void Enter()
+    {
+        Move();
+    }
+
     protected override void OnUpdate()
     {
-        _enemy.MoveTo(_waypointsContainer.NextWaypoint.position);
+        Move();
+    }
+
+    private void Move()
+    {
+        _unitAnimator.MoveDirection = _patroller.Patroller.MoveTo(_waypointsContainer.NextWaypoint.position);
+        
         _unitAnimator.MoveOnGround();
     }
 }

@@ -1,33 +1,32 @@
+using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Contactor))]
 public class Chaser : MonoBehaviour
 {
-    private Contactor _contactor;
+    [SerializeField] private float _closeDistance = 0.9f;
+    [SerializeField] private float _runSpeed = 1f;
 
-    public Transform PlayerPosition { get; private set; }
-    public bool IsPlayerSpotted { get; private set; }
-    public bool IsClosePosition { get; private set; }
+    public bool IsApproached { get; private set; }
 
-    private void Awake()
+    public int MoveTo(Vector3 chasedUnitPosition)
     {
-        _contactor = GetComponent<Contactor>();
+        if (CheckCloseDistance(chasedUnitPosition))
+        {
+            IsApproached = true;
+            return 0;
+        }
+
+        IsApproached = false;
+        transform.position = Vector3.MoveTowards(transform.position, chasedUnitPosition, _runSpeed * Time.deltaTime);
+
+        return Math.Sign(chasedUnitPosition.x - transform.position.x);
     }
 
-    private void OnEnable()
+    private bool CheckCloseDistance(Vector3 chasedUnitPosition)
     {
-        _contactor.PlayerSpotted += PlayerSpottedNotify;
-    }
+        Vector3 offset = transform.position - chasedUnitPosition;
+        float sqrLength = offset.sqrMagnitude;
 
-    private void OnDisable()
-    {
-        _contactor.PlayerSpotted -= PlayerSpottedNotify;
-    }
-
-    private void PlayerSpottedNotify(Transform playerPosition)
-    {
-        IsPlayerSpotted = _contactor.IsPlayerSpoted;
-        PlayerPosition = playerPosition;
-        IsClosePosition = _contactor.IsTooClose;
+        return sqrLength < _closeDistance * _closeDistance;
     }
 }

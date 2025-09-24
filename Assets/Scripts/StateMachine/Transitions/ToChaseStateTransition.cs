@@ -1,14 +1,14 @@
 public class ToChaseStateTransition : Transition
 {
-    private readonly Enemy _enemy;
-    
-    public ToChaseStateTransition(State nextState, Enemy enemy) : base(nextState)
+    private readonly IChaser _chaser;
+
+    public ToChaseStateTransition(State nextState, IChaser chaser) : base(nextState)
     {
-        _enemy = enemy;
+        _chaser = chaser;
     }
 
     protected override bool CanTransit()
     {
-        return _enemy.IsPlayerSpotted && !_enemy.IsClosePosition;
+        return _chaser.SpottedUnit != null && _chaser.IsUnitApproached == false;
     }
 }

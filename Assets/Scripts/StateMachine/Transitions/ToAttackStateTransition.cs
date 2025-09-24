@@ -1,14 +1,14 @@
 public class ToAttackStateTransition : Transition
 {
-    private readonly Enemy _enemy;
+    private readonly IAttacker _attacker;
 
-    public ToAttackStateTransition(State nextState, Enemy enemy) : base(nextState)
+    public ToAttackStateTransition(State nextState, IAttacker attacker) : base(nextState)
     {
-        _enemy = enemy;
+        _attacker = attacker;
     }
 
     protected override bool CanTransit()
     {
-        return _enemy.IsClosePosition;
+        return _attacker.IsUnitApproached;
     }
 }

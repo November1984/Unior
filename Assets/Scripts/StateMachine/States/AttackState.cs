@@ -1,22 +1,22 @@
 public class AttackState : State
 {
-    private readonly Enemy _enemy;
+    private readonly IAttacker _attacker;
     private readonly UnitAnimator _unitAnimator;
 
-    public AttackState(IStateChanger stateChanger, Enemy enemy, UnitAnimator unitAnimator) : base(stateChanger)
+    public AttackState(IStateChanger stateChanger, IAttacker attacker, UnitAnimator unitAnimator) : base(stateChanger)
     {
-        _enemy = enemy;
+        _attacker = attacker;
         _unitAnimator = unitAnimator;
     }
 
     public override void Enter()
     {
         _unitAnimator.AttackingEnemy();
-        _enemy.Attacker.Attack(_enemy.AttackedUnit);
+        _attacker.Attack(_attacker.AttackedUnit);
     }
 
     public override void Exit()
     {
-        _enemy.Attacker.StopAttack();
+        _attacker.Attacker.StopAttack();
     }
 }

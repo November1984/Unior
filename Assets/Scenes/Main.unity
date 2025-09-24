@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 5f3f06b3566e963508430ea9ca97c863, type: 2}
   m_LightingSettings: {fileID: 269456850}
 --- !u!196 &4
 NavMeshSettings:
@@ -4788,6 +4788,7 @@ GameObject:
   - component: {fileID: 1466627852}
   - component: {fileID: 1466627853}
   - component: {fileID: 1466627854}
+  - component: {fileID: 1466627855}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -4965,7 +4966,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cac58101769f9a7fb23de99fc4d3a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runSpeed: 1
 --- !u!114 &1466627846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5005,7 +5005,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dbc5c86582105b75aad65627d361876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _closeDistance: 1
 --- !u!58 &1466627851
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5066,7 +5065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc90781edf645a931aeebc2a488720d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startValue: 0
+  _startValue: 50
   _maxValue: 100
   _minValue: 0
 --- !u!114 &1466627854
@@ -5081,6 +5080,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bdaaf1549ae1e72d94ff5dc680510be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _closeDistance: 0.9
+  _runSpeed: 1
+--- !u!114 &1466627855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466627828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77ce965074a50d56facec5b0ea2be921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _closeDistance: 0.5
+  _runSpeed: 2
 --- !u!1 &1519307746
 GameObject:
   m_ObjectHideFlags: 0
@@ -6619,6 +6634,8 @@ GameObject:
   - component: {fileID: 2121019497}
   - component: {fileID: 2121019499}
   - component: {fileID: 2121019500}
+  - component: {fileID: 2121019502}
+  - component: {fileID: 2121019501}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -6968,7 +6985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc90781edf645a931aeebc2a488720d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startValue: 0
+  _startValue: 50
   _maxValue: 100
   _minValue: 0
 --- !u!114 &2121019500
@@ -6984,6 +7001,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dialogue: {fileID: 65678438}
+--- !u!114 &2121019501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121019476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dbc5c86582105b75aad65627d361876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!58 &2121019502
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121019476}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5
 --- !u!1 &2125990473
 GameObject:
   m_ObjectHideFlags: 0

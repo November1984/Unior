@@ -36,7 +36,7 @@ public class Attacker : MonoBehaviour
 
         while (true)
         {
-            _attackedUnit.Health.ChangeValue(-_force);
+            _attackedUnit?.Health.ChangeValue(-_force);
 
             yield return wait;
         }

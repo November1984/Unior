@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class WaypointsContainer
 {
+    private const float CloseDistanceValue = 0.5f;
     private readonly Queue<Transform> _waypoints;
 
     public WaypointsContainer(IEnumerable<Transform> path)
@@ -12,7 +13,7 @@ public class WaypointsContainer
     }
 
     public Transform NextWaypoint { get; private set; }
-    public float CloseDistance => 0.5f;
+    public float CloseDistance => CloseDistanceValue;
 
     public void EnqueueNextWaypoint()
     {

@@ -24,7 +24,6 @@ public class UnitAnimator : MonoBehaviour
 
     public int MoveDirection
     {
-        get => _moveDirection;
         set
         {
             _moveDirection = value;

@@ -1,21 +1,14 @@
-using UnityEngine;
-
 public class ToPatrolStateTransition : Transition
 {
-    private readonly Enemy _enemy;
-    private readonly WaypointsContainer _waypointsContainer;
+    private readonly IPatroller _patroller;
 
-    public ToPatrolStateTransition(State nextState, Enemy enemy, WaypointsContainer waypointsContainer) : base(nextState)
+    public ToPatrolStateTransition(State nextState, IPatroller patroller) : base(nextState)
     {
-        _enemy = enemy;
-        _waypointsContainer = waypointsContainer;
+        _patroller = patroller;
     }
 
     protected override bool CanTransit()
     {
-        Vector3 offset = _enemy.transform.position - _waypointsContainer.NextWaypoint.position;
-        float sqrLength = offset.sqrMagnitude;
-
-        return _enemy.IsPlayerSpotted == false && sqrLength > _waypointsContainer.CloseDistance * _waypointsContainer.CloseDistance;
+        return _patroller.CanPatrol && _patroller.IsUnitSpotted == false;
     }
 }

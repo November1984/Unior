@@ -10,8 +10,8 @@ public class EnemyStateMachineFactory
         State chaseState = new ChaseState(stateMachine, enemy, unitAnimator);
         State attackState = new AttackState(stateMachine, enemy, unitAnimator);
 
-        ToPatrolStateTransition toPatrolStateTransition = new (patrolState, enemy, waypointsContainer);
-        ToTargetReachedStateTransition toTargetReachedStateTransition = new(targetReachedState, enemy, waypointsContainer);
+        ToPatrolStateTransition toPatrolStateTransition = new (patrolState, enemy);
+        ToTargetReachedStateTransition toTargetReachedStateTransition = new(targetReachedState, enemy);
         ToChaseStateTransition toChaseStateTransition = new(chaseState, enemy);
         ToAttackStateTransition toAttackStateTransition = new(attackState, enemy);
 

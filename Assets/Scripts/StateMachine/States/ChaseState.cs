@@ -1,19 +1,20 @@
 public class ChaseState : State
 {
-    private readonly Enemy _enemy;
+    private readonly IChaser _chaser;
     private readonly UnitAnimator _unitAnimator;
 
     public ChaseState(IStateChanger stateChanger,
-                      Enemy enemy,
+                      IChaser chaser,
                       UnitAnimator unitAnimator) : base(stateChanger)
     {
-        _enemy = enemy;
+        _chaser = chaser;
         _unitAnimator = unitAnimator;
     }
 
     protected override void OnUpdate()
     {
-        _enemy.MoveTo(_enemy.SpottedPlayer.transform.position);
+        _unitAnimator.MoveDirection = _chaser.Chaser.MoveTo(_chaser.SpottedUnit.Position);
+        
         _unitAnimator.MoveOnGround();
     }
 }

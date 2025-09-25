@@ -2,10 +2,10 @@ public interface IAttacker : IContactor
 {
     public Attacker Attacker { get; }
     public IDamageable AttackedUnit { get; }
-    public bool IsUnitApproached { get; }
+    public bool IsUnitAttacked { get; }
 
-    public void Attack(IDamageable unit)
+    public void Attack()
     {
-        Attacker.Attack(unit);
+        Attacker.Attack();
     }
 }

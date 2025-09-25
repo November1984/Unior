@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(InputReader))]
@@ -16,6 +17,7 @@ public class Movement : MonoBehaviour
 
     public int MoveInput { get; private set; }
     public int JumpInput { get; private set; }
+    public bool IsAttacking { get; private set; }
     public float RunSpeed => _runSpeed;
 
     private void Awake()
@@ -28,12 +30,14 @@ public class Movement : MonoBehaviour
     {
         _inputReader.Moved += MovedNotify;
         _inputReader.Jumped += JumpedNotify;
+        _inputReader.IsAttacked += AttackedNotify;
     }
 
     private void OnDisable()
     {
         _inputReader.Moved -= MovedNotify;
         _inputReader.Jumped -= JumpedNotify;
+        _inputReader.IsAttacked -= AttackedNotify;
     }
 
     public void Move(int direction)
@@ -57,5 +61,10 @@ public class Movement : MonoBehaviour
     public void JumpedNotify(int value)
     {
         JumpInput = value;
+    }
+
+    public void AttackedNotify(bool value)
+    {
+        IsAttacking = value;
     }
 }

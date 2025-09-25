@@ -16,7 +16,7 @@ public class JumpState : State
 
     private void Jump(int value)
     {
-        if (_unit.IsOnGround && value > 0)
+        if (value > 0)
         {
             _unit.Movement.Jump();
             _unitAnimator.Jumping();

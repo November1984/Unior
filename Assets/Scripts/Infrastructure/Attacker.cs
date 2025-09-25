@@ -1,22 +1,44 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(CircleCollider2D))]
 public class Attacker : MonoBehaviour
 {
     [SerializeField] private Dialogue _dialogue;
     [SerializeField, Range(0, 100)] private float _force = 10f;
-    [SerializeField] private float _attackDelay = 1f;
+    [SerializeField, Min(0)] private float _attackDelay = 1f;
+    [SerializeField, Min(0)] private float _attackRadius = 0.8f;
 
     private IDamageable _attackedUnit;
     private Coroutine _coroutine;
 
     public bool IsAttacking { get; private set; }
 
-    public void Attack(IDamageable unit)
+    private void Start()
     {
-        IsAttacking = true;
-        _attackedUnit = unit;
+        GetComponent<CircleCollider2D>().radius = _attackRadius;
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out IDamageable unit))
+        {
+            _attackedUnit = unit;
+            IsAttacking = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (IsAttacking = collision.TryGetComponent(out IDamageable unit))
+        {
+            _attackedUnit = null;
+            IsAttacking = false;
+        }
+    }
+
+    public void Attack()
+    {
         _dialogue.Show(true);
         _coroutine = StartCoroutine(MakeAttack());
     }
@@ -36,7 +58,7 @@ public class Attacker : MonoBehaviour
 
         while (true)
         {
-            _attackedUnit?.Health.ChangeValue(-_force);
+            _attackedUnit?.Health.Decrease(_force);
 
             yield return wait;
         }

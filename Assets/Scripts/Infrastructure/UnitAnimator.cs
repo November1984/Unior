@@ -59,12 +59,7 @@ public class UnitAnimator : MonoBehaviour
         _animator.Play(_idle);
     }
 
-    public void Talking()
-    {
-        _animator.Play(_talk);
-    }
-
-    public void AttackingEnemy()
+    public void Attacking()
     {
         _animator.Play(_idle);
     }

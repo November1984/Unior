@@ -11,8 +11,8 @@ public class AttackState : State
 
     public override void Enter()
     {
-        _unitAnimator.AttackingEnemy();
-        _attacker.Attack(_attacker.AttackedUnit);
+        _unitAnimator.Attacking();
+        _attacker.Attack();
     }
 
     public override void Exit()

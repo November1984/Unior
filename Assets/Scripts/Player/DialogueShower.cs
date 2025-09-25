@@ -14,12 +14,12 @@ public class DialogueShower : MonoBehaviour
 
     private void OnEnable()
     {
-        _inputReader.IsTalked += Show;
+        _inputReader.IsAttacked += Show;
     }
 
     private void OnDisable()
     {
-        _inputReader.IsTalked -= Show;
+        _inputReader.IsAttacked -= Show;
     }
 
     public void Show(bool value)

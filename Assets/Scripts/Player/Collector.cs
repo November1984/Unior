@@ -35,6 +35,6 @@ public class Collector : MonoBehaviour
 
     private void CollectMedkit(float value)
     {
-        _player.Health?.ChangeValue(value);
+        _player.Health?.Increase(value);
     }
 }

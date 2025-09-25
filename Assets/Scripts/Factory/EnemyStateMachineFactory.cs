@@ -17,6 +17,8 @@ public class EnemyStateMachineFactory
 
         initState.AddTransition(toPatrolStateTransition);
         initState.AddTransition(toTargetReachedStateTransition);
+        initState.AddTransition(toChaseStateTransition);
+        initState.AddTransition(toAttackStateTransition);
         patrolState.AddTransition(toTargetReachedStateTransition);
         patrolState.AddTransition(toChaseStateTransition);
         patrolState.AddTransition(toAttackStateTransition);

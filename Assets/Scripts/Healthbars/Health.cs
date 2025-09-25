@@ -18,13 +18,22 @@ namespace Healthbars
             CurrentValue = _startValue;
         }
 
-        public void ChangeValue(float delta)
+        public void Increase(float delta)
         {
             float newValue = CurrentValue + delta;
 
             CurrentValue = Mathf.Clamp(newValue, _minValue, _maxValue);
 
             Changed?.Invoke(CurrentValue, delta);
+        }
+
+        public void Decrease(float delta)
+        {
+            float newValue = CurrentValue - delta;
+
+            CurrentValue = Mathf.Clamp(newValue, _minValue, _maxValue);
+
+            Changed?.Invoke(CurrentValue, -delta);
         }
     }
 }

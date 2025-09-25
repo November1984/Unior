@@ -9,6 +9,6 @@ public class ToAttackStateTransition : Transition
 
     protected override bool CanTransit()
     {
-        return _attacker.IsUnitApproached;
+        return _attacker.IsUnitAttacked;
     }
 }

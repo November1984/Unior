@@ -11,6 +11,7 @@ public class ToIdleStateTransition : Transition
     {
         return _unit.IsOnGround &&
                _unit.Movement.MoveInput == 0 &&
-               _unit.Movement.JumpInput == 0;
+               _unit.Movement.JumpInput == 0 &&
+               _unit.Movement.IsAttacking == false;
     }
 }

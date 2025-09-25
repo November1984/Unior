@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(GroundDetector))]
 public class Player : MonoBehaviour, IDamageable, IAttacker
 {
+    [SerializeField] private Attacker _attacker;
+    
     private StateMachine _stateMachine;
     private UnitAnimator _unitAnimator;
     private Movement _movement;
@@ -13,14 +15,11 @@ public class Player : MonoBehaviour, IDamageable, IAttacker
     private Healthbars.Health _health;
     private bool _hasHealth;
     private bool _canAttack;
-    private Attacker _attacker;
 
     public Movement Movement => _movement;
     public bool IsOnGround => _isOnGround;
     public Attacker Attacker => _canAttack ? _attacker : null;
-    public IDamageable AttackedUnit { get; private set; }
-    public bool IsUnitApproached { get; private set; }
-    public bool IsUnitAttacked { get; private set; }
+    public bool IsUnitAttacked => false;
     public IDamageable SpottedUnit { get; private set; }
     Healthbars.Health IDamageable.Health => _hasHealth ? _health : null;
     Vector3 IDamageable.Position => transform.position;
@@ -30,7 +29,11 @@ public class Player : MonoBehaviour, IDamageable, IAttacker
         _movement = GetComponent<Movement>();
         _groundContactCounter = GetComponent<GroundDetector>();
         _hasHealth = TryGetComponent<Healthbars.Health>(out _health);
-        _canAttack = TryGetComponent<Attacker>(out _attacker);
+    }
+
+    private void Start()
+    {
+        _canAttack = _attacker != null;
     }
 
     private void OnEnable()

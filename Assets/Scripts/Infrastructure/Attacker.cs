@@ -19,7 +19,7 @@ public class Attacker : MonoBehaviour
         GetComponent<CircleCollider2D>().radius = _attackRadius;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out IDamageable unit))
         {
@@ -39,28 +39,24 @@ public class Attacker : MonoBehaviour
 
     public void Attack()
     {
-        _dialogue.Show(true);
-        _coroutine = StartCoroutine(MakeAttack());
+        if (_coroutine == null)
+        {
+            _dialogue.Show(true);
+            _coroutine = StartCoroutine(MakeAttack());
+        }
     }
 
-    public void StopAttack()
-    {
-        if (_coroutine != null)
-            StopCoroutine(_coroutine);
-
-        _dialogue.Show(false);
-        IsAttacking = false;
-    }
-
-    private IEnumerator MakeAttack()
+     private IEnumerator MakeAttack()
     {
         var wait = new WaitForSecondsRealtime(_attackDelay);
 
-        while (true)
-        {
-            _attackedUnit?.Health.Decrease(_force);
+        _attackedUnit?.Health.Decrease(_force);
 
-            yield return wait;
-        }
+        yield return wait;
+
+        StopCoroutine(_coroutine);
+        _dialogue.Show(false);
+
+        _coroutine = null;
     }
 }

@@ -13,18 +13,21 @@ public class PlayerStateMachineFactory
         ToIdleStateTransition toIdleStateTransition = new(idleState, player);
         ToMoveStateTransition toMoveStateTransition = new(moveState, player);
         ToJumpStateTransition toJumpStateTransition = new(jumpState, player);
-        ToAttackStateTransition toAttackStateTransition = new(attackState, player);
+        ToPlayerAttackStateTransition toPlayerAttackStateTransition = new(attackState, player);
 
         initState.AddTransition(toIdleStateTransition);
         idleState.AddTransition(toMoveStateTransition);
         idleState.AddTransition(toJumpStateTransition);
-        idleState.AddTransition(toAttackStateTransition);
+        idleState.AddTransition(toPlayerAttackStateTransition);
         moveState.AddTransition(toIdleStateTransition);
         moveState.AddTransition(toJumpStateTransition);
-        moveState.AddTransition(toAttackStateTransition);
+        moveState.AddTransition(toPlayerAttackStateTransition);
         jumpState.AddTransition(toIdleStateTransition);
         jumpState.AddTransition(toMoveStateTransition);
-        jumpState.AddTransition(toAttackStateTransition);
+        jumpState.AddTransition(toPlayerAttackStateTransition);
+        attackState.AddTransition(toIdleStateTransition);
+        attackState.AddTransition(toMoveStateTransition);
+        attackState.AddTransition(toJumpStateTransition);
 
         stateMachine.ChangeState(initState);
         

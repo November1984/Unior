@@ -7,7 +7,6 @@ public class Chaser : MonoBehaviour
     [SerializeField, Min(0)] private float _closeDistance = 0.9f;
     [SerializeField, Min(0)] private float _runSpeed = 1f;
 
-    public bool IsUnitApproached { get; private set; } = false;
     public IDamageable ApproachedUnit { get; private set; }
     public Transform Unit { get; set; }
     public float CloseDistance => _closeDistance;
@@ -20,19 +19,13 @@ public class Chaser : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<IDamageable>(out IDamageable component))
-        {
-            IsUnitApproached = true;
             ApproachedUnit = component;
-        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.TryGetComponent<IDamageable>(out IDamageable component))
-        {
-            IsUnitApproached = false;
             ApproachedUnit = component;
-        }
     }
 
     public int MoveTo(Vector3 chasedUnitPosition)

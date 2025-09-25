@@ -17,6 +17,6 @@ public class AttackState : State
 
     public override void Exit()
     {
-        _attacker.Attacker.StopAttack();
+        // _attacker.Attacker.StopAttack();
     }
 }

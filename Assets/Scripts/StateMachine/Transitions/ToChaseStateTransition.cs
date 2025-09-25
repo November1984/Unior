@@ -9,6 +9,6 @@ public class ToChaseStateTransition : Transition
 
     protected override bool CanTransit()
     {
-        return _chaser.SpottedUnit != null && _chaser.IsUnitApproached == false;
+        return _chaser.SpottedUnit != null;
     }
 }

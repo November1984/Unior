@@ -19,10 +19,7 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker, IChaser, IPatroller
     public Attacker Attacker => _canAttack ? _attacker : null;
     public IDamageable SpottedUnit { get; private set; }
     public bool IsUnitSpotted { get; private set; }
-    public Vector3 SpottedUnitPosition => SpottedUnit.Position;
-    public IDamageable AttackedUnit => ApproachedUnit;
     public Chaser Chaser => _canChase ? _chaser : null;
-    public bool IsUnitApproached => _chaser.IsUnitApproached;
     public IDamageable ApproachedUnit => _chaser.ApproachedUnit;
     public bool IsUnitAttacked => _attacker.IsAttacking;
     public Patroller Patroller => _canPatrol ? _patroller : null;

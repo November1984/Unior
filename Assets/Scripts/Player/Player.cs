@@ -3,9 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(UnitAnimator))]
 [RequireComponent(typeof(Movement))]
 [RequireComponent(typeof(GroundDetector))]
-public class Player : MonoBehaviour, IDamageable, IAttacker
+public class Player : MonoBehaviour, IDamageable, IAttacker, IVampire
 {
     [SerializeField] private Attacker _attacker;
+    [SerializeField] private Vampire _vampire;
     
     private StateMachine _stateMachine;
     private UnitAnimator _unitAnimator;
@@ -15,12 +16,15 @@ public class Player : MonoBehaviour, IDamageable, IAttacker
     private Healthbars.Health _health;
     private bool _hasHealth;
     private bool _canAttack;
+    private bool _canVampire;
 
     public Movement Movement => _movement;
     public bool IsOnGround => _isOnGround;
     public Attacker Attacker => _canAttack ? _attacker : null;
     public bool IsUnitAttacked => false;
     public IDamageable SpottedUnit { get; private set; }
+    public Vampire Vampire => _canVampire ? _vampire : null;
+    public bool IsVampiring => _vampire.IsVampiring;
     Healthbars.Health IDamageable.Health => _hasHealth ? _health : null;
     Vector3 IDamageable.Position => transform.position;
 
@@ -34,6 +38,7 @@ public class Player : MonoBehaviour, IDamageable, IAttacker
     private void Start()
     {
         _canAttack = _attacker != null;
+        _canVampire = _vampire != null;
     }
 
     private void OnEnable()

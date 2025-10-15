@@ -1,16 +1,10 @@
+using Healthbars;
 using UnityEngine;
 
-[RequireComponent(typeof(IDamageable))]
 public class Collector : MonoBehaviour
 {
     [SerializeField] private Wallet _wallet;
-
-    private IDamageable _player;
-
-    private void Awake()
-    {
-        _player = GetComponent<IDamageable>();
-    }
+    [SerializeField] private Health _health;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -21,7 +15,7 @@ public class Collector : MonoBehaviour
             return;
         }
 
-        if (collision.gameObject.TryGetComponent<MedKit>(out MedKit medKit))
+        if (collision.gameObject.TryGetComponent<MedKit>(out MedKit medKit) )
         {
             CollectMedkit(medKit.HealAmount);
             medKit.CollectedNotify();
@@ -35,6 +29,6 @@ public class Collector : MonoBehaviour
 
     private void CollectMedkit(float value)
     {
-        _player.Health?.Increase(value);
+        _health.Increase(value);
     }
 }

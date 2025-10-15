@@ -3,7 +3,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(InputReader))]
-
 public class Movement : MonoBehaviour
 {
     [SerializeField] protected float _runSpeed = 1f;
@@ -17,6 +16,7 @@ public class Movement : MonoBehaviour
     public int MoveInput { get; private set; }
     public int JumpInput { get; private set; }
     public bool IsAttacking { get; private set; }
+    public bool IsVampiring { get; private set; }
     public float RunSpeed => _runSpeed;
 
     private void Awake()
@@ -30,6 +30,7 @@ public class Movement : MonoBehaviour
         _inputReader.Moved += MovedNotify;
         _inputReader.Jumped += JumpedNotify;
         _inputReader.IsAttacked += AttackedNotify;
+        _inputReader.IsVampiring += VampireNotify;
     }
 
     private void OnDisable()
@@ -37,6 +38,7 @@ public class Movement : MonoBehaviour
         _inputReader.Moved -= MovedNotify;
         _inputReader.Jumped -= JumpedNotify;
         _inputReader.IsAttacked -= AttackedNotify;
+        _inputReader.IsVampiring -= VampireNotify;
     }
 
     public void Move(int direction)
@@ -65,5 +67,10 @@ public class Movement : MonoBehaviour
     public void AttackedNotify(bool value)
     {
         IsAttacking = value;
+    }
+
+    public void VampireNotify(bool value)
+    {
+        IsVampiring = value;
     }
 }

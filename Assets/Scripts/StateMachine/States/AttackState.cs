@@ -14,9 +14,4 @@ public class AttackState : State
         _unitAnimator.Attacking();
         _attacker.Attack();
     }
-
-    public override void Exit()
-    {
-        // _attacker.Attacker.StopAttack();
-    }
 }

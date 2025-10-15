@@ -7,6 +7,8 @@ public class Wallet : MonoBehaviour
 
     public event Action<int> AmountChanged;
 
+    public int Coins => _coins;
+
     private void Start()
     {
         _coins = 0;
@@ -14,6 +16,8 @@ public class Wallet : MonoBehaviour
 
     public void AddCoin()
     {
-        AmountChanged?.Invoke(++_coins);
+        _coins++;
+        
+        AmountChanged?.Invoke(_coins);
     }
 }

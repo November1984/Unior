@@ -10,12 +10,14 @@ public class InputReader : MonoBehaviour
     public event Action<int> Moved;
     public event Action<int> Jumped;
     public event Action<bool> IsAttacked;
+    public event Action<bool> IsVampiring;
 
     private void Update()
     {
         MoveNotify((int)Input.GetAxisRaw(Horizontal));
         JumpedNotify((int)Input.GetAxisRaw(Vertical));
         AttackingNotify(Input.GetButton(Jump));
+        VampireNotify(Input.GetKeyDown(KeyCode.V));
     }
 
     private void JumpedNotify(int value)
@@ -31,5 +33,10 @@ public class InputReader : MonoBehaviour
     private void AttackingNotify(bool value)
     {
         IsAttacked?.Invoke(value);
+    }
+
+    private void VampireNotify(bool value)
+    {
+        IsVampiring?.Invoke(value);
     }
 }

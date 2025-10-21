@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker, IChaser, IPatroller
     public bool IsUnitSpotted { get; private set; }
     public Chaser Chaser => _canChase ? _chaser : null;
     public IDamageable ApproachedUnit => _chaser.ApproachedUnit;
-    public bool IsUnitAttacked => _attacker.IsAttacking;
+    public bool IsUnitAutoAttacking => _attacker.IsAttacking;
     public Patroller Patroller => _canPatrol ? _patroller : null;
     public bool CanPatrol => _canPatrol;
     public bool IsWaypointReached { get; private set; }

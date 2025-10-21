@@ -1,15 +1,12 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(InputReader))]
 public class Movement : MonoBehaviour
 {
     [SerializeField] protected float _runSpeed = 1f;
     [SerializeField] protected float _jumpSpeed = 6f;
-
-    private Rigidbody2D _rigidBody;
-    private InputReader _inputReader;
+    [SerializeField] private InputReader _inputReader;
+    [SerializeField] private Player _player;
 
     public event Action<int> Moved;
 
@@ -18,12 +15,6 @@ public class Movement : MonoBehaviour
     public bool IsAttacking { get; private set; }
     public bool IsVampiring { get; private set; }
     public float RunSpeed => _runSpeed;
-
-    private void Awake()
-    {
-        _rigidBody = GetComponent<Rigidbody2D>();
-        _inputReader = GetComponent<InputReader>();
-    }
 
     private void OnEnable()
     {
@@ -43,13 +34,13 @@ public class Movement : MonoBehaviour
 
     public void Move(int direction)
     {
-        Vector2 position = (Vector2)transform.position + direction * RunSpeed * Time.deltaTime * Vector2.right;
-        transform.position = position;
+        Vector3 position = transform.position + direction * RunSpeed * Time.deltaTime * Vector3.right;
+        _player.Transform.position = position;
     }
 
     public void Jump()
     {
-        _rigidBody.linearVelocityY = _jumpSpeed;
+        _player.Rigidbody2D.linearVelocityY = _jumpSpeed;
     }
 
     public void MovedNotify(int value)

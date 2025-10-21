@@ -3,26 +3,35 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Slider))]
+[RequireComponent(typeof(RectTransform))]
 public class VampireView : MonoBehaviour
 {
-    private const float MinimumValue = 0.0001f;
-    private const float MaximumValue = 1f;
+    private const float MinValue = 0.0001f;
+    private const float MaxValue = 1f;
 
-    [SerializeField] private float _timerStep = 1;
-    [SerializeField] private float _aciveTime = 6;
-    [SerializeField] private float _chargingTime = 4;
+    [SerializeField, Min(0)] private float _aciveTime = 6f;
+    [SerializeField, Min(0)] private float _chargingTime = 4f;
+    [SerializeField] private float _vampRadius = 2f;
 
     private Slider _slider;
     private Coroutine _coroutine;
+    private RectTransform _rectTransform;
+
+    public bool IsActive { get; private set; } = false;
+    public float VampRadius => _vampRadius;
 
     private void Awake()
     {
         _slider = GetComponent<Slider>();
+        _rectTransform = GetComponent<RectTransform>();
     }
 
     private void Start()
     {
         _slider.value = _aciveTime;
+        _slider.minValue = MinValue;
+        _slider.maxValue = MaxValue;
+        _rectTransform.sizeDelta = new Vector2(_vampRadius, _vampRadius);
     }
 
     private void OnDisable()
@@ -31,50 +40,45 @@ public class VampireView : MonoBehaviour
             StopCoroutine(_coroutine);
     }
 
-    public bool Launch()
+    public void Launch()
     {
         if (_coroutine == null)
         {
+            IsActive = true;
             _coroutine = StartCoroutine(Decrease());
-            return true;
         }
-
-        return false;
     }
 
     private IEnumerator Increase()
     {
-        var wait = new WaitForSecondsRealtime(_timerStep);
-        float value = Mathf.Clamp(_chargingTime, MinimumValue, _chargingTime);
-        float timer = MinimumValue;
+        float speed = MaxValue / _chargingTime;
 
-        while (_slider.value < MaximumValue)
+        while (_slider.value < MaxValue)
         {
-            _slider.value = timer / value;
+            _slider.value = Mathf.MoveTowards(_slider.value, MaxValue, speed * Time.deltaTime);
 
-            yield return wait;
-
-            timer += _timerStep * Time.deltaTime;
+            yield return null;
         }
+
+        StopCoroutine(_coroutine);
 
         _coroutine = null;
     }
 
     private IEnumerator Decrease()
     {
-        var wait = new WaitForSecondsRealtime(_timerStep);
-        float value = Mathf.Clamp(_chargingTime, _chargingTime, MaximumValue);
-        float timer = MaximumValue;
+        float speed = MaxValue / _aciveTime;
 
-        while (_slider.value > MinimumValue)
+        while (_slider.value > MinValue)
         {
-            _slider.value = timer / value;
+            _slider.value = Mathf.MoveTowards(_slider.value, MinValue, speed * Time.deltaTime);
 
-            yield return wait;
-
-            timer -= _timerStep * Time.deltaTime;
+            yield return null;
         }
 
+        StopCoroutine(_coroutine);
+        
+        IsActive = false;
         _coroutine = StartCoroutine(Increase());
     }
 }

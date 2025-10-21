@@ -23,6 +23,15 @@ namespace Healthbars
             _textMeshPro = GetComponent<TextMeshPro>();
         }
 
+        private void OnDisable()
+        {
+            if (_finishRoutine != null)
+                StopCoroutine(_finishRoutine);
+
+            if (_moveRoutine != null)
+                StopCoroutine(_moveRoutine);
+        }
+
         public void Launch(float value)
         {
             _textMeshPro.text = value.ToString("F0");

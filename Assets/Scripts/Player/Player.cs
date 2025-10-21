@@ -1,37 +1,40 @@
 using UnityEngine;
 
 [RequireComponent(typeof(UnitAnimator))]
-[RequireComponent(typeof(Movement))]
 [RequireComponent(typeof(GroundDetector))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour, IDamageable, IAttacker, IVampire
 {
     [SerializeField] private Attacker _attacker;
     [SerializeField] private Vampire _vampire;
+    [SerializeField] private Movement _movement;
     
     private StateMachine _stateMachine;
     private UnitAnimator _unitAnimator;
-    private Movement _movement;
     private GroundDetector _groundContactCounter;
+    private Rigidbody2D _rigidbody2D;
     private bool _isOnGround;
     private Healthbars.Health _health;
     private bool _hasHealth;
+    private bool _canMove;
     private bool _canAttack;
     private bool _canVampire;
 
-    public Movement Movement => _movement;
+    public Transform Transform => transform;
+    public Rigidbody2D Rigidbody2D => _rigidbody2D;
+    public Movement Movement => _canMove ? _movement : null;
     public bool IsOnGround => _isOnGround;
     public Attacker Attacker => _canAttack ? _attacker : null;
-    public bool IsUnitAttacked => false;
+    public bool IsUnitAutoAttacking => false;
     public IDamageable SpottedUnit { get; private set; }
     public Vampire Vampire => _canVampire ? _vampire : null;
-    public bool IsVampiring => _vampire.IsVampiring;
     Healthbars.Health IDamageable.Health => _hasHealth ? _health : null;
     Vector3 IDamageable.Position => transform.position;
 
     private void Awake()
     {
-        _movement = GetComponent<Movement>();
         _groundContactCounter = GetComponent<GroundDetector>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
         _hasHealth = TryGetComponent<Healthbars.Health>(out _health);
     }
 
@@ -39,6 +42,7 @@ public class Player : MonoBehaviour, IDamageable, IAttacker, IVampire
     {
         _canAttack = _attacker != null;
         _canVampire = _vampire != null;
+        _canMove = _movement != null;
     }
 
     private void OnEnable()

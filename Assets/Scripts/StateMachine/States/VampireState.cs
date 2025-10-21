@@ -9,6 +9,6 @@ public class VampireState : State
 
     public override void Enter()
     {
-        _unit.Vamp();
+        _unit.Vampire.Launch();
     }
 }

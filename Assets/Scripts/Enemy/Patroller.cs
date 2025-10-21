@@ -5,11 +5,15 @@ public class Patroller : MonoBehaviour
 {
     [SerializeField] private float _closeDistance = 0.5f;
     [SerializeField] private float _runSpeed = 2f;
+    [SerializeField] private bool _isActive = true;
 
     public event Action<bool> Reached;
 
     public int MoveTo(Vector3 waypoint)
     {
+        if (_isActive == false)
+            return 0;
+
         if (CheckCloseDistance(waypoint) == false)
         {
             transform.position = Vector3.MoveTowards(transform.position, waypoint, _runSpeed * Time.deltaTime);

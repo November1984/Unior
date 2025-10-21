@@ -34,6 +34,10 @@ public class PlayerStateMachineFactory
         attackState.AddTransition(toMoveStateTransition);
         attackState.AddTransition(toJumpStateTransition);
         attackState.AddTransition(toVampireStateTransition);
+        vampireState.AddTransition(toIdleStateTransition);
+        vampireState.AddTransition(toJumpStateTransition);
+        vampireState.AddTransition(toMoveStateTransition);
+        vampireState.AddTransition(toPlayerAttackStateTransition);
 
         stateMachine.ChangeState(initState);
         

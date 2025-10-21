@@ -41,6 +41,12 @@ public class UnitAnimator : MonoBehaviour
         _talk = Animator.StringToHash(Talk);
     }
 
+    private void OnDisable()
+    {
+        if (_coroutine != null)
+         StopCoroutine(_coroutine);
+    }
+
     public void Jumping()
     {
         _coroutine = StartCoroutine(JumpForcing());

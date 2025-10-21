@@ -9,6 +9,6 @@ public class ToVampireStateTransition : Transition
 
     protected override bool CanTransit()
     {
-        return _unit.IsVampiring == false;
+        return _unit.Vampire.IsVampiring;
     }
 }

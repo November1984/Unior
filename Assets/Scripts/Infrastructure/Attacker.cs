@@ -19,6 +19,12 @@ public class Attacker : MonoBehaviour
         GetComponent<CircleCollider2D>().radius = _attackRadius;
     }
 
+    private void OnDisable()
+    {
+        if (_coroutine != null)
+         StopCoroutine(_coroutine);
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out IDamageable unit))

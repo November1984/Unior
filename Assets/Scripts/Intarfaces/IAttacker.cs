@@ -1,7 +1,7 @@
 public interface IAttacker : IContactor
 {
     public Attacker Attacker { get; }
-    public bool IsUnitAttacked { get; }
+    public bool IsUnitAutoAttacking { get; }
 
     public void Attack()
     {

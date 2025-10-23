@@ -7,6 +7,7 @@ public class Player : MonoBehaviour, IDamageable, IAttacker, IVampire
 {
     [SerializeField] private Attacker _attacker;
     [SerializeField] private Vampire _vampire;
+    [SerializeField] private VampireView _vampireView;
     [SerializeField] private Movement _movement;
     
     private StateMachine _stateMachine;
@@ -43,6 +44,12 @@ public class Player : MonoBehaviour, IDamageable, IAttacker, IVampire
         _canAttack = _attacker != null;
         _canVampire = _vampire != null;
         _canMove = _movement != null;
+
+        if (_canVampire)
+            {
+            _vampireView.Vampire = _vampire;
+            _vampireView.Init();
+            }
     }
 
     private void OnEnable()

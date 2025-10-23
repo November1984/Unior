@@ -599,7 +599,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885510bf7e2e48923a49d0dc20252a29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _vampireView: {fileID: 463879715}
+  _aciveTime: 6
+  _chargingTime: 4
   _vampireForce: 5
   _vampireSpeed: 0.5
   _inputReader: {fileID: 1117346984}
@@ -617,6 +618,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  _vampRange: 2
 --- !u!224 &213324278
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1823,7 +1825,7 @@ GameObject:
   - component: {fileID: 463879715}
   - component: {fileID: 463879714}
   m_Layer: 5
-  m_Name: VampireArea
+  m_Name: VampireView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1885,9 +1887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5847515877f10832087ce079ef4ce45a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _aciveTime: 6
-  _chargingTime: 4
-  _vampRadius: 2
+  _fillingDelay: 0.001
 --- !u!114 &463879716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8077,6 +8077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attacker: {fileID: 1536395966}
   _vampire: {fileID: 213324277}
+  _vampireView: {fileID: 463879715}
   _movement: {fileID: 1544402948}
 --- !u!95 &2121019485
 Animator:

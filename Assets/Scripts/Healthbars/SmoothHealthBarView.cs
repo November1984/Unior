@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace Healthbars
 {
     [RequireComponent(typeof(Slider))]
-    public class SmoothHealthBar : HealthView
+    public class SmoothHealthBarView : HealthView
     {
         [SerializeField] private float _fillingDelay = 0.001f;
         [SerializeField] private float _fillingStep = 1f;

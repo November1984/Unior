@@ -6,19 +6,17 @@ using UnityEngine.UI;
 [RequireComponent(typeof(RectTransform))]
 public class VampireView : MonoBehaviour
 {
-    private const float MinValue = 0.0001f;
-    private const float MaxValue = 1f;
+    private const float MinSliderValue = 0.0001f;
+    private const float MaxSliderValue = 1f;
 
-    [SerializeField, Min(0)] private float _aciveTime = 6f;
-    [SerializeField, Min(0)] private float _chargingTime = 4f;
-    [SerializeField] private float _vampRadius = 2f;
+    [SerializeField] private float _fillingDelay = 0.001f;
+
+    public Vampire Vampire { get; set; }
 
     private Slider _slider;
     private Coroutine _coroutine;
     private RectTransform _rectTransform;
 
-    public bool IsActive { get; private set; } = false;
-    public float VampRadius => _vampRadius;
 
     private void Awake()
     {
@@ -28,57 +26,69 @@ public class VampireView : MonoBehaviour
 
     private void Start()
     {
-        _slider.value = _aciveTime;
-        _slider.minValue = MinValue;
-        _slider.maxValue = MaxValue;
-        _rectTransform.sizeDelta = new Vector2(_vampRadius, _vampRadius);
+        _slider.minValue = MinSliderValue;
+        _slider.maxValue = MaxSliderValue;
+        _rectTransform.sizeDelta = new Vector2(Vampire.VampRange, Vampire.VampRange);
+    }
+
+    public void Init()
+    {
+        Vampire.Activated += Decrease;
+        Vampire.Rechargeded += Increase;
     }
 
     private void OnDisable()
     {
+        if (Vampire != null)
+        {
+            Vampire.Activated -= Decrease;
+            Vampire.Rechargeded -= Increase;
+        }
+        
         if (_coroutine != null)
             StopCoroutine(_coroutine);
     }
 
-    public void Launch()
+    private void Increase(float newValue)
     {
-        if (_coroutine == null)
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+
+        _coroutine = StartCoroutine(IncreaseTimer(newValue));
+    }
+
+    private IEnumerator IncreaseTimer(float newValue)
+    {
+        var wait = new WaitForSecondsRealtime(_fillingDelay);
+        float speed = newValue - _slider.value;
+
+        while (_slider.value < newValue)
         {
-            IsActive = true;
-            _coroutine = StartCoroutine(Decrease());
+            _slider.value = Mathf.MoveTowards(_slider.value, newValue, Time.deltaTime * speed);
+
+            yield return wait;
         }
     }
 
-    private IEnumerator Increase()
+    private void Decrease(float currentValue)
     {
-        float speed = MaxValue / _chargingTime;
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
 
-        while (_slider.value < MaxValue)
-        {
-            _slider.value = Mathf.MoveTowards(_slider.value, MaxValue, speed * Time.deltaTime);
+        _coroutine = StartCoroutine(DecreaseTimer(currentValue));
 
-            yield return null;
-        }
-
-        StopCoroutine(_coroutine);
-
-        _coroutine = null;
     }
 
-    private IEnumerator Decrease()
+    private IEnumerator DecreaseTimer(float newValue)
     {
-        float speed = MaxValue / _aciveTime;
+        var wait = new WaitForSecondsRealtime(_fillingDelay);
+        float speed = _slider.value - newValue;
 
-        while (_slider.value > MinValue)
+        while (_slider.value > newValue)
         {
-            _slider.value = Mathf.MoveTowards(_slider.value, MinValue, speed * Time.deltaTime);
+            _slider.value = Mathf.MoveTowards(_slider.value, newValue, Time.deltaTime * speed);
 
-            yield return null;
+            yield return wait;
         }
-
-        StopCoroutine(_coroutine);
-        
-        IsActive = false;
-        _coroutine = StartCoroutine(Increase());
     }
 }

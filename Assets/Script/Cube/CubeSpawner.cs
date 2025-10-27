@@ -27,9 +27,9 @@ public class CubeSpawner : Spawner<Cube>
     protected override void ActionOnGet(IPoolable obj)
     {
         obj.Transform.position = new Vector3(
-            UnityEngine.Random.Range(_minSpawnCoordinate, _maxSpawnCoordinate),
+            Random.Range(_minSpawnCoordinate, _maxSpawnCoordinate),
             SpawnHeight,
-            UnityEngine.Random.Range(_minSpawnCoordinate, _maxSpawnCoordinate)
+            Random.Range(_minSpawnCoordinate, _maxSpawnCoordinate)
             );
         obj.Rigidbody.linearVelocity = Vector3.zero;
     }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DestroyCounter : MonoBehaviour
 {
-    [SerializeField] private int _maxDestroyDelay = 5;
+    [SerializeField] private float _minDestroyDelay = 2;
+    [SerializeField] private float _maxDestroyDelay = 5;
     [SerializeField] private Timer _timer;
 
     public event Action Finished;
@@ -18,7 +19,7 @@ public class DestroyCounter : MonoBehaviour
 
     public void StartSelfDestroyCounter()
     {
-        float delay = (float)GetRandomValue(_maxDestroyDelay);
+        float delay = GetRandomValue();
 
         _timer?.Launch(delay);
 
@@ -35,8 +36,8 @@ public class DestroyCounter : MonoBehaviour
         Finished?.Invoke();
     }
 
-    private double GetRandomValue(int maxValue)
+    private float GetRandomValue()
     {
-        return UnityEngine.Random.value * maxValue;
+        return UnityEngine.Random.Range(_minDestroyDelay, _maxDestroyDelay);
     }
 }

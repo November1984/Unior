@@ -9,7 +9,6 @@ public class Bomb : MonoBehaviour, IPoolable, IDestroyable, IExplodeable
     [SerializeField] private DestroyCounter _destroyer;
 
     public event Action<IDestroyable> Destroyed;
-    public event Action<Renderer> CollisionOccurred;
 
     public Renderer Renderer { get; private set; }
     public Transform Transform => transform;
@@ -34,7 +33,7 @@ public class Bomb : MonoBehaviour, IPoolable, IDestroyable, IExplodeable
 
     private void DestroyedNotify()
     {
-        // _exploder.Explode();
+        _exploder.Explode();
         Destroyed?.Invoke(this);
     }
 }

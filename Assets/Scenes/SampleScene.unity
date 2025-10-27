@@ -145,7 +145,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 21000327}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -0.81}
+  m_LocalPosition: {x: 0, y: 0, z: -0.97}
   m_LocalScale: {x: 2.1083257, y: 2.1083257, z: 2.1083257}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -325,11 +325,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 759265709}
-  _repeateRate: 0.1
   _poolCapasity: 35
   _poolMaxSize: 50
-  _minSpawnCoordinate: -3
-  _maxSpawnCoordinate: 3
 --- !u!4 &208581107
 Transform:
   m_ObjectHideFlags: 0
@@ -831,7 +828,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -270, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.5, y: 1.34}
+  m_AnchoredPosition: {x: -0.515, y: 1.34}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &410087039
@@ -981,7 +978,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454960078}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -5.977}
+  m_LocalPosition: {x: 0, y: 0, z: -5.881}
   m_LocalScale: {x: 2.1083257, y: 2.1083257, z: 2.1083257}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -989,7 +986,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.56, y: 1.388}
+  m_AnchoredPosition: {x: 0.439, y: 1.388}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &454960080
@@ -1445,7 +1442,8 @@ GameObject:
   - component: {fileID: 759265709}
   - component: {fileID: 759265715}
   - component: {fileID: 759265716}
-  m_Layer: 0
+  - component: {fileID: 759265717}
+  m_Layer: 3
   m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1594,6 +1592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1643ed497fad7a3e8adcc829f800f1a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minDestroyDelay: 2
   _maxDestroyDelay: 5
   _timer: {fileID: 0}
 --- !u!114 &759265716
@@ -1608,8 +1607,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9d5b36a720f0ca1c9b135fa586fed1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionRadius: 2
-  _explosionForce: 20
+  _explosionRadius: 80
+  _explosionForce: 100
+  _explodeView: {fileID: 759265717}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!114 &759265717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759265708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 740e1bd2ef92a26b683f4d66fa21977a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _effect: {fileID: 4593184484909914550, guid: 570848279d02c423ba5cb9afe3cb43b3, type: 3}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2278,7 +2294,7 @@ GameObject:
   - component: {fileID: 1513387007}
   - component: {fileID: 1513387008}
   - component: {fileID: 1513387009}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2445,6 +2461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1643ed497fad7a3e8adcc829f800f1a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minDestroyDelay: 0.2
   _maxDestroyDelay: 5
   _timer: {fileID: 1513387007}
 --- !u!114 &1513387009
@@ -2885,9 +2902,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 1513387006}
-  _repeateRate: 0.1
   _poolCapasity: 35
   _poolMaxSize: 50
+  _repeateRate: 0.1
   _minSpawnCoordinate: -3
   _maxSpawnCoordinate: 3
 --- !u!1 &1931171045

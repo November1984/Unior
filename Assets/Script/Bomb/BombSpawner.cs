@@ -7,7 +7,7 @@ public class BombSpawner : Spawner<Bomb>
     {
         _newBombPosition = position;
 
-        Create();
+        ActionOnGet(Create());
     }
 
     protected override void ActionOnGet(IPoolable obj)

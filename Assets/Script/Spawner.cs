@@ -1,63 +1,65 @@
+using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class Spawner : MonoBehaviour
+public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolable, IDestroyable
 {
-    private const float SpawnHeight = 6;
+    [SerializeField] protected T _prefab;
+    [SerializeField] private int _poolCapasity = 35;
+    [SerializeField] private int _poolMaxSize = 50;
 
-    [SerializeField] private Cube _prefab;
-    [SerializeField] private float _repeateRate = 1f;
-    [SerializeField] private int _poolCapasity = 5;
-    [SerializeField] private int _poolMaxSize = 5;
-    [SerializeField] private float _minSpawnCoordinate = -3;
-    [SerializeField] private float _maxSpawnCoordinate = 3;
+    public event Action<IPoolable> ObjCollected;
+    private ObjectPool<T> _pool;
 
-    private ObjectPool<Cube> _pool;
+    protected virtual void Start() { }
 
-    private void Start()
+    protected virtual void ActionOnGet(IPoolable obj) { }
+
+    protected void GetObj()
     {
-        InvokeRepeating(nameof(GetCube), 0.0f, _repeateRate);
+        _pool.Get();
+    }
+
+    protected virtual T Create()
+    {
+        T obj = Instantiate(_prefab);
+
+        obj.Init();
+        obj.Transform.gameObject.SetActive(true);
+
+        obj.Destroyed += Collect;
+
+        return obj;
     }
 
     private void Awake()
     {
-        _pool = new ObjectPool<Cube>(
+        _pool = new ObjectPool<T>(
             createFunc: () => Create(),
             actionOnGet: (obj) => ActionOnGet(obj),
             actionOnRelease: (obj) => obj.gameObject.SetActive(false),
-            actionOnDestroy: (obj) => Destroy(obj),
+            actionOnDestroy: (obj) => DestroyT(obj),
             collectionCheck: true,
             defaultCapacity: _poolCapasity,
             maxSize: _poolMaxSize
         );
     }
 
-    public void Collect(Cube obj)
+    private void OnDestroy()
     {
-        _pool.Release(obj);
+        _pool.Dispose();
     }
 
-    private Cube Create()
+    private void Collect(IDestroyable obj)
     {
-        Cube cube = Instantiate(_prefab);
-        cube.Destroyed += Collect;
-
-        return cube;
+        _pool.Release((T)obj);
+        ObjCollected?.Invoke(obj);
     }
 
-    private void ActionOnGet(Cube obj)
+    private void DestroyT(T obj)
     {
-        obj.transform.position = new Vector3(
-            Random.Range(_minSpawnCoordinate, _maxSpawnCoordinate),
-            SpawnHeight,
-            Random.Range(_minSpawnCoordinate, _maxSpawnCoordinate)
-            );
-        obj.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
-        obj.gameObject.SetActive(true);
-    }
+        obj.Destroyed -= Collect;
 
-    private void GetCube()
-    {
-        _pool.Get();
+        Destroy(obj);
     }
 }

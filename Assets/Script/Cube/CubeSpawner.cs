@@ -12,6 +12,8 @@ public class CubeSpawner : Spawner<Cube>
 
     protected override void Start()
     {
+        base.Start();
+        
         InvokeRepeating(nameof(GetObj), 0.0f, _repeateRate);
         _colorChanger = new();
     }
@@ -19,6 +21,7 @@ public class CubeSpawner : Spawner<Cube>
     protected override Cube Create()
     {
         Cube obj = base.Create();
+
         obj.CollisionOccurred += _colorChanger.PaintRed;
 
         return obj;
@@ -26,11 +29,17 @@ public class CubeSpawner : Spawner<Cube>
 
     protected override void ActionOnGet(IPoolable obj)
     {
+        obj.Init();
+        
         obj.Transform.position = new Vector3(
             Random.Range(_minSpawnCoordinate, _maxSpawnCoordinate),
             SpawnHeight,
             Random.Range(_minSpawnCoordinate, _maxSpawnCoordinate)
             );
         obj.Rigidbody.linearVelocity = Vector3.zero;
+        
+        obj.Transform.gameObject.SetActive(true);
+        
+        SpawnedCount++;
     }
 }

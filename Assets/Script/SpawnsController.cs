@@ -17,6 +17,6 @@ public class SpawnsController : MonoBehaviour
 
     private void CreateBomb(IPoolable obj)
     {
-        _bombSpawner.CreateBomb(obj.Transform.position);
+        _bombSpawner?.CreateBomb(obj.Transform.position);
     }
 }

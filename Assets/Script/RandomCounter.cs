@@ -2,14 +2,16 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class DestroyCounter : MonoBehaviour
+public class RandomCounter : MonoBehaviour
 {
-    [SerializeField] private float _minDestroyDelay = 2;
-    [SerializeField] private float _maxDestroyDelay = 5;
-    [SerializeField] private Timer _timer;
-
     public event Action Finished;
     private Coroutine _coroutine;
+    private Timer _timer;
+
+    private void Awake ()
+    {
+        TryGetComponent(out _timer);
+    }
 
     private void OnDisable()
     {
@@ -17,9 +19,9 @@ public class DestroyCounter : MonoBehaviour
             StopCoroutine(_coroutine);
     }
 
-    public void StartSelfDestroyCounter()
+    public void Launch(float minDelay, float maxDelay)
     {
-        float delay = GetRandomValue();
+        float delay = GetRandomValue(minDelay, maxDelay);
 
         _timer?.Launch(delay);
 
@@ -36,8 +38,8 @@ public class DestroyCounter : MonoBehaviour
         Finished?.Invoke();
     }
 
-    private float GetRandomValue()
+    private float GetRandomValue(float minDelay, float maxDelay)
     {
-        return UnityEngine.Random.Range(_minDestroyDelay, _maxDestroyDelay);
+        return UnityEngine.Random.Range(minDelay, maxDelay);
     }
 }

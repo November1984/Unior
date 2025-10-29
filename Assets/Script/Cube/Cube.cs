@@ -3,14 +3,18 @@ using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
 [RequireComponent(typeof(Rigidbody))]
-public class Cube : MonoBehaviour, IPoolable, IDestroyable
+[RequireComponent(typeof(RandomCounter))]
+public class Cube : MonoBehaviour, IPoolable
 {
-    [SerializeField] private DestroyCounter _destroyCounter;
+    [SerializeField] private float _minimumDestroyDelay = 1f;
+    [SerializeField] private float _maximumDestroyDelay = 3f;
 
-    public event Action<IDestroyable> Destroyed;
+    public event Action<IPoolable> Destroyed;
     public event Action<Renderer> CollisionOccurred;
 
+    private RandomCounter _randomCounter;
     private bool _isFirstContact;
+    private bool _hasCounter;
 
     public Renderer Renderer { get; private set; }
     public Transform Transform => transform;
@@ -18,13 +22,15 @@ public class Cube : MonoBehaviour, IPoolable, IDestroyable
 
     private void OnEnable()
     {
+        _randomCounter = GetComponent<RandomCounter>();
+
         Renderer.material.color = Color.blue;
         _isFirstContact = false;
     }
 
     private void OnDisable()
     {
-        _destroyCounter.Finished -= DestroyedNotify;
+        _randomCounter.Finished -= DestroyedNotify;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -36,9 +42,9 @@ public class Cube : MonoBehaviour, IPoolable, IDestroyable
 
             CollisionOccurred?.Invoke(Renderer);
 
-            _destroyCounter.Finished += DestroyedNotify;
-            
-            _destroyCounter.StartSelfDestroyCounter();
+            _randomCounter.Finished += DestroyedNotify;
+
+            _randomCounter.Launch(_minimumDestroyDelay, _maximumDestroyDelay);
         }
     }
 

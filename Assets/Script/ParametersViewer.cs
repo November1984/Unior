@@ -32,7 +32,8 @@ public class ParametersViewer : MonoBehaviour
 
         while (true)
         {
-            _textMeshPro.text = $"Создано: {_spawner?.CreatedCount};\n" + 
+            _textMeshPro.text = $"{_spawner.gameObject.name}\n" +
+                                $"Создано: {_spawner?.CreatedCount};\n" +
                                 $"Выведено на сцену: {_spawner?.SpawnedCount};\n" +
                                 $"Активно: {_spawner?.ActiveCount};";
             yield return wait;

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Renderer))]
 [RequireComponent(typeof(Rigidbody))]
@@ -21,15 +22,16 @@ public class Cube : MonoBehaviour, IPoolable
     public Transform Transform => transform;
     public Rigidbody Rigidbody { get; private set; }
 
+    private void Awake()
+    {
+        _counter = GetComponent<Counter>();
+        _timer = GetComponent<Timer>();
+    }
+
     private void OnEnable()
     {
         Renderer.material.color = Color.blue;
         _isFirstContact = false;
-    }
-
-    private void OnDisable()
-    {
-        _counter.Finished -= DestroyedNotify;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -43,7 +45,7 @@ public class Cube : MonoBehaviour, IPoolable
 
             _counter.Finished += DestroyedNotify;
 
-            float delay = UnityEngine.Random.Range(_minimumDestroyDelay, _maximumDestroyDelay);
+            float delay = Random.Range(_minimumDestroyDelay, _maximumDestroyDelay);
 
             _counter.Launch(delay);
             _timer.Launch(delay);
@@ -54,12 +56,11 @@ public class Cube : MonoBehaviour, IPoolable
     {
         Renderer = GetComponent<Renderer>();
         Rigidbody = GetComponent<Rigidbody>();
-        _counter = GetComponent<Counter>();
-        _timer = GetComponent<Timer>();
     }
 
     private void DestroyedNotify()
     {
         Destroyed?.Invoke(this);
+        _counter.Finished -= DestroyedNotify;
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Renderer))]
@@ -22,15 +23,10 @@ public class Bomb : MonoBehaviour, IPoolable, IExplodeable
 
     private void OnEnable()
     {
-        float delay = UnityEngine.Random.Range(_minimumDestroyDelay, _maximumDestroyDelay);
+        float delay = Random.Range(_minimumDestroyDelay, _maximumDestroyDelay);
 
         _counter.Launch(delay);
         _dissolver.Launch(delay);
-    }
-
-    private void OnDisable()
-    {
-        _counter.Finished -= DestroyedNotify;
     }
 
     public void Init()
@@ -47,5 +43,6 @@ public class Bomb : MonoBehaviour, IPoolable, IExplodeable
     {
         _exploder.Explode();
         Destroyed?.Invoke(this);
+        _counter.Finished -= DestroyedNotify;
     }
 }

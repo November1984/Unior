@@ -2,16 +2,10 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class RandomCounter : MonoBehaviour
+public class Counter : MonoBehaviour
 {
     public event Action Finished;
     private Coroutine _coroutine;
-    private Timer _timer;
-
-    private void Awake ()
-    {
-        TryGetComponent(out _timer);
-    }
 
     private void OnDisable()
     {
@@ -19,12 +13,8 @@ public class RandomCounter : MonoBehaviour
             StopCoroutine(_coroutine);
     }
 
-    public void Launch(float minDelay, float maxDelay)
+    public void Launch(float delay)
     {
-        float delay = GetRandomValue(minDelay, maxDelay);
-
-        _timer?.Launch(delay);
-
         _coroutine = StartCoroutine(CountDown(delay));
     }
 
@@ -36,10 +26,5 @@ public class RandomCounter : MonoBehaviour
 
         StopCoroutine(_coroutine);
         Finished?.Invoke();
-    }
-
-    private float GetRandomValue(float minDelay, float maxDelay)
-    {
-        return UnityEngine.Random.Range(minDelay, maxDelay);
     }
 }

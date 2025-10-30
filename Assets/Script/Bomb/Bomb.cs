@@ -3,7 +3,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Renderer))]
-[RequireComponent(typeof(RandomCounter))]
+[RequireComponent(typeof(Counter))]
+[RequireComponent(typeof(Dissolver))]
 public class Bomb : MonoBehaviour, IPoolable, IExplodeable
 {
     [SerializeField] private Exploder _exploder;
@@ -12,7 +13,8 @@ public class Bomb : MonoBehaviour, IPoolable, IExplodeable
 
     public event Action<IPoolable> Destroyed;
 
-    private RandomCounter _randomCounter;
+    private Counter _counter;
+    private Dissolver _dissolver;
 
     public Renderer Renderer { get; private set; }
     public Transform Transform => transform;
@@ -20,21 +22,25 @@ public class Bomb : MonoBehaviour, IPoolable, IExplodeable
 
     private void OnEnable()
     {
-        _randomCounter?.Launch(_minimumDestroyDelay, _maximumDestroyDelay);
+        float delay = UnityEngine.Random.Range(_minimumDestroyDelay, _maximumDestroyDelay);
+
+        _counter.Launch(delay);
+        _dissolver.Launch(delay);
     }
 
     private void OnDisable()
     {
-        _randomCounter.Finished -= DestroyedNotify;
+        _counter.Finished -= DestroyedNotify;
     }
 
     public void Init()
     {
         Renderer = GetComponent<Renderer>();
         Rigidbody = GetComponent<Rigidbody>();
-        _randomCounter = GetComponent<RandomCounter>();
+        _counter = GetComponent<Counter>();
+        _dissolver = GetComponent<Dissolver>();
 
-        _randomCounter.Finished += DestroyedNotify;
+        _counter.Finished += DestroyedNotify;
     }
 
     private void DestroyedNotify()

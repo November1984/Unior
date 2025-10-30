@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class ParametersViewer : MonoBehaviour
 {
-    [SerializeField] private float _delay = 1f;
+    [SerializeField, Min(0)] private float _delay = 0f;
     [SerializeField] private ISpawner _spawner;
 
     private TextMeshProUGUI _textMeshPro;

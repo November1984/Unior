@@ -1,21 +1,40 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Renderer))]
 public class Dissolver : MonoBehaviour
 {
     private Coroutine _coroutine;
+    private Renderer _renderer;
 
-    public void Launch(Renderer renderer)
+    private void OnDisable()
     {
-        _coroutine = StartCoroutine(Dessappear(renderer));
+        if (_coroutine != null)
+        StopCoroutine(_coroutine);
     }
 
-    private IEnumerator Dessappear(Renderer renderer)
+    public void Launch(float delay)
     {
-        float alfa = renderer.material.color.a;
+        _renderer = GetComponent<Renderer>();
+        _coroutine = StartCoroutine(Dessappear(delay));
+    }
 
-        while (alfa > 0)
+    private IEnumerator Dessappear(float delay)
+    {
+        const float TargetValue = 0;
+        
+        Color color = new(); 
+        color.a = 1;
+        _renderer.material.color = color;
+        float alfa = color.a;
+        float elapsedTime = 0;
+
+        while (elapsedTime < delay)
         {
+            elapsedTime += Time.deltaTime;
+            color.a = Mathf.Lerp(alfa, TargetValue, elapsedTime / delay);
+            _renderer.material.color = color;
+            
             yield return null;
         }
     }

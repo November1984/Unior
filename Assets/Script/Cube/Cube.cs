@@ -3,7 +3,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(RandomCounter))]
+[RequireComponent(typeof(Counter))]
+[RequireComponent(typeof(Timer))]
 public class Cube : MonoBehaviour, IPoolable
 {
     [SerializeField] private float _minimumDestroyDelay = 1f;
@@ -12,9 +13,9 @@ public class Cube : MonoBehaviour, IPoolable
     public event Action<IPoolable> Destroyed;
     public event Action<Renderer> CollisionOccurred;
 
-    private RandomCounter _randomCounter;
+    private Counter _counter;
+    private Timer _timer;
     private bool _isFirstContact;
-    private bool _hasCounter;
 
     public Renderer Renderer { get; private set; }
     public Transform Transform => transform;
@@ -22,29 +23,30 @@ public class Cube : MonoBehaviour, IPoolable
 
     private void OnEnable()
     {
-        _randomCounter = GetComponent<RandomCounter>();
-
         Renderer.material.color = Color.blue;
         _isFirstContact = false;
     }
 
     private void OnDisable()
     {
-        _randomCounter.Finished -= DestroyedNotify;
+        _counter.Finished -= DestroyedNotify;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.TryGetComponent<PlatformFlag>(out PlatformFlag flag)
+        if (collision.gameObject.TryGetComponent(out PlatformFlag flag)
             & _isFirstContact == false)
         {
             _isFirstContact = true;
 
             CollisionOccurred?.Invoke(Renderer);
 
-            _randomCounter.Finished += DestroyedNotify;
+            _counter.Finished += DestroyedNotify;
 
-            _randomCounter.Launch(_minimumDestroyDelay, _maximumDestroyDelay);
+            float delay = UnityEngine.Random.Range(_minimumDestroyDelay, _maximumDestroyDelay);
+
+            _counter.Launch(delay);
+            _timer.Launch(delay);
         }
     }
 
@@ -52,6 +54,8 @@ public class Cube : MonoBehaviour, IPoolable
     {
         Renderer = GetComponent<Renderer>();
         Rigidbody = GetComponent<Rigidbody>();
+        _counter = GetComponent<Counter>();
+        _timer = GetComponent<Timer>();
     }
 
     private void DestroyedNotify()

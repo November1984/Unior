@@ -17,7 +17,7 @@ public abstract class Spawner<T> : ISpawner where T : MonoBehaviour, IPoolable
 
     protected T GetObj()
     {
-        ActiveCount++;// = _pool.CountActive;
+        ActiveCount = _pool.CountActive;
 
         return _pool.Get();
     }
@@ -28,7 +28,6 @@ public abstract class Spawner<T> : ISpawner where T : MonoBehaviour, IPoolable
 
         obj.Destroyed += Collect;
         CreatedCount++;
-        // ActiveCount = _pool.CountActive;
 
         return obj;
     }
@@ -53,7 +52,7 @@ public abstract class Spawner<T> : ISpawner where T : MonoBehaviour, IPoolable
 
     private void Collect(IPoolable obj)
     {
-        ActiveCount--;// = _pool.CountActive;
+        ActiveCount = _pool.CountActive;
         _pool.Release((T)obj);
         ObjCollected?.Invoke(obj);
     }
@@ -61,13 +60,9 @@ public abstract class Spawner<T> : ISpawner where T : MonoBehaviour, IPoolable
     private void DestroyT(T obj)
     {
         obj.Destroyed -= Collect;
-        ActiveCount--;// = _pool.CountActive;
+        ActiveCount = _pool.CountActive;
         
         if (obj != null)
             Destroy(obj.gameObject);
     }
 }
-
-
-
-// Сделать прозрачность бомб

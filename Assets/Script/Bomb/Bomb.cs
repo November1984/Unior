@@ -29,12 +29,12 @@ public class Bomb : MonoBehaviour, IPoolable, IExplodeable
         _dissolver = GetComponent<Dissolver>();
     }
 
-    private void OnEnable()
+    public void Init()
     {
         float delay = Random.Range(_minimumDestroyDelay, _maximumDestroyDelay);
+        _counter.Finished += DestroyedNotify;
 
         _counter.Launch(delay);
-        _counter.Finished += DestroyedNotify;
         _dissolver.Launch(delay);
     }
 
@@ -42,6 +42,7 @@ public class Bomb : MonoBehaviour, IPoolable, IExplodeable
     {
         Exploded?.Invoke();
         Destroyed?.Invoke(this);
+        
         _counter.Finished -= DestroyedNotify;
     }
 }

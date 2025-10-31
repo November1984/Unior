@@ -14,6 +14,7 @@ public class BombSpawner : Spawner<Bomb>
     protected override void ActionOnGet(IPoolable obj)
     {
         obj.Transform.gameObject.SetActive(true);
+        obj.Init();
         obj.Reset();
         
         obj.Transform.position = _newBombPosition;

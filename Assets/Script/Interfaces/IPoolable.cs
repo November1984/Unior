@@ -8,5 +8,6 @@ public interface IPoolable
     public Transform Transform { get; }
     public Rigidbody Rigidbody { get; }
 
+    public void Init(){}
     public void Reset(){}
 }

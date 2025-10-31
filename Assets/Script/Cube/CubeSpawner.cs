@@ -33,7 +33,7 @@ public class CubeSpawner : Spawner<Cube>
 
     protected override void ActionOnGet(IPoolable obj)
     {
-        obj.Init();
+        obj.Transform.gameObject.SetActive(true);
         obj.Reset();
 
         obj.Transform.position = new Vector3(
@@ -42,7 +42,6 @@ public class CubeSpawner : Spawner<Cube>
             Random.Range(_minSpawnCoordinate, _maxSpawnCoordinate)
             );
 
-        obj.Transform.gameObject.SetActive(true);
 
         SpawnedCount++;
     }

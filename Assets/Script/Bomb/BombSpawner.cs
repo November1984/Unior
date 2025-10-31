@@ -13,13 +13,11 @@ public class BombSpawner : Spawner<Bomb>
 
     protected override void ActionOnGet(IPoolable obj)
     {
-        obj.Init();
+        obj.Transform.gameObject.SetActive(true);
         obj.Reset();
         
         obj.Transform.position = _newBombPosition;
         obj.Rigidbody.linearVelocity = Vector3.zero;
-
-        obj.Transform.gameObject.SetActive(true);
         
         SpawnedCount++;
     }

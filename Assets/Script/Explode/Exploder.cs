@@ -9,11 +9,29 @@ public class Exploder : MonoBehaviour
 
     Collider[] _hitObjects = new Collider[30];
 
+    private IExplodeable _unit;
+
+    private void Awake()
+    {
+        TryGetComponent(out _unit);
+    }
+
+    private void OnEnable()
+    {
+        if (_unit != null)
+            _unit.Exploded += Explode;
+    }
+
+    private void OnDisable()
+    {
+        if (_unit != null)
+            _unit.Exploded += Explode;
+    }
 
     public void Explode()
     {
         _explodeView.Show();
-        
+
         int hitsCount = Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, _hitObjects, _layerMask);
 
         for (int i = 0; i < hitsCount; i++)

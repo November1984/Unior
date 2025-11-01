@@ -2,18 +2,23 @@ using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public abstract class Spawner<T> : ISpawner where T : MonoBehaviour, IPoolable
+public abstract class Spawner<T> : ISpawner where T : MonoBehaviour, IPoolable<T>
 {
     [SerializeField] protected T _prefab;
     [SerializeField] private int _poolCapasity = 10;
     [SerializeField] private int _poolMaxSize = 10;
 
-    public event Action<IPoolable> ObjCollected;
+    public event Action<T> ObjCollected;
     private ObjectPool<T> _pool;
 
     protected virtual void Start() { }
 
-    protected virtual void ActionOnGet(IPoolable obj) { }
+    protected virtual void ActionOnGet(T obj)
+    {
+        obj.gameObject.SetActive(true);
+
+        SpawnedCount++;
+    }
 
     protected T GetObj()
     {
@@ -25,8 +30,8 @@ public abstract class Spawner<T> : ISpawner where T : MonoBehaviour, IPoolable
     protected virtual T Create()
     {
         T obj = Instantiate(_prefab);
-
         obj.Destroyed += Collect;
+
         CreatedCount++;
 
         return obj;
@@ -50,10 +55,11 @@ public abstract class Spawner<T> : ISpawner where T : MonoBehaviour, IPoolable
         _pool.Dispose();
     }
 
-    private void Collect(IPoolable obj)
+    private void Collect(T obj)
     {
         ActiveCount = _pool.CountActive;
-        _pool.Release((T)obj);
+
+        _pool.Release(obj);
         ObjCollected?.Invoke(obj);
     }
 
@@ -61,7 +67,7 @@ public abstract class Spawner<T> : ISpawner where T : MonoBehaviour, IPoolable
     {
         obj.Destroyed -= Collect;
         ActiveCount = _pool.CountActive;
-        
+
         if (obj != null)
             Destroy(obj.gameObject);
     }

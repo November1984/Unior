@@ -6,19 +6,18 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(Renderer))]
 [RequireComponent(typeof(Counter))]
 [RequireComponent(typeof(Dissolver))]
-public class Bomb : MonoBehaviour, IPoolable, IExplodeable
+public class Bomb : MonoBehaviour, IPoolable<Bomb>, IExplodeable
 {
     [SerializeField] private float _minimumDestroyDelay = 2f;
     [SerializeField] private float _maximumDestroyDelay = 5f;
 
-    public event Action<IPoolable> Destroyed;
+    public event Action<Bomb> Destroyed;
     public event Action Exploded;
 
     private Counter _counter;
     private Dissolver _dissolver;
 
     public Renderer Renderer { get; private set; }
-    public Transform Transform => transform;
     public Rigidbody Rigidbody { get; private set; }
 
     private void Awake()

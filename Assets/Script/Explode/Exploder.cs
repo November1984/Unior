@@ -25,7 +25,7 @@ public class Exploder : MonoBehaviour
     private void OnDisable()
     {
         if (_unit != null)
-            _unit.Exploded += Explode;
+            _unit.Exploded -= Explode;
     }
 
     public void Explode()

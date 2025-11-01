@@ -6,12 +6,12 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Counter))]
 [RequireComponent(typeof(Timer))]
-public class Cube : MonoBehaviour, IPoolable
+public class Cube : MonoBehaviour, IPoolable<Cube>
 {
     [SerializeField] private float _minimumDestroyDelay = 1f;
     [SerializeField] private float _maximumDestroyDelay = 3f;
 
-    public event Action<IPoolable> Destroyed;
+    public event Action<Cube> Destroyed;
     public event Action<Renderer> CollisionOccurred;
 
     private Counter _counter;
@@ -19,7 +19,6 @@ public class Cube : MonoBehaviour, IPoolable
     private bool _isFirstContact;
 
     public Renderer Renderer { get; private set; }
-    public Transform Transform => transform;
     public Rigidbody Rigidbody { get; private set; }
 
     private void Awake()
@@ -54,9 +53,12 @@ public class Cube : MonoBehaviour, IPoolable
         }
     }
 
-    public void Reset()
+    public void ResetPosition(float minSpawnCoordinate, float maxSpawnCoordinate, float spawnHeight)
     {
-        Transform.SetPositionAndRotation(new Vector3(), Quaternion.identity);
+        float spawnPointX = Random.Range(minSpawnCoordinate, maxSpawnCoordinate);
+        float spawnPointZ = Random.Range(minSpawnCoordinate, maxSpawnCoordinate);
+
+        transform.SetPositionAndRotation(new Vector3(spawnPointX, spawnHeight, spawnPointZ), Quaternion.identity);
         Rigidbody.linearVelocity = Vector3.zero;
     }
 

@@ -1,6 +1,6 @@
 using System;
 
-public interface IExplodeable : IPoolable
+public interface IExplodeable
 {
     public event Action Exploded;
 }

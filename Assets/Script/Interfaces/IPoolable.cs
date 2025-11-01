@@ -1,13 +1,10 @@
 using System;
 using UnityEngine;
 
-public interface IPoolable
+public interface IPoolable<T> where T: MonoBehaviour
 {
-    public event Action<IPoolable> Destroyed;
+    public event Action<T> Destroyed;
 
-    public Transform Transform { get; }
-    public Rigidbody Rigidbody { get; }
 
-    public void Init(){}
-    public void Reset(){}
+    public virtual void Init() { }
 }

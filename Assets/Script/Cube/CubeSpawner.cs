@@ -25,25 +25,15 @@ public class CubeSpawner : Spawner<Cube>
     protected override Cube Create()
     {
         Cube obj = base.Create();
-
         obj.CollisionOccurred += _colorChanger.PaintRed;
 
         return obj;
     }
 
-    protected override void ActionOnGet(IPoolable obj)
+    protected override void ActionOnGet(Cube obj)
     {
-        obj.Transform.gameObject.SetActive(true);
-        obj.Reset();
-
-        obj.Transform.position = new Vector3(
-            Random.Range(_minSpawnCoordinate, _maxSpawnCoordinate),
-            SpawnHeight,
-            Random.Range(_minSpawnCoordinate, _maxSpawnCoordinate)
-            );
-
-
-        SpawnedCount++;
+        base.ActionOnGet(obj);
+        obj.ResetPosition(_minSpawnCoordinate, _maxSpawnCoordinate, SpawnHeight);
     }
 
     private void OnDisable()
@@ -65,8 +55,8 @@ public class CubeSpawner : Spawner<Cube>
         }
     }
 
-    private void CreateBomb(IPoolable obj)
+    private void CreateBomb(Cube obj)
     {
-        _bombSpawner?.CreateBomb(obj.Transform.position);
+        _bombSpawner?.CreateBomb(obj.transform.position);
     }
 }

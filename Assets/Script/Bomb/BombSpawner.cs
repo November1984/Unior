@@ -11,15 +11,12 @@ public class BombSpawner : Spawner<Bomb>
         GetObj();
     }
 
-    protected override void ActionOnGet(IPoolable obj)
+    protected override void ActionOnGet(Bomb obj)
     {
-        obj.Transform.gameObject.SetActive(true);
+        base.ActionOnGet(obj);
         obj.Init();
-        obj.Reset();
         
-        obj.Transform.position = _newBombPosition;
+        obj.transform.position = _newBombPosition;
         obj.Rigidbody.linearVelocity = Vector3.zero;
-        
-        SpawnedCount++;
     }
 }

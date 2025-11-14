@@ -1,11 +1,11 @@
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class ScoreZone : MonoBehaviour
+public class ScoreZone : MonoBehaviour, IInteractable
 {
+    [SerializeField] private float _zoneSize = 6f;
+
     public BoxCollider2D BoxCollider2D => _boxCollider2D;
-    [SerializeField] private float MinimumHeight { get; set; } = 4f;
-    [SerializeField] private float MaximumHeight { get; set; } = 5f;
     public float Height { get; private set; }
 
     private BoxCollider2D _boxCollider2D;
@@ -17,13 +17,13 @@ public class ScoreZone : MonoBehaviour
 
     private void OnEnable()
     {
-        SetSize();
+        SetZoneSize();
     }
 
-    private void SetSize()
+    private void SetZoneSize()
     {
         float width = 1f;
-        Height = Random.Range(MinimumHeight, MaximumHeight) / 2f;
+        Height = _zoneSize / 2f;
 
         _boxCollider2D.size = new Vector2(width, Height);
     }

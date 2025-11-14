@@ -1,21 +1,30 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ObstaclesSpawner : ObjectPool<Obstacle>
 {
     [SerializeField] private float _delay = 1f;
     [SerializeField] private Terminator _terminator;
-    
+    [SerializeField] private float _upperBound = 4f;
+    [SerializeField] private float _lowerBound = -2f;
+
     private Coroutine _coroutine;
 
-    protected override void OnStart()
+    public void Launch()
     {
         _coroutine = StartCoroutine(Generate());
     }
 
+    public void Stop()
+    {
+        StopCoroutine(_coroutine);
+        Reset();
+    }
+
     private void OnEnable()
     {
-        _terminator.Terminated += Release;
+        _terminator.Terminated += PutObject;
     }
 
     private void OnDisable()
@@ -23,7 +32,7 @@ public class ObstaclesSpawner : ObjectPool<Obstacle>
         if (_coroutine != null)
             StopCoroutine(_coroutine);
 
-        _terminator.Terminated -= Release;
+        _terminator.Terminated -= PutObject;
     }
 
     private IEnumerator Generate()
@@ -32,9 +41,17 @@ public class ObstaclesSpawner : ObjectPool<Obstacle>
 
         while (true)
         {
-            GetObj().SetPosition(transform.position);
-
             yield return wait;
+
+            GetObj().SetPosition(GetSpawnPoint());
         }
+    }
+
+    private Vector3 GetSpawnPoint()
+    {
+        float yPosition = Random.Range(_lowerBound, _upperBound);
+        Vector3 spawnPoint = transform.position + yPosition * Vector3.up;
+
+        return spawnPoint;
     }
 }

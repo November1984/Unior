@@ -1,11 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObstaclesSpawner : ObjectPool<Obstacle>
 {
     [SerializeField] private float _delay = 1f;
-    [SerializeField] private Terminator _terminator;
+    [SerializeField] private ObstacleTerminator _terminator;
     [SerializeField] private float _upperBound = 4f;
     [SerializeField] private float _lowerBound = -2f;
 

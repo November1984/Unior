@@ -6,7 +6,7 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     [SerializeField] private ScoresCounter _scoresCounter;
-    
+
     public event Action Crashed;
 
     private CollisionHandler _collisionHandler;
@@ -49,6 +49,7 @@ public class Board : MonoBehaviour
     public void Launch()
     {
         _rigidbody2D.simulated = true;
+        _rigidbody2D.linearVelocity = new (0,0);
         transform.position = new Vector3();
     }
     

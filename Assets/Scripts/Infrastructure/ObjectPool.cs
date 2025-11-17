@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class ObjectPool<T> : MonoBehaviour where T: MonoBehaviour
@@ -22,11 +21,11 @@ public abstract class ObjectPool<T> : MonoBehaviour where T: MonoBehaviour
 
     protected virtual void OnStart(){}
 
-    public T GetObj()
+    public T GetObj(Transform parent = null)
     {
         if (_pool.Count == 0)
         {
-            T obj = Instantiate(_prefab);
+            T obj = Instantiate(_prefab, parent);
 
             _createdObjs.Add(obj);
             

@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class Terminator : MonoBehaviour
+public abstract class Terminator<T> : MonoBehaviour where T: MonoBehaviour
 {
-    public event Action<Obstacle> Terminated;
+    public event Action<T> Terminated;
 
     private BoxCollider2D _collider;
 
@@ -20,7 +20,7 @@ public class Terminator : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-         if (collision.TryGetComponent(out Obstacle obj))
+         if (collision.TryGetComponent(out T obj))
             Terminated?.Invoke(obj);
     }
 }

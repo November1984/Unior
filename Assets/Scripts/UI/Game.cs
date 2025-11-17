@@ -7,6 +7,7 @@ public class Game : MonoBehaviour
     [SerializeField] private StartButton _startButton;
     [SerializeField] private RestartButton _restartButton;
     [SerializeField] private ObstaclesSpawner _obstaclesSpawner;
+    [SerializeField] private BulletSpawner _bulletSpawner;
     [SerializeField] private StartMenu _startMenu;
     [SerializeField] private RestartMenu _restatMenu;
 
@@ -43,6 +44,7 @@ public class Game : MonoBehaviour
     {
         _nets.Stop();
         _obstaclesSpawner.Stop();
+        _bulletSpawner.Reset();
         _restatMenu.gameObject.SetActive(true);
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField] private FirTree _prefab;
+    [SerializeField] private ObstacleUnit _prefab;
     [SerializeField] private ScoreZone _scoreZone;
 
     private void Start()

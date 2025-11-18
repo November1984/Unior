@@ -1,12 +1,13 @@
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Bullet : ObstacleUnit
 {
-    [SerializeField] private float _speed = 1f;
+    [SerializeField] private float _speed = 5f;
 
     private Coroutine _coroutine;
-    public Vector3 _direction;
+    private Vector3 _direction;
 
     private void OnEnable()
     {
@@ -19,11 +20,12 @@ public class Bullet : ObstacleUnit
             StopCoroutine(_coroutine);
     }
 
-    public void SetPosition(Vector3 position, Vector3 direction)
+    public void SetParams(Vector3 position, Vector3 direction, float initialSpeed)
     {
         gameObject.transform.position = position;
         _direction = direction;
-
+        _speed += initialSpeed;
+        
         gameObject.SetActive(true);
     }
 
@@ -34,6 +36,7 @@ public class Bullet : ObstacleUnit
             yield return null;
 
             transform.position += _speed * _direction * Time.deltaTime;
+            transform.rotation = quaternion.identity;
         }
     }
 }

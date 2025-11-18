@@ -1,18 +1,18 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(IAttacker))]
-public class Attacker : MonoBehaviour
+[RequireComponent(typeof(IAutoAttacker))]
+public class AutoAttacker : MonoBehaviour
 {
     [SerializeField] private BulletSpawner _bulletSpawner;
     [SerializeField] private float _fireDelay = 2f;
 
-    private IAttacker _unit;
+    private IAutoAttacker _unit;
     private Coroutine _coroutine;
 
     private void Awake()
     {
-        _unit = GetComponent<IAttacker>();
+        _unit = GetComponent<IAutoAttacker>();
     }
 
     private void OnEnable()
@@ -34,7 +34,7 @@ public class Attacker : MonoBehaviour
         {
             yield return wait;
 
-            _bulletSpawner.GetObj(transform).SetPosition(gameObject.transform.position, _unit.GetAttackDirection());
+            _bulletSpawner.GetObj(_unit.BasketBullets.transform).SetParams(transform.position, _unit.GetAttackDirection(), _unit.Speed);
         }
     }
 }

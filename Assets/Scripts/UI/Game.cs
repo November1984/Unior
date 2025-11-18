@@ -10,6 +10,7 @@ public class Game : MonoBehaviour
     [SerializeField] private BulletSpawner _bulletSpawner;
     [SerializeField] private StartMenu _startMenu;
     [SerializeField] private RestartMenu _restatMenu;
+    [SerializeField] private InputReader _inputReader;
 
     private void OnEnable()
     {
@@ -33,6 +34,7 @@ public class Game : MonoBehaviour
 
     private void Launch()
     {
+        _inputReader.Ride = true;
         _nets.Launch();
         _board.Launch();
         _obstaclesSpawner.Launch();
@@ -42,6 +44,7 @@ public class Game : MonoBehaviour
 
     private void Stop()
     {
+        _inputReader.Ride = false;
         _nets.Stop();
         _obstaclesSpawner.Stop();
         _bulletSpawner.Reset();

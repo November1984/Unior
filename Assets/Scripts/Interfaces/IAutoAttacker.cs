@@ -1,9 +1,10 @@
+
 using UnityEngine;
 
-public interface IAttacker
+public interface IAutoAttacker
 {
-    public Transform BasketBullets {get;}
     public float Speed {get;}
-
+    public Transform BasketBullets {get;}
+    
     public Vector3 GetAttackDirection();
 }

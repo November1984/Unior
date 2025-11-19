@@ -56,6 +56,8 @@ public class Board : MonoBehaviour, IMoveable, IAttacker
         _rigidbody2D.simulated = true;
         _rigidbody2D.linearVelocity = new (0,0);
         transform.position = new Vector3();
+        
+        _scoresCounter?.ResetScores();
     }
     
     public Vector3 GetAttackDirection()
@@ -66,7 +68,6 @@ public class Board : MonoBehaviour, IMoveable, IAttacker
     private void EndGame()
     {
         Crashed?.Invoke();
-        _scoresCounter?.ResetScores();
         _rigidbody2D.simulated = false;
     }
 }

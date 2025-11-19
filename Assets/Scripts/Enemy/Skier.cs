@@ -10,12 +10,13 @@ public class Skier : MonoBehaviour, IObstacle, IInteractable, IAutoAttacker, IDa
     public event Action Defeated;
     private CollisionHandler _collisionHandler;
     private Collider2D _collider2D;
+    private Vector3 _position;
 
     public Collider2D Collider2D => _collider2D;
     public float Speed => 0;
     public Transform BasketBullets => _basketBullets.transform;
     public bool CanAttack { get; private set; }
-    public Vector3 Position => transform.position;
+    public Vector3 Position => gameObject.transform.position;
 
     private void Awake()
     {
@@ -46,7 +47,8 @@ public class Skier : MonoBehaviour, IObstacle, IInteractable, IAutoAttacker, IDa
 
     public void SetPosition (Vector3 position)
     {
-        gameObject.transform.position = position;
+        transform.position = position;
+        _position = position;
     }
 
     private void OnCollision(IInteractable interactable)

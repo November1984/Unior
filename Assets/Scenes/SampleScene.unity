@@ -507,7 +507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde086201ed3d635bbee33154138c5ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 1299848643}
+  _prefab: {fileID: 1299848641}
   _scoreZone: {fileID: 601927091}
 --- !u!4 &488019587
 Transform:
@@ -1764,8 +1764,9 @@ GameObject:
   - component: {fileID: 1299848644}
   - component: {fileID: 1299848643}
   - component: {fileID: 1299848647}
-  - component: {fileID: 1299848648}
   - component: {fileID: 1299848649}
+  - component: {fileID: 1299848651}
+  - component: {fileID: 1299848650}
   m_Layer: 0
   m_Name: Skier
   m_TagString: Untagged
@@ -1916,18 +1917,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletSpawner: {fileID: 817947924}
   _fireDelay: 0.5
---- !u!114 &1299848648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1299848641}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 069febff9a3959325b39fc4db4068540, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1299848649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1942,6 +1931,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _staySprite: {fileID: 7707333482087970614, guid: e0cd148f021f556dc9ed2bbe617e8cb1, type: 3}
   _laySprite: {fileID: -2676138755773076124, guid: f439e984eeeb053a19ed4b3b4e90a728, type: 3}
+--- !u!114 &1299848650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299848641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 069febff9a3959325b39fc4db4068540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!50 &1299848651
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299848641}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1335571269
 GameObject:
   m_ObjectHideFlags: 0

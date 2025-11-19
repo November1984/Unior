@@ -7,6 +7,7 @@ public class AutoAttacker : MonoBehaviour
     [SerializeField] private BulletSpawner _bulletSpawner;
     [SerializeField] private float _fireDelay = 2f;
 
+    private float _gunOffset = 1f;
     private IAutoAttacker _unit;
     private Coroutine _coroutine;
 
@@ -29,12 +30,13 @@ public class AutoAttacker : MonoBehaviour
     private IEnumerator Fire()
     {
         WaitForSecondsRealtime wait = new(_fireDelay);
+        Vector3 bulletSpawnPoint = _unit.Position + _gunOffset * Vector3.left;
 
-        while (true)
+        while (_unit.CanAttack)
         {
             yield return wait;
 
-            _bulletSpawner.GetObj(_unit.BasketBullets.transform).SetParams(transform.position, _unit.GetAttackDirection(), _unit.Speed);
+            _bulletSpawner.GetObj(_unit.BasketBullets.transform).SetParams(bulletSpawnPoint, _unit.GetAttackDirection(), _unit.Speed);
         }
     }
 }

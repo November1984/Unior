@@ -1764,6 +1764,8 @@ GameObject:
   - component: {fileID: 1299848644}
   - component: {fileID: 1299848643}
   - component: {fileID: 1299848647}
+  - component: {fileID: 1299848648}
+  - component: {fileID: 1299848649}
   m_Layer: 0
   m_Name: Skier
   m_TagString: Untagged
@@ -1814,7 +1816,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -1914,6 +1916,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletSpawner: {fileID: 817947924}
   _fireDelay: 0.5
+--- !u!114 &1299848648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299848641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 069febff9a3959325b39fc4db4068540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1299848649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299848641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6ee053abe9e09893afef72d26ca0520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _staySprite: {fileID: 7707333482087970614, guid: e0cd148f021f556dc9ed2bbe617e8cb1, type: 3}
+  _laySprite: {fileID: -2676138755773076124, guid: f439e984eeeb053a19ed4b3b4e90a728, type: 3}
 --- !u!1 &1335571269
 GameObject:
   m_ObjectHideFlags: 0

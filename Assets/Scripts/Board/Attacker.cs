@@ -6,6 +6,7 @@ public class Attacker : MonoBehaviour
 {
     [SerializeField] private BulletSpawner _bulletSpawner;
 
+    private float _gunOffset = 1f;
     private InputReader _inputReader;
     private IAttacker _unit;
     
@@ -27,6 +28,8 @@ public class Attacker : MonoBehaviour
 
     private void Shoot()
     {
-        _bulletSpawner.GetObj(_unit.BasketBullets.transform).SetParams(transform.position, _unit.GetAttackDirection(), _unit.Speed);
+        Vector3 bulletSpawnPoint = transform.position + _gunOffset * Vector3.right;
+        
+        _bulletSpawner.GetObj(_unit.BasketBullets.transform).SetParams(bulletSpawnPoint, _unit.GetAttackDirection(), _unit.Speed);
     }
 }

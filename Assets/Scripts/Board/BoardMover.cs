@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.Mathematics;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -56,7 +55,6 @@ public class BoardMover : MonoBehaviour
     {
         float targetAngle;
         float targetWeight;
-        float weight = Quaternion.Euler(0,0,_minRotationZ).w;
 
         while (transform.rotation.eulerAngles.z > _minRotationZ)
         {

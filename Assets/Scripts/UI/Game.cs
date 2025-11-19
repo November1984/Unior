@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    [SerializeField] private Nets _nets;
+    [SerializeField] private NetAnimator _nets;
     [SerializeField] private Board _board;
     [SerializeField] private StartButton _startButton;
     [SerializeField] private RestartButton _restartButton;

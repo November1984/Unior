@@ -9,7 +9,6 @@ public class Board : MonoBehaviour, IMoveable, IAttacker
     [SerializeField] private BasketBullets _boardersBullets;
 
     public event Action Crashed;
-    public event Action Attacking;
 
     private CollisionHandler _collisionHandler;
     private Rigidbody2D _rigidbody2D;
@@ -42,16 +41,12 @@ public class Board : MonoBehaviour, IMoveable, IAttacker
     {
          switch (interactable)
         {
-            case FirTree:
-               EndGame();
-                break;
-
-            case Net:
-                EndGame();
-                break;
-
             case ScoreZone:
                 _scoresCounter?.AddScore();
+                break;
+
+            default:
+                EndGame();
                 break;
         }
     }
@@ -73,10 +68,5 @@ public class Board : MonoBehaviour, IMoveable, IAttacker
         Crashed?.Invoke();
         _scoresCounter?.ResetScores();
         _rigidbody2D.simulated = false;
-    }
-
-    private void Attack()
-    {
-        Attacking?.Invoke();
     }
 }

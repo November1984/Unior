@@ -18,19 +18,26 @@ public class AutoAttacker : MonoBehaviour
 
     private void OnEnable()
     {
-        _coroutine = StartCoroutine(Fire());
+        _unit.Placed += Launch;
     }
 
     private void OnDisable()
     {
         if (_coroutine != null)
             StopCoroutine(_coroutine);
+
+        _unit.Placed -= Launch;
+    }
+
+    public void Launch()
+    {
+        _coroutine = StartCoroutine(Fire());
     }
 
     private IEnumerator Fire()
     {
         WaitForSecondsRealtime wait = new(_fireDelay);
-        Vector3 bulletSpawnPoint = _unit.Position + _gunOffset * Vector3.left;
+        Vector3 bulletSpawnPoint = transform.position + _gunOffset * Vector3.left;
 
         while (_unit.CanAttack)
         {

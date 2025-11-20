@@ -29,7 +29,7 @@ public class Skier : MonoBehaviour, IObstacle, IInteractable, IAutoAttacker, IDa
     private void OnEnable()
     {
         _collisionHandler.CollisionDetected += OnCollision;
-        CanAttack = true;
+
     }
 
     private void OnDisable()
@@ -46,13 +46,14 @@ public class Skier : MonoBehaviour, IObstacle, IInteractable, IAutoAttacker, IDa
     {
         gameObject.SetActive(value);
         _rigidbody2D.simulated = value;
+        CanAttack = true;
+
+        Placed?.Invoke();
     }
 
     public void SetPosition(Vector3 position)
     {
         transform.position = position;
-
-        Placed?.Invoke();
     }
 
     private void OnCollision(IInteractable interactable)

@@ -1,2 +1,2 @@
-public class BulletTerminator : Terminator<Bullet>
+public class BulletTerminator : Terminator<Bullet>, IInteractable
 {}

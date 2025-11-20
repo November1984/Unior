@@ -14,13 +14,6 @@ public abstract class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
         _createdObjs = new();
     }
 
-    private void Start()
-    {
-        OnStart();
-    }
-
-    protected virtual void OnStart() { }
-
     public T GetObj(Transform parent = null)
     {
         T obj;
@@ -37,6 +30,7 @@ public abstract class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
         }
 
         obj.gameObject.SetActive(true);
+        Subscribe(obj);
 
         return obj;
     }
@@ -55,4 +49,7 @@ public abstract class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
         _createdObjs.Clear();
         _pool.Clear();
     }
+
+    protected virtual void Subscribe(T obj)
+    {}
 }

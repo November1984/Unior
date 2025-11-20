@@ -1,24 +1,14 @@
-using System.Collections.Generic;
-using UnityEngine;
-
 public class BulletSpawner : ObjectPool<Bullet>
 {
-    [SerializeField] private List<BulletTerminator> _terminators;
-
-    private void OnEnable()
+    protected override void Subscribe(Bullet obj)
     {
-        foreach (BulletTerminator terminator in _terminators)
-            terminator.Terminated += Collect;
-    }
-
-    private void OnDisable()
-    {
-        foreach (BulletTerminator terminator in _terminators)
-            terminator.Terminated -= Collect;
+        obj.Collided += Collect;
     }
 
     private void Collect(Bullet obj)
     {
+        obj.Collided -= Collect;
+
         PutObject(obj);
     }
 }

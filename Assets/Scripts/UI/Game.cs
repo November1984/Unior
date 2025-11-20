@@ -15,15 +15,17 @@ public class Game : MonoBehaviour
     private void OnEnable()
     {
         _board.Crashed += Stop;
-        _startButton.Clicked += Launch;
-        _restartButton.Clicked += Launch;
+        _startButton.Clicked += LaunchGame;
+        _restartButton.Clicked += LaunchGame;
+        _inputReader.Tapped += LaunchAnimation;
     }
 
     private void OnDisable()
     {
         _board.Crashed -= Stop;
-        _startButton.Clicked -= Launch;
-        _restartButton.Clicked -= Launch;
+        _startButton.Clicked -= LaunchGame;
+        _restartButton.Clicked -= LaunchGame;
+        _inputReader.Tapped -= LaunchAnimation;
     }
 
     private void Start()
@@ -32,14 +34,18 @@ public class Game : MonoBehaviour
         _restatMenu.gameObject.SetActive(false);
     }
 
-    private void Launch()
+    private void LaunchGame()
     {
         _inputReader.Ride = true;
-        _nets.Launch();
         _board.Launch();
         _obstaclesSpawner.Launch();
         _startMenu.gameObject.SetActive(false);
         _restatMenu.gameObject.SetActive(false);
+    }
+
+    private void LaunchAnimation()
+    {
+        _nets.Launch();
     }
 
     private void Stop()

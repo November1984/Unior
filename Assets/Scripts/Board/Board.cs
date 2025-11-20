@@ -46,7 +46,7 @@ public class Board : MonoBehaviour, IMoveable, IAttacker
                 break;
 
             default:
-                EndGame();
+                // EndGame();
                 break;
         }
     }

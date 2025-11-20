@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour, IObstacle, IInteractable
 {
     [SerializeField] private float _speed = 5f;
+
+    public event Action<Bullet> Collided;
 
     private Coroutine _coroutine;
     private Vector3 _direction;
@@ -30,6 +33,13 @@ public class Bullet : MonoBehaviour, IObstacle, IInteractable
             StopCoroutine(_coroutine);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out IInteractable item))
+             if (item is ScoreZone == false)
+                Collided?.Invoke(this);
+    }
+
     public void SetParams(Vector3 position, Vector3 direction, float initialSpeed)
     {
         gameObject.transform.position = position;
@@ -42,7 +52,7 @@ public class Bullet : MonoBehaviour, IObstacle, IInteractable
         gameObject.SetActive(value);
     }
 
-    public void SetPosition (Vector3 position)
+    public void SetPosition(Vector3 position)
     {
         gameObject.transform.position = position;
     }

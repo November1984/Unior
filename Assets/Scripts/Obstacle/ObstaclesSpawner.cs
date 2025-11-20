@@ -42,7 +42,7 @@ public class ObstaclesSpawner : ObjectPool<Obstacle>
         {
             yield return wait;
 
-            GetObj().SetPosition(GetSpawnPoint());
+            GetObj().Locate(GetSpawnPoint());
         }
     }
 

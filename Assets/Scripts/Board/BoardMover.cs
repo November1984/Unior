@@ -40,9 +40,7 @@ public class BoardMover : MonoBehaviour
     private void Move()
     {
         if (_coroutine != null)
-        {
             StopCoroutine(_coroutine);
-        }
 
         _rigidbody2D.linearVelocity = new Vector3(_speed, _tapForce, 0);
         transform.rotation = Quaternion.Euler(0, 0, _maxRotationZ);
@@ -53,14 +51,12 @@ public class BoardMover : MonoBehaviour
 
     private IEnumerator Rotate()
     {
-        float targetAngle;
-        float targetWeight;
+        Quaternion targetRotation;
 
         while (transform.rotation.eulerAngles.z > _minRotationZ)
         {
-            targetAngle = Mathf.Lerp(transform.rotation.z, Quaternion.Euler(0,0,_minRotationZ).z, _rotationSpeed * Time.deltaTime);
-            targetWeight = Mathf.Lerp(transform.rotation.w, Quaternion.Euler(0,0,_minRotationZ).w, _rotationSpeed * Time.deltaTime);
-            transform.rotation = new Quaternion (0, 0, targetAngle, targetWeight);
+            targetRotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0,0,_minRotationZ), _rotationSpeed * Time.deltaTime);
+            transform.rotation = targetRotation;
 
             yield return null;
         }

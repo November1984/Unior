@@ -13,6 +13,7 @@ public class SpriteChanger : MonoBehaviour
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _unit = GetComponent<IDamageable>();
     }
 
     private void OnEnable()

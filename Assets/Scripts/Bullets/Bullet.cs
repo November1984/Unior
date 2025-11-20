@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour, IObstacle, IInteractable
     private Coroutine _coroutine;
     private Vector3 _direction;
     private Collider2D _collider2D;
+    private float _launchSpeed;
 
     public Collider2D Collider2D => _collider2D;
 
@@ -33,9 +34,7 @@ public class Bullet : MonoBehaviour, IObstacle, IInteractable
     {
         gameObject.transform.position = position;
         _direction = direction;
-        _speed += initialSpeed;
-        
-        gameObject.SetActive(true);
+        _launchSpeed = _speed + initialSpeed;
     }
 
     public void SetActive(bool value)
@@ -54,7 +53,7 @@ public class Bullet : MonoBehaviour, IObstacle, IInteractable
         {
             yield return null;
 
-            transform.position += _speed * _direction * Time.deltaTime;
+            transform.position += _launchSpeed * _direction * Time.deltaTime;
             transform.rotation = quaternion.identity;
         }
     }

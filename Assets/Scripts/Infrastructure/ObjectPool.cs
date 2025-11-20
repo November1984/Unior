@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ObjectPool<T> : MonoBehaviour where T: MonoBehaviour
+public abstract class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
 {
     [SerializeField] private T _prefab;
-    
+
     private Queue<T> _pool;
     private List<T> _createdObjs;
 
@@ -19,20 +19,26 @@ public abstract class ObjectPool<T> : MonoBehaviour where T: MonoBehaviour
         OnStart();
     }
 
-    protected virtual void OnStart(){}
+    protected virtual void OnStart() { }
 
     public T GetObj(Transform parent = null)
     {
+        T obj;
+
         if (_pool.Count == 0)
         {
-            T obj = Instantiate(_prefab, parent);
+            obj = Instantiate(_prefab, parent);
 
             _createdObjs.Add(obj);
-            
-            return obj;
+        }
+        else
+        {
+            obj = _pool.Dequeue();
         }
 
-        return _pool.Dequeue();
+        obj.gameObject.SetActive(true);
+
+        return obj;
     }
 
     public void PutObject(T obj)
@@ -45,7 +51,7 @@ public abstract class ObjectPool<T> : MonoBehaviour where T: MonoBehaviour
     {
         foreach (T obj in _createdObjs)
             Destroy(obj.gameObject);
-        
+
         _createdObjs.Clear();
         _pool.Clear();
     }

@@ -131,7 +131,8 @@ GameObject:
   - component: {fileID: 63983736}
   - component: {fileID: 63983735}
   - component: {fileID: 63983737}
-  m_Layer: 0
+  - component: {fileID: 63983739}
+  m_Layer: 3
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,6 +258,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &63983739
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63983734}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &130048385
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,7 +1314,7 @@ GameObject:
   - component: {fileID: 887499775}
   - component: {fileID: 887499774}
   - component: {fileID: 887499773}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BulletTerminator (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1411,7 +1439,7 @@ GameObject:
   - component: {fileID: 926559718}
   - component: {fileID: 926559722}
   - component: {fileID: 926559723}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Boarder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1619,6 +1647,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scoresCounter: {fileID: 841908964}
   _boardersBullets: {fileID: 1913906090}
+  _bulletsLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &926559723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1632,6 +1663,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletSpawner: {fileID: 817947924}
+  _bulletsLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &1050202373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1841,7 +1875,7 @@ GameObject:
   - component: {fileID: 1299848649}
   - component: {fileID: 1299848651}
   - component: {fileID: 1299848650}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Skier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1990,7 +2024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletSpawner: {fileID: 817947924}
-  _fireDelay: 0.5
+  _fireDelay: 1
 --- !u!114 &1299848649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2342,7 +2376,7 @@ GameObject:
   - component: {fileID: 1466656950}
   - component: {fileID: 1466656948}
   - component: {fileID: 1466656951}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BulletTerminator (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2461,7 +2495,7 @@ GameObject:
   - component: {fileID: 1467627574}
   - component: {fileID: 1467627573}
   - component: {fileID: 1467627572}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BulletTerminator (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2736,7 +2770,7 @@ GameObject:
   - component: {fileID: 1686629984}
   - component: {fileID: 1686629983}
   - component: {fileID: 1686629985}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BulletTerminator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

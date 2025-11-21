@@ -7,6 +7,7 @@ public class Board : MonoBehaviour, IMoveable, IAttacker
 {
     [SerializeField] private ScoresCounter _scoresCounter;
     [SerializeField] private BasketBullets _boardersBullets;
+    [SerializeField] private LayerMask _bulletsLayerMask;
 
     public event Action Crashed;
 
@@ -46,7 +47,7 @@ public class Board : MonoBehaviour, IMoveable, IAttacker
                 break;
 
             default:
-                // EndGame();
+                EndGame();
                 break;
         }
     }

@@ -4,17 +4,25 @@ using UnityEngine;
 [RequireComponent(typeof(InputReader))]
 public class Attacker : MonoBehaviour
 {
+    private const string BoarderBullets = nameof(BoarderBullets);
+
     [SerializeField] private BulletSpawner _bulletSpawner;
     [SerializeField] private LayerMask _bulletsLayerMask;
 
     private float _gunOffset = 1f;
     private InputReader _inputReader;
     private IAttacker _unit;
+    private int _layerHash;
 
     private void Awake()
     {
         _inputReader = GetComponent<InputReader>();
         _unit = GetComponent<IAttacker>();
+    }
+
+    private void Start()
+    {
+        _layerHash = _bulletsLayerMask.GetHashCode();
     }
 
     private void OnEnable()
@@ -33,6 +41,6 @@ public class Attacker : MonoBehaviour
         Bullet bullet = _bulletSpawner.GetObj(_unit.BasketBullets.transform);
         bullet.SetParams(bulletSpawnPoint, _unit.GetAttackDirection(), _unit.Speed);
 
-        bullet.gameObject.layer = 0;
+        bullet.gameObject.layer = LayerMask.NameToLayer(BoarderBullets);
     }
 }

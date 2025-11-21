@@ -4,9 +4,10 @@ using UnityEngine;
 [RequireComponent(typeof(IAutoAttacker))]
 public class AutoAttacker : MonoBehaviour
 {
+    private const string SkiersBullets = nameof(SkiersBullets);
+    
     [SerializeField] private BulletSpawner _bulletSpawner;
     [SerializeField] private float _fireDelay = 2f;
-    [SerializeField] private LayerMask _bulletsLayerMask;
 
     private float _gunOffset = 1f;
     private IAutoAttacker _unit;
@@ -47,7 +48,7 @@ public class AutoAttacker : MonoBehaviour
             bullet = _bulletSpawner.GetObj(_unit.BasketBullets.transform);
             bullet.SetParams(bulletSpawnPoint, _unit.GetAttackDirection(), _unit.Speed);
 
-            bullet.gameObject.layer = 3;
+            bullet.gameObject.layer = LayerMask.NameToLayer(SkiersBullets);
 
             yield return wait;
         }

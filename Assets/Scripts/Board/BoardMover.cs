@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(IMoveable))]
 public class BoardMover : MonoBehaviour
 {
-    [SerializeField] private float _tapForce = 5;
+    [SerializeField] private float _tapForce = 4;
     [SerializeField] private float _speed = 7;
     [SerializeField] private float _rotationSpeed = 2;
     [SerializeField] private float _minRotationZ = -35;

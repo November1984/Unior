@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour, IObstacle, IInteractable
     private Collider2D _collider2D;
     private float _launchSpeed;
 
-    public Collider2D Collider2D => _collider2D;
+    public Collider2D Collider => _collider2D;
 
     private void Awake()
     {

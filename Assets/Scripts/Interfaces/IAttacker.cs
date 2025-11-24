@@ -1,9 +1,0 @@
-using UnityEngine;
-
-public interface IAttacker
-{
-    public Transform BasketBullets {get;}
-    public float Speed {get;}
-
-    public Vector3 GetAttackDirection();
-}

@@ -812,7 +812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3343f89a9550f1f8e805fa04caf33b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _zoneSize: 7
+  _zoneSize: 8
 --- !u!61 &601927092
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1434,7 +1434,6 @@ GameObject:
   - component: {fileID: 926559713}
   - component: {fileID: 926559717}
   - component: {fileID: 926559721}
-  - component: {fileID: 926559720}
   - component: {fileID: 926559719}
   - component: {fileID: 926559718}
   - component: {fileID: 926559722}
@@ -1589,23 +1588,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a880b03ba0afb13488853e0bf89d89d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tapForce: 5
+  _tapForce: 4
   _speed: 7
   _rotationSpeed: 2
   _minRotationZ: -35
   _maxRotationZ: 35
---- !u!114 &926559720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 926559712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8877b2793f42d5f428312ffa24a3b482, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &926559721
 Rigidbody2D:
   serializedVersion: 5
@@ -1646,10 +1633,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scoresCounter: {fileID: 841908964}
-  _boardersBullets: {fileID: 1913906090}
   _bulletsLayerMask:
     serializedVersion: 2
     m_Bits: 1024
+  _inputReader: {fileID: 926559718}
 --- !u!114 &926559723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1659,13 +1646,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 926559712}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c756c28eed94d066f86bbed60e6b9cc0, type: 3}
+  m_Script: {fileID: 11500000, guid: bf81d3efbd6689ce6992ca31ec7b5897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletSpawner: {fileID: 817947924}
-  _bulletsLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
+  _basketBullets: {fileID: 1913906090}
 --- !u!1 &1050202373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1875,6 +1860,7 @@ GameObject:
   - component: {fileID: 1299848649}
   - component: {fileID: 1299848651}
   - component: {fileID: 1299848650}
+  - component: {fileID: 1299848652}
   m_Layer: 9
   m_Name: Skier
   m_TagString: Untagged
@@ -1894,7 +1880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95958ed3b68783dba867d30926b5a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _basketBullets: {fileID: 1913906090}
+  _fireDelay: 1
 --- !u!61 &1299848644
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1933,7 +1919,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.5, y: 1.32}
+    oldSize: {x: 1.28, y: 1.47}
     newSize: {x: 1.28, y: 1.47}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1985,7 +1971,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6046860464548894035, guid: 0e0d305c63824512396f6198341e24cd, type: 3}
+  m_Sprite: {fileID: 7707333482087970614, guid: e0cd148f021f556dc9ed2bbe617e8cb1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2023,8 +2009,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d045169726a2f5c95f9806ad3785da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletSpawner: {fileID: 817947924}
-  _fireDelay: 1
 --- !u!114 &1299848649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2078,6 +2062,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1299848652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299848641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf81d3efbd6689ce6992ca31ec7b5897, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletSpawner: {fileID: 817947924}
+  _basketBullets: {fileID: 1913906090}
 --- !u!1 &1335571269
 GameObject:
   m_ObjectHideFlags: 0
@@ -3294,7 +3292,7 @@ MonoBehaviour:
   _bulletSpawner: {fileID: 817947924}
   _startMenu: {fileID: 1050202377}
   _restatMenu: {fileID: 1709352850}
-  _inputReader: {fileID: 926559720}
+  _inputReader: {fileID: 926559718}
 --- !u!4 &2051155198
 Transform:
   m_ObjectHideFlags: 0

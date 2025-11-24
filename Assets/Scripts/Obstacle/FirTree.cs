@@ -6,7 +6,7 @@ public class FirTree : MonoBehaviour, IObstacle, IInteractable
 {
     private Collider2D _collider2D;
 
-    public Collider2D Collider2D => _collider2D;
+    public Collider2D Collider => _collider2D;
 
     private void Awake()
     {

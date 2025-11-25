@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class InputReader : MonoBehaviour
 {
+    private const KeyCode Jump = KeyCode.Space;
+    private const KeyCode Fire = KeyCode.Mouse0;
+    
     public event Action Tapped;
     public event Action Attacking;
 
@@ -12,10 +15,10 @@ public class InputReader : MonoBehaviour
     {
         if (Ride)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(Jump))
                 Tapped?.Invoke();
 
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(Fire))
                 Attacking?.Invoke();
         }
     }

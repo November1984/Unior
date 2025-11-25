@@ -59,7 +59,7 @@ public class Bullet : ObstacleUnit, IInteractable
 
     private IEnumerator Fly()
     {
-        while (true)
+        while (enabled)
         {
             yield return null;
 

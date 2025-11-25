@@ -7,7 +7,7 @@ public class Game : MonoBehaviour
     [SerializeField] private StartButton _startButton;
     [SerializeField] private RestartButton _restartButton;
     [SerializeField] private ObstaclesSpawner _obstaclesSpawner;
-    [SerializeField] private BulletSpawner _bulletSpawner;
+    [SerializeField] private BulletPool _bulletSpawner;
     [SerializeField] private StartMenu _startMenu;
     [SerializeField] private RestartMenu _restatMenu;
     [SerializeField] private InputReader _inputReader;

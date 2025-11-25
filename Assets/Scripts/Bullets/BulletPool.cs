@@ -1,4 +1,4 @@
-public class BulletSpawner : ObjectPool<Bullet>
+public class BulletPool : ObjectPool<Bullet>
 {
     protected override void Subscribe(Bullet obj)
     {

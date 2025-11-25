@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class ObstaclesSpawner : ObjectPool<Obstacle>
+public class ObstaclesSpawner : MonoBehaviour
 {
+    [SerializeField] private ObstaclePool _obstaclePool;
     [SerializeField] private float _delay = 1f;
     [SerializeField] private ObstacleTerminator _terminator;
     [SerializeField] private float _upperBound = 4f;
@@ -18,12 +19,12 @@ public class ObstaclesSpawner : ObjectPool<Obstacle>
     public void Stop()
     {
         StopCoroutine(_coroutine);
-        Reset();
+        _obstaclePool.Reset();
     }
 
     private void OnEnable()
     {
-        _terminator.Terminated += PutObject;
+        _terminator.Terminated += _obstaclePool.PutObject;
     }
 
     private void OnDisable()
@@ -31,18 +32,18 @@ public class ObstaclesSpawner : ObjectPool<Obstacle>
         if (_coroutine != null)
             StopCoroutine(_coroutine);
 
-        _terminator.Terminated -= PutObject;
+        _terminator.Terminated -= _obstaclePool.PutObject;
     }
 
     private IEnumerator Generate()
     {
         var wait = new WaitForSecondsRealtime(_delay);
 
-        while (true)
+        while (enabled)
         {
             yield return wait;
 
-            GetObj().Locate(GetSpawnPoint());
+            _obstaclePool.GetObj().Locate(GetSpawnPoint());
         }
     }
 

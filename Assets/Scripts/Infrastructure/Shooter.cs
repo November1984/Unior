@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Shooter : MonoBehaviour
 {
-    [SerializeField] private BulletSpawner _bulletSpawner;
+    [SerializeField] private BulletPool _bulletSpawner;
     [SerializeField] private BasketBullets _basketBullets;
 
     public void Shoot(Vector3 attackDirection, Collider2D collider, string bulletLayer, float initialSpeed = 0f)

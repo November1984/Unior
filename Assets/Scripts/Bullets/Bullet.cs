@@ -4,7 +4,7 @@ using Unity.Mathematics;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class Bullet : MonoBehaviour, IObstacle, IInteractable
+public class Bullet : ObstacleUnit, IInteractable
 {
     [SerializeField] private float _speed = 5f;
 
@@ -12,10 +12,10 @@ public class Bullet : MonoBehaviour, IObstacle, IInteractable
 
     private Coroutine _coroutine;
     private Vector3 _direction;
-    private Collider2D _collider2D;
     private float _launchSpeed;
+    private Collider2D _collider2D;
 
-    public Collider2D Collider => _collider2D;
+    public override Collider2D Collider => _collider2D;
 
     private void Awake()
     {
@@ -47,12 +47,12 @@ public class Bullet : MonoBehaviour, IObstacle, IInteractable
         _launchSpeed = _speed + initialSpeed;
     }
 
-    public void SetActive(bool value)
+    public override void SetActive(bool value)
     {
         gameObject.SetActive(value);
     }
 
-    public void SetPosition(Vector3 position)
+    public override void SetPosition(Vector3 position)
     {
         gameObject.transform.position = position;
     }

@@ -1,34 +1,34 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(CollisionHandler))]
-public class Skier : MonoBehaviour, IObstacle, IInteractable, IDamageable
+[RequireComponent(typeof(Rigidbody2D),
+                  typeof(CollisionHandler),
+                  typeof(Collider2D))]
+public class Skier : ObstacleUnit, IInteractable, IDamageable
 {
     [SerializeField] private float _fireDelay = 2f;
 
     public event Action Defeated;
     public event Action Placed;
     private CollisionHandler _collisionHandler;
-    private Collider2D _collider2D;
     private Rigidbody2D _rigidbody2D;
     private AttackTimer _autoAttacker;
     private bool _canAutoAttack;
     private Shooter _shooter;
     private bool _canAttack;
+    private Collider2D _collider2D;
 
-    public Collider2D Collider => _collider2D;
+    public override Collider2D Collider => _collider2D;
     public float Speed => 0;
     public bool CanAttack { get; private set; }
 
     private void Awake()
     {
         _collisionHandler = GetComponent<CollisionHandler>();
-        _collider2D = GetComponent<Collider2D>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _canAutoAttack = TryGetComponent(out _autoAttacker);
         _canAttack = TryGetComponent(out _shooter);
+        _collider2D = GetComponent<Collider2D>();
     }
 
     private void OnEnable()
@@ -50,7 +50,7 @@ public class Skier : MonoBehaviour, IObstacle, IInteractable, IDamageable
             _autoAttacker.Shot -= Shoot;
     }
 
-    public void SetActive(bool value)
+    public override void SetActive(bool value)
     {
         gameObject.SetActive(value);
         _rigidbody2D.simulated = value;
@@ -59,7 +59,7 @@ public class Skier : MonoBehaviour, IObstacle, IInteractable, IDamageable
         Placed?.Invoke();
     }
 
-    public void SetPosition(Vector3 position)
+    public override void SetPosition(Vector3 position)
     {
         transform.position = position;
     }

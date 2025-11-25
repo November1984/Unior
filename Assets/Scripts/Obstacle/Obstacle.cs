@@ -3,11 +3,11 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField] private GameObject _prefab;
+    [SerializeField] private ObstacleUnit _prefab;
     [SerializeField] private ScoreZone _scoreZone;
 
-    private IObstacle _bottomUnit;
-    private IObstacle _upperUnit;
+    private ObstacleUnit _bottomUnit;
+    private ObstacleUnit _upperUnit;
     private bool _isInitialized = false;
 
     private void OnEnable()
@@ -26,8 +26,8 @@ public class Obstacle : MonoBehaviour
 
     private void DisposeObj()
     {
-        _bottomUnit = Instantiate(_prefab, transform.position, Quaternion.identity, transform).GetComponent<IObstacle>();
-        _upperUnit = Instantiate(_prefab, transform.position, Quaternion.identity, transform).GetComponent<IObstacle>();
+        _bottomUnit = Instantiate(_prefab, transform.position, Quaternion.identity, transform);
+        _upperUnit = Instantiate(_prefab, transform.position, Quaternion.identity, transform);
 
         _scoreZone.gameObject.SetActive(true);
 

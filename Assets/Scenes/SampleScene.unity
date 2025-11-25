@@ -535,7 +535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde086201ed3d635bbee33154138c5ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 1299848641}
+  _prefab: {fileID: 1299848643}
   _scoreZone: {fileID: 601927091}
 --- !u!4 &488019587
 Transform:
@@ -1633,9 +1633,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scoresCounter: {fileID: 841908964}
-  _bulletsLayerMask:
-    serializedVersion: 2
-    m_Bits: 1024
   _inputReader: {fileID: 926559718}
 --- !u!114 &926559723
 MonoBehaviour:

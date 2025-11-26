@@ -5,10 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class CollisionHandler : MonoBehaviour
 {
-    public event Action<IInteractable> CollisionDetected;
-
     private Collider2D _collider2D;
 
+    public event Action<IInteractable> CollisionDetected;
+    
     public Collider2D Collider => _collider2D;
 
     private void OnValidate()

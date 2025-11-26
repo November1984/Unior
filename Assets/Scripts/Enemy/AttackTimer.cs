@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class AttackTimer : MonoBehaviour
 {
-    public event Action Shot;
     private Coroutine _coroutine;
     private bool _canShoot;
+
+    public event Action Triggered;
 
     private void OnDisable()
     {
@@ -35,7 +36,7 @@ public class AttackTimer : MonoBehaviour
 
         while (_canShoot)
         {
-            Shot?.Invoke();
+            Triggered?.Invoke();
 
             yield return wait;
         }

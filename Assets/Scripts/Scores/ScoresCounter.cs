@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class ScoresCounter : MonoBehaviour
 {
-    public event Action<int> Changed;
-    
     private int _scores;
 
+    public event Action<int> Changed;
+    
     public int Scores => _scores;
 
     public void AddScore()

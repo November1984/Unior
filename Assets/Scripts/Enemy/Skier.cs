@@ -8,15 +8,16 @@ public class Skier : ObstacleUnit, IInteractable, IDamageable
 {
     [SerializeField] private float _fireDelay = 2f;
 
-    public event Action Defeated;
-    public event Action Placed;
     private CollisionHandler _collisionHandler;
     private Rigidbody2D _rigidbody2D;
-    private AttackTimer _autoAttacker;
+    private AttackTimer _attackTimer;
     private bool _canAutoAttack;
     private Shooter _shooter;
     private bool _canAttack;
     private Collider2D _collider2D;
+
+    public event Action Defeated;
+    public event Action Placed;
 
     public override Collider2D Collider => _collider2D;
     public float Speed => 0;
@@ -26,7 +27,7 @@ public class Skier : ObstacleUnit, IInteractable, IDamageable
     {
         _collisionHandler = GetComponent<CollisionHandler>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _canAutoAttack = TryGetComponent(out _autoAttacker);
+        _canAutoAttack = TryGetComponent(out _attackTimer);
         _canAttack = TryGetComponent(out _shooter);
         _collider2D = GetComponent<Collider2D>();
     }
@@ -37,8 +38,8 @@ public class Skier : ObstacleUnit, IInteractable, IDamageable
 
         if (_canAutoAttack)
         {
-            _autoAttacker.Shot += Shoot;
-            _autoAttacker.Launch(_fireDelay);
+            _attackTimer.Triggered += Shoot;
+            _attackTimer.Launch(_fireDelay);
         }
     }
 
@@ -47,7 +48,7 @@ public class Skier : ObstacleUnit, IInteractable, IDamageable
         _collisionHandler.CollisionDetected -= OnCollision;
 
         if (_canAutoAttack)
-            _autoAttacker.Shot -= Shoot;
+            _attackTimer.Triggered -= Shoot;
     }
 
     public override void SetActive(bool value)
@@ -88,7 +89,7 @@ public class Skier : ObstacleUnit, IInteractable, IDamageable
         CanAttack = false;
         _rigidbody2D.simulated = false;
 
-        _autoAttacker.StopShoot();
+        _attackTimer.StopShoot();
         Defeated?.Invoke();
     }
 }

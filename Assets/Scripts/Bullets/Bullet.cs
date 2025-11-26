@@ -8,12 +8,12 @@ public class Bullet : ObstacleUnit, IInteractable
 {
     [SerializeField] private float _speed = 5f;
 
-    public event Action<Bullet> Collided;
-
     private Coroutine _coroutine;
     private Vector3 _direction;
     private float _launchSpeed;
     private Collider2D _collider2D;
+
+    public event Action<Bullet> Collided;
 
     public override Collider2D Collider => _collider2D;
 
@@ -36,7 +36,7 @@ public class Bullet : ObstacleUnit, IInteractable
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out IInteractable item))
-             if (item is ScoreZone == false)
+            if (item is ScoreZone == false)
                 Collided?.Invoke(this);
     }
 
@@ -59,12 +59,13 @@ public class Bullet : ObstacleUnit, IInteractable
 
     private IEnumerator Fly()
     {
+        transform.rotation = quaternion.identity;
+
         while (enabled)
         {
             yield return null;
 
             transform.position += _launchSpeed * _direction * Time.deltaTime;
-            transform.rotation = quaternion.identity;
         }
     }
 }

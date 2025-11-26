@@ -4,9 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public abstract class Terminator<T> : MonoBehaviour where T: MonoBehaviour
 {
-    public event Action<T> Terminated;
-
     private BoxCollider2D _collider;
+
+    public event Action<T> Terminated;
 
     private void Awake()
     {

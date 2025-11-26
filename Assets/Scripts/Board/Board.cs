@@ -8,14 +8,14 @@ public class Board : MonoBehaviour
     [SerializeField] private ScoresCounter _scoresCounter;
     [SerializeField] private InputReader _inputReader;
 
-    public event Action Crashed;
-
     private CollisionHandler _collisionHandler;
     private Rigidbody2D _rigidbody2D;
     private Shooter _attack;
     private bool _canAttack;
     private BoardMover _boardMover;
     private bool _canMoving;
+
+    public event Action Crashed;
 
     private void Awake()
     {

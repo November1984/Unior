@@ -6,7 +6,8 @@ using UnityEngine;
                   typeof(Collider2D))]
 public class Skier : ObstacleUnit, IInteractable, IDamageable
 {
-    [SerializeField] private float _fireDelay = 2f;
+    [SerializeField] private float _fireDelay = 1f;
+    [SerializeField] private string _bulletsLayerName = "SkiersBullets";
 
     private CollisionHandler _collisionHandler;
     private Rigidbody2D _rigidbody2D;
@@ -75,12 +76,10 @@ public class Skier : ObstacleUnit, IInteractable, IDamageable
 
     private void Shoot()
     {
-        const string BulletLayerName = "SkiersBullets";
-
         if (_canAttack)
             _shooter.Shoot(Vector3.left,
                           Collider,
-                          BulletLayerName
+                          _bulletsLayerName
                           );
     }
 

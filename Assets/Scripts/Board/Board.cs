@@ -7,6 +7,7 @@ public class Board : MonoBehaviour
 {
     [SerializeField] private ScoresCounter _scoresCounter;
     [SerializeField] private InputReader _inputReader;
+    [SerializeField] private string _bulletsLayerName = "BoarderBullets";
 
     private CollisionHandler _collisionHandler;
     private Rigidbody2D _rigidbody2D;
@@ -82,12 +83,10 @@ public class Board : MonoBehaviour
 
     private void Shoot()
     {
-        const string BulletLayerName = "BoarderBullets";
-
         if (_canAttack)
             _attack.Shoot(gameObject.transform.right,
                           _collisionHandler.Collider,
-                          BulletLayerName,
+                          _bulletsLayerName,
                           _boardMover.Speed
                           );
     }

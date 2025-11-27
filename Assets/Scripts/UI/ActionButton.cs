@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 [RequireComponent(typeof(Button))]
 public abstract class ActionButton : MonoBehaviour
 {
     private Button _button;
+    public event Action Clicked;
 
     private void Awake()
     {
@@ -21,5 +23,8 @@ public abstract class ActionButton : MonoBehaviour
         _button.onClick.RemoveListener(Affect);
     }
 
-    protected abstract void Affect();
+    protected void Affect()
+    {
+        Clicked?.Invoke();
+    }
 }

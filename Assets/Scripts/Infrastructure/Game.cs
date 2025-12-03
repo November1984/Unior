@@ -4,34 +4,32 @@ public class Game : MonoBehaviour
 {
     [SerializeField] private NetAnimator _nets;
     [SerializeField] private Board _board;
-    [SerializeField] private StartButton _startButton;
-    [SerializeField] private RestartButton _restartButton;
     [SerializeField] private ObstaclesSpawner _obstaclesSpawner;
     [SerializeField] private BulletPool _bulletSpawner;
-    [SerializeField] private StartMenu _startMenu;
-    [SerializeField] private RestartMenu _restatMenu;
+    [SerializeField] private StartScreen _startScreen;
+    [SerializeField] private EndGameScreen _restatScreen;
     [SerializeField] private InputReader _inputReader;
 
     private void OnEnable()
     {
         _board.Crashed += Stop;
-        _startButton.Clicked += LaunchGame;
-        _restartButton.Clicked += LaunchGame;
+        _startScreen.PlayButtonClicked += LaunchGame;
+        _restatScreen.RestartButtonClicked += LaunchGame;
         _inputReader.Tapped += LaunchAnimation;
     }
 
     private void OnDisable()
     {
         _board.Crashed -= Stop;
-        _startButton.Clicked -= LaunchGame;
-        _restartButton.Clicked -= LaunchGame;
+        _startScreen.PlayButtonClicked -= LaunchGame;
+        _restatScreen.RestartButtonClicked -= LaunchGame;
         _inputReader.Tapped -= LaunchAnimation;
     }
 
     private void Start()
     {
-        _startMenu.gameObject.SetActive(true);
-        _restatMenu.gameObject.SetActive(false);
+        _startScreen.gameObject.SetActive(true);
+        _restatScreen.gameObject.SetActive(false);
     }
 
     private void LaunchGame()
@@ -39,8 +37,8 @@ public class Game : MonoBehaviour
         _inputReader.Ride = true;
         _board.Launch();
         _obstaclesSpawner.Launch();
-        _startMenu.gameObject.SetActive(false);
-        _restatMenu.gameObject.SetActive(false);
+        _startScreen.gameObject.SetActive(false);
+        _restatScreen.gameObject.SetActive(false);
     }
 
     private void LaunchAnimation()
@@ -54,6 +52,6 @@ public class Game : MonoBehaviour
         _nets.Stop();
         _obstaclesSpawner.Stop();
         _bulletSpawner.Reset();
-        _restatMenu.gameObject.SetActive(true);
+        _restatScreen.gameObject.SetActive(true);
     }
 }

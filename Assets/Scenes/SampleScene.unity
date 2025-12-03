@@ -1755,9 +1755,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1050202373}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c1db16eba487dd48b6b33ace85ac10d, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d68329665562ac2fa76874d4e91f23f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _windowsGroup: {fileID: 1230808800}
+  _actionButton: {fileID: 1404035773}
 --- !u!1 &1230808795
 GameObject:
   m_ObjectHideFlags: 0
@@ -1770,6 +1772,7 @@ GameObject:
   - component: {fileID: 1230808798}
   - component: {fileID: 1230808797}
   - component: {fileID: 1230808796}
+  - component: {fileID: 1230808800}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1862,6 +1865,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!225 &1230808800
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230808795}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1299848641
 GameObject:
   m_ObjectHideFlags: 0
@@ -2265,7 +2280,6 @@ GameObject:
   - component: {fileID: 1404035775}
   - component: {fileID: 1404035774}
   - component: {fileID: 1404035773}
-  - component: {fileID: 1404035772}
   m_Layer: 5
   m_Name: LaunchButton
   m_TagString: Untagged
@@ -2293,18 +2307,6 @@ RectTransform:
   m_AnchoredPosition: {x: -29.59792, y: -0.5692}
   m_SizeDelta: {x: 388.0114, y: 101.1384}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1404035772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1404035770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0dbd062963fd89e8e2f9a0b1e47ffc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1404035773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2637,7 +2639,6 @@ GameObject:
   - component: {fileID: 1567692912}
   - component: {fileID: 1567692911}
   - component: {fileID: 1567692910}
-  - component: {fileID: 1567692909}
   m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
@@ -2665,18 +2666,6 @@ RectTransform:
   m_AnchoredPosition: {x: -29.59792, y: -0.5692}
   m_SizeDelta: {x: 388.0114, y: 101.1384}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1567692909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1567692907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b26fabbe5a9becacb63da1ae78fa65f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1567692910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2955,7 +2944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 0.61900264, b: 0, a: 0.392}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2989,9 +2978,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709352846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09c615e07f9ea0bf5baf11aaecc7ccb6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7870502ea8a7016c8856e0b801490d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _windowsGroup: {fileID: 1230808800}
+  _actionButton: {fileID: 1567692910}
 --- !u!1 &1789595738 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1067790728065051441, guid: fe4351bc87b44293f999a8bfa7954fbf, type: 3}
@@ -3311,12 +3302,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nets: {fileID: 1652693232}
   _board: {fileID: 926559722}
-  _startButton: {fileID: 1404035772}
-  _restartButton: {fileID: 1567692909}
   _obstaclesSpawner: {fileID: 130048386}
   _bulletSpawner: {fileID: 817947924}
-  _startMenu: {fileID: 1050202377}
-  _restatMenu: {fileID: 1709352850}
+  _startScreen: {fileID: 1050202377}
+  _restatScreen: {fileID: 1709352850}
   _inputReader: {fileID: 926559718}
 --- !u!4 &2051155198
 Transform:
